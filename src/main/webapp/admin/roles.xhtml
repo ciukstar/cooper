@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{msgs.Roles}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form id="west-form">
+                    <p:menu>
+                        <p:submenu label="#{msgs.Actions}" icon="fa fa-bolt">
+                            <p:menuitem value="#{msgs.Add}" icon="fa fa-plus" />
+                            <p:menuitem value="#{msgs.Edit}" icon="fa fa-pencil" />
+                            <p:menuitem value="#{msgs.Delete}" icon="fa fa-trash" />
+                        </p:submenu>
+                        <p:submenu label="#{msgs.Links}" icon="fa fa-link">
+                            <p:menuitem value="#{msgs.Users}" icon="fa fa-users" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <p:dataTable  />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

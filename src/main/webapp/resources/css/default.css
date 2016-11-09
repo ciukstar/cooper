@@ -1,0 +1,10 @@
+/* 
+    Created on : Nov 9, 2016, 11:34:23 PM
+    Author     : sergiu
+*/
+.ui-widget {
+    font-size: 90%;
+}
+.ui-widget .ui-widget {
+    font-size: 100%;
+}

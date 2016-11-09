@@ -9,6 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <h:outputStylesheet library="css" name="default.css" />
                 <title><ui:insert name="title">COOPER</ui:insert></title>
             </f:facet>
         </h:head>
@@ -17,11 +18,13 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
+                <p:layoutUnit position="north" size="65" resizable="true" closable="true" collapsible="true">
+                    <ui:insert name="north">
+                        <ui:include src="main-menu.xhtml" />
+                    </ui:insert>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="200" collapsible="true">
                     <ui:insert name="west">
                         <p:menu>
                             <p:submenu label="Resources">
