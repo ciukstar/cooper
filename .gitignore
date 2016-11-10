@@ -1,1 +1,3 @@
 /target/
+*.vux
+*.vpp.bak_*

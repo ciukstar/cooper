@@ -5,6 +5,10 @@
         <param-value>Development</param-value>
     </context-param>
     <context-param>
+        <param-name>edu.ciukstar.APPCALITION_NAME</param-name>
+        <param-value>COOPER</param-value>
+    </context-param>
+    <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
