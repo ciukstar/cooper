@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 /**
  *
  * @author sergiu
+ * @param <T> entity type
  */
 public abstract class AbstractRepo<T> {
 

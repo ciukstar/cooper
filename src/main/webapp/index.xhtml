@@ -18,7 +18,11 @@
                 </p:menu>
             </ui:define>
             <ui:define name="center">
-                <p:dataGrid value="#{}">
+                <p:dataTable value="#{purchaseRepo.findAll()}" var="p">
+                    <p:column>
+                        <h:outputText value="#{p.organiser.fullName}">
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition>
     </h:body>
