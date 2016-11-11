@@ -2,3 +2,4 @@
 *.vux
 *.vpp.bak_*
 *.vpp.lck
+/nbproject/

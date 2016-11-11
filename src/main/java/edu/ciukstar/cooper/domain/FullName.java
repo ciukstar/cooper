@@ -1,7 +1,11 @@
 package edu.ciukstar.cooper.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import org.hibernate.validator.constraints.NotBlank;
@@ -11,7 +15,32 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class FullName implements Serializable {
+
+    public static FullNameBuilder.Surname from() {
+        return FullNameBuilder.from();
+    }
+    
+    public static FullName from(String surname, String name, String patronymic) {
+        return new FullName(surname, name, patronymic);
+    }
+
+    private FullName(String surname, String name, String patronymic) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+    }
+
+    public FullName() {
+        this(null, null, null);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.asList(getSurname(), getName(), getPatronymic()).stream()
+                .filter(e -> e != null).collect(Collectors.joining(" "));
+    }
 
     @Override
     public int hashCode() {
