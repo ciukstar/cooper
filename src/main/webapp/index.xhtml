@@ -19,8 +19,11 @@
             </ui:define>
             <ui:define name="center">
                 <p:dataTable value="#{purchaseRepo.findAll()}" var="p">
-                    <p:column>
-                        <h:outputText value="#{p.organiser.fullName}">
+                    <p:column headerText="#{msgs.Organizer}">
+                        <h:outputText value="#{p.organiser.fullName}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.Product}">
+                        <h:outputText value="#{p.product}" />
                     </p:column>
                 </p:dataTable>
             </ui:define>
