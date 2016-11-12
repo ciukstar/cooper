@@ -36,6 +36,10 @@ public class User implements Serializable {
 
     @Lob
     private byte[] photo;
+
+    public User() {
+        this.fullName = FullName.empty();
+    }
     
     @Override
     public int hashCode() {

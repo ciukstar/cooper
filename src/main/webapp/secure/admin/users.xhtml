@@ -14,20 +14,22 @@
             </ui:define>
 
             <ui:define name="west">
-                <p:menu>
-                    <p:submenu label="#{label.Links}" icon="fa fa-link">
-                        <p:menuitem value="#{label.Roles}" icon="fa fa-tags" />
-                    </p:submenu>
-                    <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
-                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                    actionListener="#{userCache.schedule(crud.create(userBuilder.emptyUser(), userRepo))}"
-                                    action="#{dialog.displayInputForm('user')}" />
-                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
-                                    action="#{dialog.displayInputForm('user')}" />
-                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
-                                    action="#{dialog.displayReadonlyForm('user')}" />
-                    </p:submenu>
-                </p:menu>
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-link">
+                            <p:menuitem value="#{label.Roles}" icon="fa fa-tags" />
+                        </p:submenu>
+                        <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
+                            <p:menuitem value="#{label.Add}" icon="fa fa-plus"
+                                        actionListener="#{userCache.schedule(crud.create(userBuilder.emptyUser(), userRepo))}"
+                                        action="#{dialog.displayInputForm('user')}" />
+                            <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
+                                        action="#{dialog.displayInputForm('user')}" />
+                            <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
+                                        action="#{dialog.displayReadonlyForm('user')}" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
             </ui:define>
 
             <ui:define name="center">

@@ -26,6 +26,10 @@ public class FullName implements Serializable {
         return new FullName(surname, name, patronymic);
     }
 
+    static FullName empty() {
+        return FullName.from(null, null, null);
+    }
+
     private FullName(String surname, String name, String patronymic) {
         this.surname = surname;
         this.name = name;
