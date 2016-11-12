@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Embeddable
-@Access(AccessType.FIELD)
 public class FullName implements Serializable {
 
     public static FullNameBuilder.Surname from() {
