@@ -12,22 +12,22 @@
             </ui:define>
             <ui:define name="west">
                 <p:menu>
-                    <p:submenu label="#{msgs.Links}" icon="fa fa-link" >
+                    <p:submenu label="#{label.Links}" icon="fa fa-link" >
                     </p:submenu>
-                    <p:submenu label="#{msgs.Actions}" icon="fa fa-bolt">
+                    <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
                     </p:submenu>
                 </p:menu>
             </ui:define>
             <ui:define name="center">
                 <p:dataTable value="#{purchaseRepo.findAll()}" var="p"
-                             emptyMessage="#{msgs.No_records_found}">
+                             emptyMessage="#{label.No_records_found}">
                     <f:facet name="header">
-                        <h:outputText value="#{msgs.Purchases}" />
+                        <h:outputText value="#{label.Purchases}" />
                     </f:facet>
-                    <p:column headerText="#{msgs.Organizer}">
+                    <p:column headerText="#{label.Organizer}">
                         <h:outputText value="#{p.organiser.fullName}" />
                     </p:column>
-                    <p:column headerText="#{msgs.Product}">
+                    <p:column headerText="#{label.Product}">
                         <h:outputText value="#{p.product}" />
                     </p:column>
                 </p:dataTable>

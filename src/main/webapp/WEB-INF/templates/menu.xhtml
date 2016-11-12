@@ -12,14 +12,14 @@
         <ui:composition>
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="#{msgs.Home}" icon="fa fa-home" 
+                    <p:menuitem value="#{label.Home}" icon="fa fa-home" 
                                 action="home"/>
-                    <p:menuitem value="#{msgs.Users}" icon="fa fa-users"
+                    <p:menuitem value="#{label.Users}" icon="fa fa-users"
                                 action="users"/>
                     <f:facet name="options">
-                        <p:inputText placeholder="#{msgs.Search}" />
+                        <p:inputText placeholder="#{label.Search}" />
                         <p:spacer width="5px" />
-                        <p:commandButton type="button" value="#{msgs.Logout}" icon="fa fa-sign-out" />
+                        <p:commandButton type="button" value="#{label.Logout}" icon="fa fa-sign-out" />
                     </f:facet>
                 </p:menubar>
             </h:form>
