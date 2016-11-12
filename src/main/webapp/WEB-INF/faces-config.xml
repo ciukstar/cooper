@@ -13,7 +13,6 @@
             <base-name>Messages</base-name>
             <var>msgs</var>
         </resource-bundle>
-        
         <locale-config>
             <default-locale>ru</default-locale>
             <supported-locale>en</supported-locale>
