@@ -19,7 +19,8 @@
                 </p:menu>
             </ui:define>
             <ui:define name="center">
-                <p:dataTable value="#{purchaseRepo.findAll()}" var="p">
+                <p:dataTable value="#{purchaseRepo.findAll()}" var="p"
+                             emptyMessage="#{msgs.No_records_found}">
                     <f:facet name="header">
                         <h:outputText value="#{msgs.Purchases}" />
                     </f:facet>

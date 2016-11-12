@@ -12,7 +12,10 @@
         <ui:composition>
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="#{msgs.Home}" icon="fa fa-home" />
+                    <p:menuitem value="#{msgs.Home}" icon="fa fa-home" 
+                                action="/index.xhtml?faces-redirect=true"/>
+                    <p:menuitem value="#{msgs.Users}" icon="fa fa-users"
+                                action="/secure/admin/users.xhtml?faces-redirect=true"/>
                     <f:facet name="options">
                         <p:inputText placeholder="#{msgs.Search}" />
                         <p:spacer width="5px" />
