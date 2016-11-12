@@ -11,7 +11,7 @@ public class UpdateOperation<E> implements CrudOperation<E> {
     }
 
     @Override
-    public E perform() {
+    public E execute() {
         return repo.edit(entity);
     }
 

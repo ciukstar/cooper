@@ -2,10 +2,8 @@ package edu.ciukstar.cooper.application.admin;
 
 import edu.ciukstar.cooper.domain.User;
 import edu.ciukstar.cooper.repo.CrudOperation;
-import edu.ciukstar.cooper.repo.UserRepo;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -16,10 +14,17 @@ import javax.inject.Named;
 @SessionScoped
 public class UserCache implements Serializable {
 
-    @Inject
-    private UserRepo repo;    
     private User user;
     private CrudOperation crudOperation;
+
+    public void cancelCrud() {
+        this.crudOperation = null;
+        this.user = null;
+    }
+
+    public void performCrud() {
+        crudOperation.execute();
+    }
 
     public void schedule(CrudOperation<User> crud) {
         this.crudOperation = crud;
@@ -29,7 +34,7 @@ public class UserCache implements Serializable {
     public User createUser() {
         return user = new User();
     }
-    
+
     public User getUser() {
         return user;
     }
@@ -38,5 +43,4 @@ public class UserCache implements Serializable {
         this.user = user;
     }
 
-    
 }

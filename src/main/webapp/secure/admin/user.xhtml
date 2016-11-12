@@ -12,6 +12,7 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
                     <p:panelGrid columns="3">
                         <f:facet name="header">
                             <h:outputText value="#{label.User}: #{userCache.user.id}" />
@@ -36,8 +37,14 @@
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save"
-                                             actionListener="#{userCache.createUser()}"
-                                             action="#{dialog.dispose()}"/>
+                                             actionListener="#{userCache.performCrud()}"
+                                             action="#{dialog.dispose()}"
+                                             process="@form" update="@form"/>
+                            
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
+                                             actionListener="#{userCache.cancelCrud()}"
+                                             action="#{dialog.dispose()}" 
+                                             process="@this" update="@none"/>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>

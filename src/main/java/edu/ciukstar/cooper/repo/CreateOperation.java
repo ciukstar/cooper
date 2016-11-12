@@ -15,7 +15,7 @@ public class CreateOperation<E> implements CrudOperation<E> {
     }
 
     @Override
-    public E perform() {
+    public E execute() {
         repo.create(entity);
         return entity;
     }

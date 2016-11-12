@@ -12,7 +12,7 @@ public class DeleteOperation<E> implements CrudOperation<E> {
     }
 
     @Override
-    public E perform() {
+    public E execute() {
         repo.remove(entity);
         return entity;
     }

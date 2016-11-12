@@ -8,6 +8,6 @@ public interface CrudOperation<E> {
 
     public E getEntity();
     
-    public E perform();
+    public E execute();
     
 }
