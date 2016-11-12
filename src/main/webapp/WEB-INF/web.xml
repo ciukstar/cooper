@@ -9,10 +9,8 @@
         <param-value>COOPER</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>
-            /WEB-INF/navigation-rules-faces-config.xml
-        </param-value>
+        <param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+        <param-value>url</param-value>
     </context-param>
     <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
@@ -25,6 +23,12 @@
     <context-param>
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>
+            /WEB-INF/navigation-rules-faces-config.xml
+        </param-value>
     </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
