@@ -20,14 +20,17 @@ public class Dialog {
     private final Map<String, Object> options;
 
     public Dialog() {
-        this.options = new HashMap<String, Object>() {{
-            put("contentHeight", 400);
-            put("contentWidth", 800);
-            put("modal", true);
-        }};
+        this.options = new HashMap<String, Object>() {
+            {
+                put("modal", true);
+                put("width", 700);
+                put("height", 400);
+                put("contentWidth", "100%");
+                put("contentHeight", "100%");
+            }
+        };
     }
-    
-    
+
     public void displayReadonlyForm(final String outcome) {
         Map<String, List<String>> params = new HashMap<>();
         params.put("readonly", Arrays.asList("true"));
