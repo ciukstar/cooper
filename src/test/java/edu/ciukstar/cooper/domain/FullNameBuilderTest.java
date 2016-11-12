@@ -1,9 +1,9 @@
 package edu.ciukstar.cooper.domain;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

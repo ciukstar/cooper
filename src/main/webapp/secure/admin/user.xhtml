@@ -10,14 +10,30 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:outputText value="#{null != facesContext.application.flowHandler.currentFlow}" />
             <p:panelGrid columns="3">
                 <f:facet name="header">
                     <h:outputText value="#{label.User}: #{userCache.user.id}" />
                 </f:facet>
-                
+
+                <p:outputLabel for="username" value="#{label.Username}" />
+                <p:inputText id="username" value="#{userCache.user.username}" />
+                <p:message for="username" />
+
+                <p:outputLabel for="surname" value="#{label.Surname}" />
+                <p:inputText id="surname" value="#{userCache.user.surname}" />
+                <p:message for="surname" />
+
+                <p:outputLabel for="name" value="#{label.Name}" />
+                <p:inputText id="name" value="#{userCache.user.name}" />
+                <p:message for="name" />
+
+                <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
+                <p:inputText id="patronymic" value="#{userCache.user.patronymic}" />
+                <p:message for="patronymic" />
+
+
                 <f:facet name="footer">
-                    <p:commandButton value="#{label.Save}" icon="fa fa-save" 
+                    <p:commandButton value="#{label.Save}" icon="fa fa-save"
                                      actionListener="#{userCache.createUser()}"
                                      action="#{dialog.dispose()}"/>
                 </f:facet>

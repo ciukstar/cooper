@@ -19,6 +19,24 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "users")
 public class User implements Serializable {
 
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Embedded
+    private FullName fullName;
+
+    @NotBlank(message = "{Username_may_not_be_blank}")
+    private String username;
+
+    @NotBlank(message = "{Password_may_not_be_blank}")
+    private String password;
+
+    @Lob
+    private byte[] photo;
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -104,20 +122,4 @@ public class User implements Serializable {
         this.photo = photo;
     }
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Embedded
-    private FullName fullName;
-
-    @NotBlank(message = "{Username_may_not_be_blank}")
-    private String username;
-
-    @NotBlank(message = "{Password_may_not_be_blank}")
-    private String password;
-
-    @Lob
-    private byte[] photo;
 }
