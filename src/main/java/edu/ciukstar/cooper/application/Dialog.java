@@ -17,10 +17,21 @@ import org.primefaces.context.RequestContext;
 @Dependent
 public class Dialog {
 
+    private final Map<String, Object> options;
+
+    public Dialog() {
+        this.options = new HashMap<String, Object>() {{
+            put("contentHeight", 400);
+            put("contentWidth", 800);
+            put("modal", true);
+        }};
+    }
+    
+    
     public void displayReadonlyForm(final String outcome) {
         Map<String, List<String>> params = new HashMap<>();
         params.put("readonly", Arrays.asList("true"));
-        RequestContext.getCurrentInstance().openDialog(outcome, Collections.EMPTY_MAP, params);
+        RequestContext.getCurrentInstance().openDialog(outcome, options, params);
     }
 
     public void dispose() {
@@ -28,7 +39,7 @@ public class Dialog {
     }
 
     public void displayInputForm(final String outcome) {
-        RequestContext.getCurrentInstance().openDialog(outcome);
+        RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
     }
 
 }
