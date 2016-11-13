@@ -22,6 +22,30 @@ import org.hibernate.validator.constraints.NotEmpty;
 })
 public class Status implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @NotEmpty(message = "{Code_may_not_be_empty}")
+    @Column(name = "code", nullable = false)
+    private String code;
+    
+    @NotEmpty(message = "{The_name_may_not_be_empty}")
+    @Column(name = "name", nullable = false)
+    private String name;
+    
+    @Column(name = "description", nullable = true)
+    private String description;
+    
+    @Column(name = "icon", nullable = true)
+    private String icon;
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -83,22 +107,4 @@ public class Status implements Serializable {
         this.icon = icon;
     }
     
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    @NotEmpty(message = "{Code_may_not_be_empty}")
-    @Column(name = "code", nullable = false)
-    private String code;
-    
-    @NotEmpty(message = "{The_name_may_not_be_empty}")
-    @Column(name = "name", nullable = false)
-    private String name;
-    
-    @Column(name = "description", nullable = true)
-    private String description;
-    
-    @Column(name = "icon", nullable = true)
-    private String icon;
 }

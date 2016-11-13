@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -19,28 +21,32 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "users")
 public class User implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Embedded
-    private FullName fullName;
-
+    
     @NotBlank(message = "{Username_may_not_be_blank}")
     private String username;
-
+    
     @NotBlank(message = "{Password_may_not_be_blank}")
     private String password;
-
+    
+    @Embedded
+    private FullName fullName;
+    
+    @ManyToOne
+    @JoinColumn(name = "status", referencedColumnName = "id", nullable = false)
+    private Status status;
+    
     @Lob
     private byte[] photo;
 
     public User() {
         this.fullName = FullName.empty();
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -124,6 +130,14 @@ public class User implements Serializable {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }

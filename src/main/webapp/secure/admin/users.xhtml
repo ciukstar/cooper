@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -18,6 +19,7 @@
                     <p:menu>
                         <p:submenu label="#{label.Links}" icon="fa fa-link">
                             <p:menuitem value="#{label.Roles}" icon="fa fa-tags" />
+                            <p:menuitem value="#{label.States}" icon="fa fa-paw" />
                         </p:submenu>
                         <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
                             <p:menuitem value="#{label.Add}" icon="fa fa-plus"
@@ -33,7 +35,28 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:outputText value="flow? #{null != facesContext.application.flowHandler.currentFlow}" />
+                <p:dataTable value="#{userRepo.findAll()}" var="u"
+                             selectionMode="single" selection="#{userCache.user}"
+                             emptyMessage="#{label.No_records_found}">
+                    <f:facet name="header">
+                        <h:outputText value="#{label.Users}" />
+                    </f:facet>
+                    <p:column headerText="#{label.Username}">
+                        <h:outputText value="#{u.username}" />
+                    </p:column>
+                    <p:column headerText="#{label.Surname}">
+                        <h:outputText value="#{u.surname}" />
+                    </p:column>
+                    <p:column headerText="#{label.Name}">
+                        <h:outputText value="#{u.name}" />
+                    </p:column>
+                    <p:column headerText="#{label.Patronymic}">
+                        <h:outputText value="#{u.patronymic}" />
+                    </p:column>
+                    <p:column headerText="#{label.State}">
+                        <h:outputText value="#{u.status.name}" />
+                    </p:column>
+                </p:dataTable>
             </ui:define>
 
         </ui:composition>
