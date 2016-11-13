@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Graphs}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-links">
+                            <p:menuitem value="#{label.States}" icon="fa fa-paw" />
+                        </p:submenu>
+                        <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
+                            <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                            <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
+                            <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <h:form id="graphForm">
+                    <p:dataTable id="graphDataTable" value="#{graphRepo.findAll()}"
+                                 var="g" rowKey="#{g.id}"
+                                 selectionMode="single" selection="#{graphCache.graph}"
+                                 emptyMessage="#{label.No_records_found}">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Graphs}" />
+                        </f:facet>
+                        <p:column headerText="#{label.Code}">
+                            <h:outputText value="#{g.code}" />
+                        </p:column>
+                        <p:column headerText="#{label.The_name}">
+                            <h:outputText value="#{g.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Description}">
+                            <h:outputText value="#{g.description}" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="graphDataTable">
+                        <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
+                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                    </p:contextMenu>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
