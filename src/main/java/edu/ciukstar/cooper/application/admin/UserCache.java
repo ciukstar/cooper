@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.application.admin;
 
+import edu.ciukstar.cooper.application.CrudCache;
 import edu.ciukstar.cooper.domain.User;
 import edu.ciukstar.cooper.repo.CrudOperation;
 import java.io.Serializable;
@@ -12,35 +13,29 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class UserCache implements Serializable {
+public class UserCache extends CrudCache<User> implements Serializable {
 
     private User user;
     private CrudOperation crudOperation;
 
-    public void cancelCrud() {
-        this.crudOperation = null;
-        this.user = null;
+    @Override
+    protected void setCrudOperation(CrudOperation<User> op) {
+        this.crudOperation = op;
     }
 
-    public void performCrud() {
-        crudOperation.execute();
+    @Override
+    protected CrudOperation<User> getCrudOperation() {
+        return this.crudOperation;
     }
 
-    public void schedule(CrudOperation<User> crud) {
-        this.crudOperation = crud;
-        this.user = crud.getEntity();
+    @Override
+    protected void setEntity(User entity) {
+        this.user = entity;
     }
 
-    public User createUser() {
-        return user = new User();
-    }
-
-    public User getUser() {
+    @Override
+    public User getEntity() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

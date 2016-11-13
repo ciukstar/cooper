@@ -39,7 +39,7 @@
                 <h:form id="userDataTableForm">
                     <p:dataTable id="userDataTable" value="#{userRepo.findAll()}" 
                                  var="u" rowKey="#{u.id}"
-                                 selectionMode="single" selection="#{userCache.user}"
+                                 selectionMode="single" selection="#{userCache.entity}"
                                  emptyMessage="#{label.No_records_found}">
                         <f:facet name="header">
                             <h:outputText value="#{label.Users}" />
@@ -73,13 +73,13 @@
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>
                     <p:commandButton id="editSelectedUserCommandButtonHidden" style="display: none"
-                                     actionListener="#{userCache.schedule(crud.update(userCache.user, userRepo))}"
+                                     actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
                                      action="#{dialog.displayInputForm('user')}"
                                      process="userDataTable @this" update="@none">
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>
                     <p:commandButton id="removeSelectedUserCommandButtonHidden" style="display: none"
-                                     actionListener="#{userCache.schedule(crud.delete(userCache.user, userRepo))}"
+                                     actionListener="#{userCache.schedule(crud.delete(userCache.entity, userRepo))}"
                                      action="#{dialog.displayReadonlyForm('user')}">
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>

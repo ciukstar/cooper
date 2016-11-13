@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Status}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Status}: #{statusCache.entity.id}" />
+                        </f:facet>
+                        
+                        <p:outputLabel for="code" value="#{label.Code}" />
+                        <p:inputText id="code" value="#{statusCache.entity.code}" size="30" />
+                        <p:message for="code" />
+                        
+                        <p:outputLabel for="name" value="#{label.Name}" />
+                        <p:inputText id="name" value="#{statusCache.entity.name}" size="30" />
+                        <p:message for="name" />
+                        
+                        <p:outputLabel for="icon" value="#{label.Icon}" />
+                        <p:inputText id="icon" value="#{statusCache.entity.icon}" size="30" />
+                        <p:message for="icon" />
+                        
+                        <p:outputLabel for="description" value="#{label.Description}" />
+                        <p:inputTextarea id="description" value="#{statusCache.entity.description}" cols="30" rows="3" />
+                        <p:message for="description" />
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" 
+                                             actionListener="#{statusCache.executeCrudOperation()}"
+                                             action="#{dialog.dispose()}"
+                                             process="@form" update="@form"/>
+                            
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
+                                             actionListener="#{statusCache.cancelCrudOperation()}"
+                                             action="#{dialog.dispose()}"
+                                             process="@this" update="@none" />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -32,8 +32,9 @@
 
             <ui:define name="center">
                 <h:form id="statesForm">
-                    <p:dataTable id="statusDataTabe" value="#{statusRepo.findAll()}"
+                    <p:dataTable id="statusDataTable" value="#{statusRepo.findAll()}"
                                  var="s" rowKey="#{s.id}"
+                                 selectionMode="single" selection="#{requestScope.entityStatus}"
                                  emptyMessage="#{label.No_records_found}">
                         <f:facet name="header">
                             <h:outputText value="#{label.States}" />
@@ -48,8 +49,15 @@
                             <h:outputText value="#{s.description}" />
                         </p:column>
                     </p:dataTable>
+                    <p:commandButton id="addStatusCommandButtonHidden" style="display: none"
+                                    actionListener="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}"
+                                    action="#{dialog.displayInputForm('status')}"
+                                    process="@this" update="@none">
+                        <p:ajax event="dialogReturn" update="statusDataTable" />
+                    </p:commandButton>
                     <p:contextMenu for="statesForm">
-                        <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
+                                    onclick="document.getElementById('statesForm:addStatusCommandButtonHidden').click(); return false;" />
                         <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
                         <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
                     </p:contextMenu>

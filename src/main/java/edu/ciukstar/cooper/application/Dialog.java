@@ -23,8 +23,8 @@ public class Dialog {
         this.options = new HashMap<String, Object>() {
             {
                 put("modal", true);
-                put("width", 700);
-                put("height", 400);
+                put("width", 800);
+                put("height", 500);
                 put("contentWidth", "100%");
                 put("contentHeight", "100%");
             }
