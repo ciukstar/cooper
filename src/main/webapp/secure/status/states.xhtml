@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -30,20 +31,29 @@
             </ui:define>
 
             <ui:define name="center">
-                <p:dataTable id="statusDataTabe" value="#{statusRepo.findAll()}"
-                             var="s" rowKey="#{s.id}"
-                             emptyMessage="#{label.No_records_found}">
-                    <p:column headerText="#{label.Code}">
-                        <h:outputText value="#{s.code}" />
-                    </p:column>
-                    <p:column headerText="#{label.The_name}">
-                        <h:outputText value="#{s.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Description}">
-                        <h:outputText value="#{s.description}" />
-                    </p:column>
-                </p:dataTable>
-                    
+                <h:form id="statesForm">
+                    <p:dataTable id="statusDataTabe" value="#{statusRepo.findAll()}"
+                                 var="s" rowKey="#{s.id}"
+                                 emptyMessage="#{label.No_records_found}">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.States}" />
+                        </f:facet>
+                        <p:column headerText="#{label.Code}">
+                            <h:outputText value="#{s.code}" />
+                        </p:column>
+                        <p:column headerText="#{label.The_name}">
+                            <h:outputText value="#{s.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Description}">
+                            <h:outputText value="#{s.description}" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="statesForm">
+                        <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
+                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                    </p:contextMenu>
+                </h:form>
             </ui:define>
 
         </ui:composition>
