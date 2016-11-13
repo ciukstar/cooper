@@ -35,36 +35,63 @@
             </ui:define>
 
             <ui:define name="center">
-                <p:dataTable value="#{userRepo.findAll()}" var="u"
-                             selectionMode="single" selection="#{userCache.user}"
-                             emptyMessage="#{label.No_records_found}">
-                    <f:facet name="header">
-                        <h:outputText value="#{label.Users}" />
-                    </f:facet>
-                    <p:column headerText="#{label.Username}">
-                        <h:outputText value="#{u.username}" />
-                    </p:column>
-                    <p:column headerText="#{label.Surname}">
-                        <h:outputText value="#{u.surname}" />
-                    </p:column>
-                    <p:column headerText="#{label.Name}">
-                        <h:outputText value="#{u.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Patronymic}">
-                        <h:outputText value="#{u.patronymic}" />
-                    </p:column>
-                    <p:column headerText="#{label.State}">
-                        <h:outputText value="#{u.status.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Email}">
-                        <h:outputText value="#{u.email}" />
-                    </p:column>
-                    <p:column headerText="#{label.Phone}">
-                        <h:outputText value="#{u.phone}" />
-                    </p:column>
-                </p:dataTable>
+                <h:form id="userDataTableForm">
+                    <p:dataTable id="userDataTable" value="#{userRepo.findAll()}" 
+                                 var="u" rowKey="#{u.id}"
+                                 selectionMode="single" selection="#{userCache.user}"
+                                 emptyMessage="#{label.No_records_found}">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Users}" />
+                        </f:facet>
+                        <p:column headerText="#{label.Username}">
+                            <h:outputText value="#{u.username}" />
+                        </p:column>
+                        <p:column headerText="#{label.Surname}">
+                            <h:outputText value="#{u.surname}" />
+                        </p:column>
+                        <p:column headerText="#{label.Name}">
+                            <h:outputText value="#{u.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Patronymic}">
+                            <h:outputText value="#{u.patronymic}" />
+                        </p:column>
+                        <p:column headerText="#{label.State}">
+                            <h:outputText value="#{u.status.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Email}">
+                            <h:outputText value="#{u.email}" />
+                        </p:column>
+                        <p:column headerText="#{label.Phone}">
+                            <h:outputText value="#{u.phone}" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton id="addNewUserCommandButtonHidden" style="display: none"
+                                     actionListener="#{userCache.schedule(crud.create(userBuilder.emptyUser(), userRepo))}"
+                                     action="#{dialog.displayInputForm('user')}"
+                                     process="@this" update="@none">
+                        <p:ajax event="dialogReturn" update="userDataTable" />
+                    </p:commandButton>
+                    <p:commandButton id="editSelectedUserCommandButtonHidden" style="display: none"
+                                     actionListener="#{userCache.schedule(crud.update(userCache.user, userRepo))}"
+                                     action="#{dialog.displayInputForm('user')}"
+                                     process="userDataTable @this" update="@none">
+                        <p:ajax event="dialogReturn" update="userDataTable" />
+                    </p:commandButton>
+                    <p:commandButton id="removeSelectedUserCommandButtonHidden" style="display: none"
+                                     actionListener="#{userCache.schedule(crud.delete(userCache.user, userRepo))}"
+                                     action="#{dialog.displayReadonlyForm('user')}">
+                        <p:ajax event="dialogReturn" update="userDataTable" />
+                    </p:commandButton>
+                    <p:contextMenu for="userDataTable">
+                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
+                                    onclick="document.getElementById('userDataTableForm:addNewUserCommandButtonHidden').click(); return false;"/>
+                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
+                                    onclick="document.getElementById('userDataTableForm:editSelectedUserCommandButtonHidden').click(); return false;" />
+                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
+                                    onclick="document.getElementById('userDataTableForm:removeSelectedUserCommandButtonHidden').click(); return false;" />
+                    </p:contextMenu>
+                </h:form>
             </ui:define>
-
         </ui:composition>
 
     </body>

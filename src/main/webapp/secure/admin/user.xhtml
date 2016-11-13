@@ -12,7 +12,7 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:messages autoUpdate="true" closable="true" />
+                    <p:messages autoUpdate="true" closable="true" showDetail="true" />
                     <p:panelGrid columns="3">
                         <f:facet name="header">
                             <h:outputText value="#{label.User}: #{userCache.user.id}" />
@@ -21,6 +21,10 @@
                         <p:outputLabel for="username" value="#{label.Username}" />
                         <p:inputText id="username" value="#{userCache.user.username}" size="30" />
                         <p:message for="username" />
+
+                        <p:outputLabel for="password" value="#{label.Password}" />
+                        <p:password id="password" value="#{userCache.user.password}" size="30" />
+                        <p:message for="password" />
 
                         <p:outputLabel for="surname" value="#{label.Surname}" />
                         <p:inputText id="surname" value="#{userCache.user.surname}" size="30" />
