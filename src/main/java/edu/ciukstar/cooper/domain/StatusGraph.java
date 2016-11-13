@@ -1,7 +1,9 @@
 package edu.ciukstar.cooper.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +44,9 @@ public class StatusGraph implements Serializable {
     @JoinColumn(name = "start_status", referencedColumnName = "id")
     private Status startStatus;
 
+    private Set<Status> nodes;
+    private Set<Edge> vertices;
+    
     @Override
     public int hashCode() {
         int hash = 7;
