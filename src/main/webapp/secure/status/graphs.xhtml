@@ -18,7 +18,7 @@
                 <h:form>
                     <p:menu>
                         <p:submenu label="#{label.Links}" icon="fa fa-links">
-                            <p:menuitem value="#{label.States}" icon="fa fa-paw" />
+                            <p:menuitem value="#{label.States}" icon="fa fa-paw" action="states" />
                         </p:submenu>
                         <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
                             <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
@@ -30,30 +30,78 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form id="graphForm">
-                    <p:dataTable id="graphDataTable" value="#{graphRepo.findAll()}"
-                                 var="g" rowKey="#{g.id}"
-                                 selectionMode="single" selection="#{graphCache.graph}"
-                                 emptyMessage="#{label.No_records_found}">
-                        <f:facet name="header">
-                            <h:outputText value="#{label.Graphs}" />
-                        </f:facet>
-                        <p:column headerText="#{label.Code}">
-                            <h:outputText value="#{g.code}" />
-                        </p:column>
-                        <p:column headerText="#{label.The_name}">
-                            <h:outputText value="#{g.name}" />
-                        </p:column>
-                        <p:column headerText="#{label.Description}">
-                            <h:outputText value="#{g.description}" />
-                        </p:column>
-                    </p:dataTable>
-                    <p:contextMenu for="graphDataTable">
-                        <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
-                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
-                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
-                    </p:contextMenu>
-                </h:form>
+                <p:layout fullPage="false">
+                    <p:layoutUnit position="center">
+                        <h:form id="graphForm">
+                            <p:dataTable id="graphDataTable" value="#{graphRepo.findAll()}"
+                                         var="g" rowKey="#{g.id}"
+                                         selectionMode="single" selection="#{graphCache.graph}"
+                                         emptyMessage="#{label.No_records_found}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{label.Graphs}" />
+                                </f:facet>
+                                <p:column headerText="#{label.Code}">
+                                    <h:outputText value="#{g.code}" />
+                                </p:column>
+                                <p:column headerText="#{label.The_name}">
+                                    <h:outputText value="#{g.name}" />
+                                </p:column>
+                                <p:column headerText="#{label.Description}">
+                                    <h:outputText value="#{g.description}" />
+                                </p:column>
+                            </p:dataTable>
+                            <p:contextMenu for="graphDataTable">
+                                <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                                <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
+                                <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                            </p:contextMenu>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="50%">
+                        <h:form id="graphDefinitionForm">
+                            <p:tabView dynamic="true">
+                                <p:tab title="#{label.Nodes}">
+                                    <p:dataTable id="graphNodesDataTable" value="#{graphCache.graph.nodes}"
+                                                 var="n" rowKey="#{n.id}"
+                                                 selectionMode="single" selection="#{requestScope.graphNode}"
+                                                 emptyMessage="#{label.No_records_found}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{label.Nodes}" />                                            
+                                        </f:facet>
+                                        <p:column headerText="#{label.Code}">
+                                            <h:outputText value="#{n.code}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.The_name}">
+                                            <h:outputText value="#{n.name}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab title="#{label.Vertices}">
+                                    <p:dataTable id="graphVerticesDataTable" value="#{graphCache.graph.vertices}"
+                                                 var="v" rowKey="#{v.id}"
+                                                 selectionMode="single" selection="#{requestScope.graphVertex}"
+                                                 emptyMessage="#{label.No_records_found}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{label.Vertices}" />
+                                        </f:facet>
+                                        <p:column headerText="#{label.The_name}">
+                                            <h:outputText value="#{v.label}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Vertext_source}">
+                                            <h:outputText value="#{v.source.code}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Vertex_target}">
+                                            <h:outputText value="#{v.target.code}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Transition_name}">
+                                            <h:outputText value="#{v.transitionName}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>                
             </ui:define>
 
         </ui:composition>
