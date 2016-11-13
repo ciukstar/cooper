@@ -42,7 +42,7 @@ public class Graph implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "start_status", referencedColumnName = "id")
-    private Status startStatus;
+    private Status startNode;
 
     private Set<Status> nodes;
     private Set<Vertext> vertices;
@@ -100,12 +100,12 @@ public class Graph implements Serializable {
         this.description = description;
     }
 
-    public Status getStartStatus() {
-        return startStatus;
+    public Status getStartNode() {
+        return startNode;
     }
 
-    public void setStartStatus(Status startStatus) {
-        this.startStatus = startStatus;
+    public void setStartNode(Status startNode) {
+        this.startNode = startNode;
     }
 
     public Set<Status> getNodes() {
