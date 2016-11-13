@@ -33,7 +33,14 @@
                         <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
                         <p:inputText id="patronymic" value="#{userCache.user.patronymic}" size="30" />
                         <p:message for="patronymic" />
-
+                        
+                        <p:outputLabel for="email" value="#{label.Email}" />
+                        <p:inputText id="email" value="#{userCache.user.email}" />
+                        <p:message for="email" />
+                        
+                        <p:outputLabel for="phone" value="#{label.Phone}" />
+                        <p:inputText id="phone" value="#{userCache.user.phone}" />
+                        <p:message for="phone" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save"
