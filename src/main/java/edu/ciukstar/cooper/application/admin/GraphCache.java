@@ -1,10 +1,10 @@
 package edu.ciukstar.cooper.application.admin;
 
-import edu.ciukstar.cooper.domain.StatusGraph;
+import edu.ciukstar.cooper.domain.Graph;
 import edu.ciukstar.cooper.repo.CrudOperation;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
@@ -15,13 +15,13 @@ import java.io.Serializable;
 public class GraphCache implements Serializable {
 
     private CrudOperation crudOperation;
-    private StatusGraph graph;
+    private Graph graph;
 
-    public StatusGraph getGraph() {
+    public Graph getGraph() {
         return graph;
     }
 
-    public void setGraph(StatusGraph graph) {
+    public void setGraph(Graph graph) {
         this.graph = graph;
     }
     

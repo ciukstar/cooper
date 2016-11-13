@@ -1,6 +1,6 @@
 package edu.ciukstar.cooper.repo;
 
-import edu.ciukstar.cooper.domain.StatusGraph;
+import edu.ciukstar.cooper.domain.Graph;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,18 +11,18 @@ import javax.persistence.PersistenceContext;
  * @author sergiu
  */
 @Stateless
-public class GraphRepo extends AbstractRepo<StatusGraph> {
+public class GraphRepo extends AbstractRepo<Graph> {
 
     @PersistenceContext(unitName = "cooper")
     private EntityManager em;
 
     @Override
-    public List<StatusGraph> findAll() {
+    public List<Graph> findAll() {
         return super.findAll();
     }
     
     public GraphRepo() {
-        super(StatusGraph.class);
+        super(Graph.class);
     }
 
     @Override

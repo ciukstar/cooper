@@ -2,7 +2,6 @@ package edu.ciukstar.cooper.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,9 +20,9 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "status_graphs", uniqueConstraints = {
+@Table(name = "graphs", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"code"})})
-public class StatusGraph implements Serializable {
+public class Graph implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,7 +45,7 @@ public class StatusGraph implements Serializable {
     private Status startStatus;
 
     private Set<Status> nodes;
-    private Set<Edge> vertices;
+    private Set<Vertext> vertices;
     
     @Override
     public int hashCode() {
@@ -66,7 +65,7 @@ public class StatusGraph implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StatusGraph other = (StatusGraph) obj;
+        final Graph other = (Graph) obj;
         if (!Objects.equals(this.code, other.code)) {
             return false;
         }
@@ -113,7 +112,7 @@ public class StatusGraph implements Serializable {
         return new HashSet<>(nodes);
     }
 
-    public Set<Edge> getVertices() {
+    public Set<Vertext> getVertices() {
         return new HashSet<>(vertices);
     }
 
