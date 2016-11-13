@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.States}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-link">
+                            <p:menuitem value="#{label.Users}" icon="fa fa-users" />
+                            <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" />
+                        </p:submenu>
+                        <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
+                            <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
+                            <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
+                            <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <p:dataTable id="statusDataTabe" value="#{statusRepo.findAll()}"
+                             var="s" rowKey="#{s.id}"
+                             emptyMessage="#{label.No_records_found}">
+                    <p:column headerText="#{label.Code}">
+                        <h:outputText value="#{s.code}" />
+                    </p:column>
+                    <p:column headerText="#{label.The_name}">
+                        <h:outputText value="#{s.name}" />
+                    </p:column>
+                    <p:column headerText="#{label.Description}">
+                        <h:outputText value="#{s.description}" />
+                    </p:column>
+                </p:dataTable>
+                    
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

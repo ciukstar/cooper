@@ -6,8 +6,16 @@
     <navigation-rule>
         <from-view-id>/secure/admin/users.xhtml</from-view-id>
         <navigation-case>
+            <from-outcome>states</from-outcome>
+            <to-view-id>/secure/status/states.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/admin/users.xhtml</from-view-id>
+        <navigation-case>
             <from-outcome>user</from-outcome>
-            <to-view-id>/secure/admin/user.xhtml</to-view-id>            
+            <to-view-id>/secure/admin/user.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
