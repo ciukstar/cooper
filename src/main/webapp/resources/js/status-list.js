@@ -10,6 +10,6 @@ $('#statusListForm\\:editSelectedStatusMenuitem').on('click', function (e) {
 });
 
 $('#statusListForm\\:deleteSelectedStatusMenuitem').on('click', function (e) {
-    $('#statusListForm\\:deleteSelectedStatusCommandButtonHidden').click();
+    $('#statusListForm\\:deleteSelectedStatusCommandButtonidden').click();
 });
 

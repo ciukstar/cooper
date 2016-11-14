@@ -1,18 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
-        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+        <ui:composition template="./../../WEB-INF/templates/confirmation-dialog.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Status}" />
             </ui:define>
 
             <ui:define name="content">
-                content
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="#{label.Status}: #{statusCache.entity.id}" />
+                    </f:facet>
+                    <p:graphicImage library="img" name="warning.png" />
+                    <h:outputText class="warning message" value="#{label.The_selected_item_will_be_deleted}. #{label.Are_you_sure}?" />
+                    <f:facet name="footer">
+                        <p:commandButton value="#{label.Yes}" icon="fa fa-check" />
+                        <p:commandButton value="#{label.No}" icon="fa fa-ban" />
+                    </f:facet>
+                </p:panelGrid>
             </ui:define>
 
         </ui:composition>
