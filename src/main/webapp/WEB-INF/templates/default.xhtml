@@ -9,7 +9,9 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link rel="shortcut icon" href="#{resource['img/favicon.ico']}" type="image/x-icon" />
                 <h:outputStylesheet library="css" name="default.css" />
+                <ui:insert name="css" />                
                 <title><ui:insert name="title">COOPER</ui:insert></title>
             </f:facet>
         </h:head>
@@ -41,7 +43,7 @@
                 </p:layoutUnit>
 
             </p:layout>
-
+            <ui:insert name="js" />
         </h:body>
 
     </f:view>

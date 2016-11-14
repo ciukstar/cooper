@@ -9,7 +9,9 @@
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/default.xhtml">
-
+            <ui:define name="js">
+                <h:outputScript library="js" name="states.js" />
+            </ui:define>
             <ui:define name="title">
                 <h:outputText value="#{label.States}" />
             </ui:define>
@@ -56,8 +58,7 @@
                         <p:ajax event="dialogReturn" update="statusDataTable" />
                     </p:commandButton>
                     <p:contextMenu for="statesForm">
-                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                    onclick="document.getElementById('statesForm:addStatusCommandButtonHidden').click(); return false;" />
+                        <p:menuitem id="addNewStatusMenuitem" value="#{label.Add}" icon="fa fa-plus" />
                         <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
                         <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
                     </p:contextMenu>
