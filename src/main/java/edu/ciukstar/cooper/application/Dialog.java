@@ -17,6 +17,18 @@ import org.primefaces.context.RequestContext;
 @Dependent
 public class Dialog {
 
+    public void displayConfirmationDialog(final String outcome) {
+        displayInputForm(outcome);
+    }
+    
+    public void dispose() {
+        RequestContext.getCurrentInstance().closeDialog(null);
+    }
+
+    public void displayInputForm(final String outcome) {
+        RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
+    }
+
     private final Map<String, Object> options;
 
     public Dialog() {
@@ -29,20 +41,6 @@ public class Dialog {
                 put("contentHeight", "100%");
             }
         };
-    }
-
-    public void displayReadonlyForm(final String outcome) {
-        Map<String, List<String>> params = new HashMap<>();
-        params.put("readonly", Arrays.asList("true"));
-        RequestContext.getCurrentInstance().openDialog(outcome, options, params);
-    }
-
-    public void dispose() {
-        RequestContext.getCurrentInstance().closeDialog(null);
-    }
-
-    public void displayInputForm(final String outcome) {
-        RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
     }
 
 }

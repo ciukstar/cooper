@@ -4,56 +4,56 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
-        <from-view-id>/secure/status/states.xhtml</from-view-id>
+        <from-view-id>/secure/status/status-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>status</from-outcome>
-            <to-view-id>/secure/status/status.xhtml</to-view-id>
+            <from-outcome>status-edit</from-outcome>
+            <to-view-id>/secure/status/status-edit.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/status/states.xhtml</from-view-id>
+        <from-view-id>/secure/status/status-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>graphs</from-outcome>
-            <to-view-id>/secure/status/graphs.xhtml</to-view-id>
+            <from-outcome>graph-list</from-outcome>
+            <to-view-id>/secure/status/graph-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/admin/users.xhtml</from-view-id>
+        <from-view-id>/secure/admin/user-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>graphs</from-outcome>
-            <to-view-id>/secure/status/graphs.xhtml</to-view-id>
+            <from-outcome>graph-list</from-outcome>
+            <to-view-id>/secure/status/graph-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/status/graphs.xhtml</from-view-id>
+        <from-view-id>/secure/status/graph-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>states</from-outcome>
-            <to-view-id>/secure/status/states.xhtml</to-view-id>
+            <from-outcome>status-list</from-outcome>
+            <to-view-id>/secure/status/status-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/admin/users.xhtml</from-view-id>
+        <from-view-id>/secure/admin/user-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>states</from-outcome>
-            <to-view-id>/secure/status/states.xhtml</to-view-id>
+            <from-outcome>status-list</from-outcome>
+            <to-view-id>/secure/status/status-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/admin/users.xhtml</from-view-id>
+        <from-view-id>/secure/admin/user-list.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>user</from-outcome>
-            <to-view-id>/secure/admin/user.xhtml</to-view-id>
+            <from-outcome>user-edit</from-outcome>
+            <to-view-id>/secure/admin/user-edit.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>users</from-outcome>
-            <to-view-id>/secure/admin/users.xhtml</to-view-id>
+            <from-outcome>user-list</from-outcome>
+            <to-view-id>/secure/admin/user-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
