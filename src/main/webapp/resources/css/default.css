@@ -1,3 +1,11 @@
+.global-ajax-status {
+    width: 64px;
+    height: 64px;
+    bottom: 5px;
+    right: 5px;
+    position: fixed;
+
+}
 .commandButton.hidden {
     display: none;
 }
