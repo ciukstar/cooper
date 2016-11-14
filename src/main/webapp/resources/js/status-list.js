@@ -1,13 +1,15 @@
 
-$('#statesForm\\:addNewStatusMenuitem').on('click', function (e) {
-    $('#statesForm\\:addNewStatusCommandButtonHidden').click();
+$('#statusListForm\\:addNewStatusMenuitem').on('click', function (e) {
+    $('#statusListForm\\:addNewStatusCommandButtonHidden').click();
 });
 
-$('#statesForm\\:editSelectedStatusMenuitem').on('click', function (e) {
-    $('#statesForm\\:editSelectedStatusCommandButtonHidden').click();
+$('#statusListForm\\:editSelectedStatusMenuitem').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('#statusListForm\\:editSelectedStatusCommandButtonHidden').click();
 });
 
-$('#statesForm\\:deleteSelectedStatusMenuitem').on('click', function (e) {
-    $('#statesForm\\:deleteSelectedStatusCommandButtonHidden').click();
+$('#statusListForm\\:deleteSelectedStatusMenuitem').on('click', function (e) {
+    $('#statusListForm\\:deleteSelectedStatusCommandButtonHidden').click();
 });
 

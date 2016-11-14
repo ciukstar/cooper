@@ -33,11 +33,12 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form id="statesForm">
+                <h:form id="statusListForm">
                     <p:dataTable id="statusDataTable" value="#{statusRepo.findAll()}"
                                  var="s" rowKey="#{s.id}"
-                                 selectionMode="single" selection="#{requestScope.entityStatus}"
+                                 selectionMode="single" selection="#{statusCache.entity}"
                                  emptyMessage="#{label.No_records_found}">
+                        
                         <f:facet name="header">
                             <h:outputText value="#{label.States}" />
                         </f:facet>
@@ -60,16 +61,16 @@
                     <p:commandButton id="editSelectedStatusCommandButtonHidden" class="commandButton hidden"
                                      actionListener="#{statusCache.schedule(crud.update(statusCache.entity, statusRepo))}"
                                      action="#{dialog.displayInputForm('status-edit')}"
-                                     process="@this statusDataTable" update="@none">
+                                     process="@form" update="@none">
                         <p:ajax event="dialogReturn" update="statusDataTable" />
                     </p:commandButton>
                     <p:commandButton id="deleteSelectedStatusCommandButtonidden" class="commandButton hidden"
                                      actionListener="#{statusCache.schedule(crud.delete(statusCache.entity, statusRepo))}"
                                      action="#{dialog.displayConfirmationDialog('status-delete')}"
-                                     process="@this statusDataTable" update="@none">
+                                     process="@form" update="@none">
                         <p:ajax event="dialogReturn" update="statusDataTable" />
                     </p:commandButton>
-                    <p:contextMenu for="statesForm">
+                    <p:contextMenu for="statusDataTable">
                         <p:menuitem id="addNewStatusMenuitem" value="#{label.Add}" icon="fa fa-plus" />
                         <p:menuitem id="editSelectedStatusMenuitem" value="#{label.Edit}" icon="fa fa-edit" />
                         <p:menuitem id="deleteSelectedStatusMenuitem" value="#{label.Delete}" icon="fa fa-trash" />

@@ -29,7 +29,7 @@ public class UserCache extends CrudCache<User> implements Serializable {
     }
 
     @Override
-    protected void setEntity(User entity) {
+    public void setEntity(User entity) {
         this.user = entity;
     }
 

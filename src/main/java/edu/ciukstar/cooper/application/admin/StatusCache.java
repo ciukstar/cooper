@@ -29,7 +29,7 @@ public class StatusCache extends CrudCache<Status> implements Serializable {
     }
 
     @Override
-    protected void setEntity(Status entity) {
+    public void setEntity(Status entity) {        
         this.entity = entity;
     }
 
