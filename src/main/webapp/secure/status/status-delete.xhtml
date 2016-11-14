@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -14,20 +13,19 @@
                 <h:outputText value="#{label.Status}" />
             </ui:define>
 
-            <ui:define name="content">
-                <p:panelGrid columns="2">
-                    <f:facet name="header">
-                        <h:outputText value="#{label.Status}: #{statusCache.entity.id}" />
-                    </f:facet>
-                    <p:graphicImage library="img" name="warning.png" />
-                    <h:outputText class="warning message" value="#{label.The_selected_item_will_be_deleted}. #{label.Are_you_sure}?" />
-                    <f:facet name="footer">
-                        <p:commandButton value="#{label.Yes}" icon="fa fa-check" />
-                        <p:commandButton value="#{label.No}" icon="fa fa-ban" />
-                    </f:facet>
-                </p:panelGrid>
+            <ui:define name="header">
+                <h:outputText value="#{label.Status}: #{statusCache.entity.id}" />
             </ui:define>
-
+            <ui:define name="actions">
+                <p:commandButton value="#{label.Yes}" icon="fa fa-check"
+                                 actionListener="#{statusCache.executeCrudOperation()}"
+                                 action="#{dialog.dispose()}"
+                                 process="@form" update="@form" />
+                <p:commandButton value="#{label.No}" icon="fa fa-ban"
+                                 actionListener="#{statusCache.cancelCrudOperation()}"
+                                 action="#{dialog.dispose()}"
+                                 process="@this" update="@none"/>
+            </ui:define>
         </ui:composition>
 
     </body>
