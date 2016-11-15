@@ -16,6 +16,7 @@
 
             <ui:define name="content">
                 <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
                     <p:panel>
                         
                         <ui:include src="../status/status-data-table.xhtml">
@@ -26,7 +27,7 @@
                         
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Select}" icon="fa fa-check" 
-                                             actionListener="#{graphCache.entity.addNode(requestScope.graphNode)}"
+                                             actionListener="#{graphCache.addNodeToGraph(requestScope.graphNode)}"
                                              action="#{dialog.dispose()}" process="@form" update="@form"/>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" 
                                              actionListener="#{dialog.dispose()}" process="@this" update="@none"/>

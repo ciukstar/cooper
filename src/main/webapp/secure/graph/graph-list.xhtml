@@ -41,6 +41,9 @@
                                          var="g" rowKey="#{g.id}"
                                          selectionMode="single" selection="#{graphCache.entity}"
                                          emptyMessage="#{label.No_records_found}">
+                                
+                                <p:ajax event="rowSelect" process="@this" update="graphDefinitionForm" />
+                                
                                 <f:facet name="header">
                                     <h:outputText value="#{label.Graphs}" />
                                 </f:facet>
@@ -81,12 +84,15 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" size="50%">
                         <h:form id="graphDefinitionForm">
-                            <p:tabView dynamic="true">
+                            <p:tabView id="graphDefinitionTabView" dynamic="true">
                                 <p:tab title="#{label.Nodes}">
                                     <p:dataTable id="graphNodesDataTable" value="#{graphCache.entity.nodes}"
                                                  var="n" rowKey="#{n.id}"
-                                                 selectionMode="single" selection="#{requestScope.graphNode}"
+                                                 selectionMode="single" selection="#{statusCache.entity}"
                                                  emptyMessage="#{label.No_records_found}">
+                                        
+                                        <p:ajax event="rowSelect" process="@this" update="@none" />
+                                        
                                         <f:facet name="header">
                                             <h:outputText value="#{label.Nodes}" />                                            
                                         </f:facet>
@@ -97,18 +103,29 @@
                                             <h:outputText value="#{n.name}" />
                                         </p:column>
                                     </p:dataTable>
-                                    <p:commandButton id="addNewGraphNodeCommandButtonHidden"
-                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, grapgRepo))}"
+                                    <p:commandButton id="addNewGraphNodeCommandButtonHidden" class="commandButton hidden"
+                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
                                                      action="#{dialog.displayInputForm('graph-node-chooser')}"
-                                                     process="@this graphListForm:graphDataTable" update="@none">
+                                                     process="@this" update="@none">
                                         <p:ajax event="dialogReturn" update="graphNodesDataTable" />
                                     </p:commandButton>
+                                    <p:commandButton id="deleteSelectedGraphNodeCommandButtonHidden" class="commandButton hidden"
+                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
+                                                     action="#{dialog.displayConfirmationDialog('graph-node-delete')}"
+                                                     process="@this" update="@none">
+                                        <p:ajax event="dialogReturn" update="graphListForm:graphDataTable graphNodesDataTable" />
+                                    </p:commandButton>
+                                    <p:contextMenu for="graphNodesDataTable">
+                                        <p:menuitem id="addNewGraphNodeMenuitem" value="#{label.Add}" icon="fa fa-pencil" />
+                                        <p:menuitem id="deleteSelectedGraphNodeMenuitem" value="#{label.Delete}" icon="fa fa-trash" />
+                                    </p:contextMenu>
                                 </p:tab>
                                 <p:tab title="#{label.Vertices}">
                                     <p:dataTable id="graphVerticesDataTable" value="#{graphCache.entity.vertices}"
                                                  var="v" rowKey="#{v.id}"
                                                  selectionMode="single" selection="#{requestScope.graphVertex}"
                                                  emptyMessage="#{label.No_records_found}">
+                                        
                                         <f:facet name="header">
                                             <h:outputText value="#{label.Vertices}" />
                                         </f:facet>

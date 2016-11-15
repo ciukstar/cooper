@@ -133,4 +133,12 @@ public class Graph implements Serializable {
         return new HashSet<>(vertices);
     }
 
+    public void addNode(Status node) {
+        this.nodes.add(node);
+    }
+
+    public void removeNode(Status node) {
+        this.nodes.remove(node);
+    }
+
 }

@@ -13,5 +13,12 @@ $('#graphListForm\\:deleteSelectedGraphMenuitem').on('click', function (e) {
     $('#graphListForm\\:deleteSelectedGraphCommandButtonidden').click();
 });
 
+$('#graphDefinitionForm\\:graphDefinitionTabView\\:addNewGraphNodeMenuitem').click(function(e) {
+   $('#graphDefinitionForm\\:graphDefinitionTabView\\:addNewGraphNodeCommandButtonHidden').click();
+});
+$('#graphDefinitionForm\\:graphDefinitionTabView\\:deleteSelectedGraphNodeMenuitem').click(function(e) {
+   $('#graphDefinitionForm\\:graphDefinitionTabView\\:deleteSelectedGraphNodeCommandButtonHidden').click();
+});
+
 
 
