@@ -3,6 +3,7 @@ package edu.ciukstar.cooper.repo;
 import edu.ciukstar.cooper.domain.Graph;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author sergiu
  */
+@Named
 @Stateless
 public class GraphRepo extends AbstractRepo<Graph> {
 

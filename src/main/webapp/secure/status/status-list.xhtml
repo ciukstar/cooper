@@ -34,24 +34,11 @@
 
             <ui:define name="center">
                 <h:form id="statusListForm">
-                    <p:dataTable id="statusDataTable" value="#{statusRepo.findAll()}"
-                                 var="s" rowKey="#{s.id}"
-                                 selectionMode="single" selection="#{statusCache.entity}"
-                                 emptyMessage="#{label.No_records_found}">
-                        
-                        <f:facet name="header">
-                            <h:outputText value="#{label.States}" />
-                        </f:facet>
-                        <p:column headerText="#{label.Code}">
-                            <h:outputText value="#{s.code}" />
-                        </p:column>
-                        <p:column headerText="#{label.The_name}">
-                            <h:outputText value="#{s.name}" />
-                        </p:column>
-                        <p:column headerText="#{label.Description}">
-                            <h:outputText value="#{s.description}" />
-                        </p:column>
-                    </p:dataTable>
+                    <ui:include src="status-data-table.xhtml">
+                        <ui:param name="id" value="statusDataTable" />
+                        <ui:param name="data" value="#{statusRepo.findAll()}" />
+                        <ui:param name="selection" value="#{statusCache.entity}" />
+                    </ui:include>
                     <p:commandButton id="addNewStatusCommandButtonHidden" class="commandButton hidden"
                                     actionListener="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}"
                                     action="#{dialog.displayInputForm('status-edit')}"
