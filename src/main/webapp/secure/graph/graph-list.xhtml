@@ -10,6 +10,10 @@
 
         <ui:composition template="./../../WEB-INF/templates/default.xhtml">
 
+            <ui:define name="js">
+                <h:outputScript library="js" name="graph-list.js" />
+            </ui:define>
+            
             <ui:define name="title">
                 <h:outputText value="#{label.Graphs}" />
             </ui:define>
@@ -32,10 +36,10 @@
             <ui:define name="center">
                 <p:layout fullPage="false">
                     <p:layoutUnit position="center">
-                        <h:form id="graphForm">
+                        <h:form id="graphListForm">
                             <p:dataTable id="graphDataTable" value="#{graphRepo.findAll()}"
                                          var="g" rowKey="#{g.id}"
-                                         selectionMode="single" selection="#{graphCache.graph}"
+                                         selectionMode="single" selection="#{graphCache.entity}"
                                          emptyMessage="#{label.No_records_found}">
                                 <f:facet name="header">
                                     <h:outputText value="#{label.Graphs}" />
@@ -50,10 +54,28 @@
                                     <h:outputText value="#{g.description}" />
                                 </p:column>
                             </p:dataTable>
+                            <p:commandButton id="addNewGraphCommandButtonHidden" class="commandButton hidden"
+                                             actionListener="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}"
+                                             action="#{dialog.displayInputForm('graph-edit')}"
+                                             process="@this" update="@none">
+                                <p:ajax event="dialogReturn" update="graphDataTable" />
+                            </p:commandButton>
+                            <p:commandButton id="editSelectedGraphCommandButtonHidden" class="commandButton hidden"
+                                             actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
+                                             action="#{dialog.displayInputForm('graph-edit')}"
+                                             process="@this graphDataTable" update="@none">
+                                <p:ajax event="dialogReturn" update="graphDataTable" />
+                            </p:commandButton>
+                            <p:commandButton id="deleteSelectedGraphCommandButtonidden" class="commandButton hidden"
+                                             actionListener="#{graphCache.schedule(crud.delete(graphCache.entity, graphRepo))}"
+                                             action="#{dialog.displayConfirmationDialog('graph-delete')}"
+                                             process="@this graphDataTable" update="@none">
+                                <p:ajax event="dialogReturn" update="graphDataTable" />
+                            </p:commandButton>
                             <p:contextMenu for="graphDataTable">
-                                <p:menuitem value="#{label.Add}" icon="fa fa-plus" />
-                                <p:menuitem value="#{label.Edit}" icon="fa fa-edit" />
-                                <p:menuitem value="#{label.Delete}" icon="fa fa-trash" />
+                                <p:menuitem id="addNewGraphMenuitem" value="#{label.Add}" icon="fa fa-plus" />
+                                <p:menuitem id="editSelectedGraphMenuitem" value="#{label.Edit}" icon="fa fa-edit" />
+                                <p:menuitem id="deleteSelectedGraphMenuitem" value="#{label.Delete}" icon="fa fa-trash" />
                             </p:contextMenu>
                         </h:form>
                     </p:layoutUnit>
@@ -61,7 +83,7 @@
                         <h:form id="graphDefinitionForm">
                             <p:tabView dynamic="true">
                                 <p:tab title="#{label.Nodes}">
-                                    <p:dataTable id="graphNodesDataTable" value="#{graphCache.graph.nodes}"
+                                    <p:dataTable id="graphNodesDataTable" value="#{graphCache.entity.nodes}"
                                                  var="n" rowKey="#{n.id}"
                                                  selectionMode="single" selection="#{requestScope.graphNode}"
                                                  emptyMessage="#{label.No_records_found}">

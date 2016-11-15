@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.application.admin;
 
+import edu.ciukstar.cooper.application.CrudCache;
 import edu.ciukstar.cooper.domain.Graph;
 import edu.ciukstar.cooper.repo.CrudOperation;
 import java.io.Serializable;
@@ -12,17 +13,30 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class GraphCache implements Serializable {
+public class GraphCache extends CrudCache<Graph> implements Serializable {
 
     private CrudOperation crudOperation;
-    private Graph graph;
+    private Graph entity;
 
-    public Graph getGraph() {
-        return graph;
+    @Override
+    protected void setCrudOperation(CrudOperation<Graph> op) {
+        this.crudOperation = op;
+        this.entity = op.getEntity();
     }
 
-    public void setGraph(Graph graph) {
-        this.graph = graph;
+    @Override
+    protected CrudOperation<Graph> getCrudOperation() {
+        return crudOperation;
+    }
+
+    @Override
+    public void setEntity(Graph entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public Graph getEntity() {
+        return this.entity;
     }
     
 }

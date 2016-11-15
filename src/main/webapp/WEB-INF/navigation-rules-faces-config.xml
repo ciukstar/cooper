@@ -14,7 +14,7 @@
         <from-view-id>/secure/status/status-list.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>graph-list</from-outcome>
-            <to-view-id>/secure/status/graph-list.xhtml</to-view-id>
+            <to-view-id>/secure/graph/graph-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
