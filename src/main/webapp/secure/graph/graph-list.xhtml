@@ -13,7 +13,7 @@
             <ui:define name="js">
                 <h:outputScript library="js" name="graph-list.js" />
             </ui:define>
-            
+
             <ui:define name="title">
                 <h:outputText value="#{label.Graphs}" />
             </ui:define>
@@ -97,9 +97,15 @@
                                             <h:outputText value="#{n.name}" />
                                         </p:column>
                                     </p:dataTable>
+                                    <p:commandButton id="addNewGraphNodeCommandButtonHidden"
+                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, grapgRepo))}"
+                                                     action="#{dialog.displayInputForm('graph-node-chooser')}"
+                                                     process="@this graphListForm:graphDataTable" update="@none">
+                                        <p:ajax event="dialogReturn" update="graphNodesDataTable" />
+                                    </p:commandButton>
                                 </p:tab>
                                 <p:tab title="#{label.Vertices}">
-                                    <p:dataTable id="graphVerticesDataTable" value="#{graphCache.graph.vertices}"
+                                    <p:dataTable id="graphVerticesDataTable" value="#{graphCache.entity.vertices}"
                                                  var="v" rowKey="#{v.id}"
                                                  selectionMode="single" selection="#{requestScope.graphVertex}"
                                                  emptyMessage="#{label.No_records_found}">

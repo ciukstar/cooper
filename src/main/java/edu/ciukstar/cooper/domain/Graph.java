@@ -10,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.NotBlank;
@@ -39,14 +42,28 @@ public class Graph implements Serializable {
 
     @Column(name = "description")
     private String description;
-    
+
     @ManyToOne
     @JoinColumn(name = "start_status", referencedColumnName = "id")
     private Status startNode;
 
+    @ManyToMany
+    @JoinTable(
+            name = "graph_nodes",
+            joinColumns = {
+                @JoinColumn(name = "graph", nullable = false, referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "node", nullable = false, referencedColumnName = "id")}
+    )
     private Set<Status> nodes;
-    private Set<Vertext> vertices;
-    
+    @OneToMany(mappedBy = "graph")
+    private Set<Vertex> vertices;
+
+    public Graph() {
+        this.vertices = new HashSet<>();
+        this.nodes = new HashSet<>();
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -112,7 +129,7 @@ public class Graph implements Serializable {
         return new HashSet<>(nodes);
     }
 
-    public Set<Vertext> getVertices() {
+    public Set<Vertex> getVertices() {
         return new HashSet<>(vertices);
     }
 

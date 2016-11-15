@@ -18,12 +18,16 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "vertices")
-public class Vertext implements Serializable {
+public class Vertex implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne
+    @NotNull(message = "{Graph_may_not_be_null}")
+    @JoinColumn(name = "graph", nullable = false, referencedColumnName = "id")
+    private Graph graph;
     @ManyToOne
     @NotNull(message = "{Source_may_not_be_null}")
     @JoinColumn(name = "source", referencedColumnName = "id", nullable = false)
@@ -45,6 +49,14 @@ public class Vertext implements Serializable {
     
     public Long getId() {
         return id;
+    }
+
+    public Graph getGraph() {
+        return graph;
+    }
+
+    public void setGraph(Graph graph) {
+        this.graph = graph;
     }
 
     public Status getSource() {
