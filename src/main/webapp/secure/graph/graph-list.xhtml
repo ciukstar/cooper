@@ -37,26 +37,13 @@
                 <p:layout fullPage="false">
                     <p:layoutUnit position="center">
                         <h:form id="graphListForm">
-                            <p:dataTable id="graphDataTable" value="#{graphRepo.findAll()}"
-                                         var="g" rowKey="#{g.id}"
-                                         selectionMode="single" selection="#{graphCache.entity}"
-                                         emptyMessage="#{label.No_records_found}">
-                                
-                                <p:ajax event="rowSelect" process="@this" update="graphDefinitionForm" />
-                                
-                                <f:facet name="header">
-                                    <h:outputText value="#{label.Graphs}" />
-                                </f:facet>
-                                <p:column headerText="#{label.Code}">
-                                    <h:outputText value="#{g.code}" />
-                                </p:column>
-                                <p:column headerText="#{label.The_name}">
-                                    <h:outputText value="#{g.name}" />
-                                </p:column>
-                                <p:column headerText="#{label.Description}">
-                                    <h:outputText value="#{g.description}" />
-                                </p:column>
-                            </p:dataTable>
+                            <ui:include src="graph-data-table.xhtml">
+                                <ui:param name="id" value="graphDataTable" />
+                                <ui:param name="data" value="#{graphRepo.findAll()}"/>
+                                <ui:param name="selection" value="#{graphCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectUpdate" value="graphDefinitionForm" />
+                            </ui:include>
                             <p:commandButton id="addNewGraphCommandButtonHidden" class="commandButton hidden"
                                              actionListener="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}"
                                              action="#{dialog.displayInputForm('graph-edit')}"

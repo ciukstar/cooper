@@ -1,11 +1,15 @@
 package edu.ciukstar.cooper.application.admin;
 
+import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.application.CrudCache;
 import edu.ciukstar.cooper.domain.Graph;
 import edu.ciukstar.cooper.domain.Status;
 import edu.ciukstar.cooper.repo.CrudOperation;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -16,9 +20,16 @@ import javax.inject.Named;
 @SessionScoped
 public class GraphCache extends CrudCache<Graph> implements Serializable {
 
+    @Inject
+    private Refresher refresher;
+    
     private CrudOperation crudOperation;
     private Graph entity;
 
+    void refresh(@Observes List<Graph> source) {
+        entity = refresher.select(source, entity).orElse(null);
+    }
+    
     @Override
     protected void setCrudOperation(CrudOperation<Graph> op) {
         this.crudOperation = op;

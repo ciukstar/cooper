@@ -25,8 +25,12 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "graphs", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"code"})})
-public class Graph implements Serializable {
+public class Graph implements Persistable<Long>, Serializable {
 
+    public static GraphBuilder.NameStep code(String code) {
+        return GraphBuilder.code(code);
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,6 +69,11 @@ public class Graph implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Graph{" + "code=" + code + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.code);
@@ -89,6 +98,7 @@ public class Graph implements Serializable {
         return true;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -139,6 +149,11 @@ public class Graph implements Serializable {
 
     public void removeNode(Status node) {
         this.nodes.remove(node);
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 
 }
