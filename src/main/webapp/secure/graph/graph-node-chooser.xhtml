@@ -26,11 +26,15 @@
                         </ui:include>
                         
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Select}" icon="fa fa-check" 
-                                             actionListener="#{graphCache.addNodeToGraph(requestScope.graphNode)}"
-                                             action="#{dialog.dispose()}" process="@form" update="@form"/>
+                            <p:commandButton value="#{label.Select}" icon="fa fa-check"
+                                             process="@form" update="@form">
+                                <f:actionListener binding="#{graphCache.addNodeToGraph(requestScope.graphNode)}" />
+                                <f:actionListener binding="#{graphCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" 
-                                             actionListener="#{dialog.dispose()}" process="@this" update="@none"/>
+                                             actionListener="#{dialog.dispose()}" 
+                                             process="@this" update="@none"/>
                         </f:facet>
                     </p:panel>
                 </h:form>
