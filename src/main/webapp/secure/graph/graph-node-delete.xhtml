@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -19,10 +20,14 @@
 
             <ui:define name="actions">
                 <p:commandButton value="#{label.Yes}" icon="fa fa-check" 
-                                 actionListener="#{graphCache.removeNodeFromGraph(statusCache.entity)}"
-                                 action="#{dialog.dispose()}" process="@form" update="@form" />
+                                 process="@form" update="@form">
+                    <f:actionListener binding="#{graphCache.removeNodeFromGraph(statusCache.entity)}" />
+                    <f:actionListener binding="#{graphCache.executeCrudOperation()}" />
+                    <f:actionListener binding="#{dialog.dispose()}" />
+                </p:commandButton>
                 <p:commandButton value="#{label.No}" icon="fa fa-ban"
-                                 actionListener="#{dialog.dispose()}" process="@this" update="@none" />
+                                 actionListener="#{dialog.dispose()}" 
+                                 process="@this" update="@none" />
             </ui:define>
 
         </ui:composition>
