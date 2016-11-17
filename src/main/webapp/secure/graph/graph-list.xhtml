@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/default.xhtml">
             <ui:define name="css">
-                <h:outputStylesheet library="css" name="hidden.css" />
+                <!--<h:outputStylesheet library="css" name="hidden.css" />-->
             </ui:define>
             <ui:define name="title">
                 <h:outputText value="#{label.Graphs}" />
@@ -102,11 +103,37 @@
                                 <p:tab title="#{label.Vertices}">
                                     <ui:include src="graph-verticies-data-table.xhtml">
                                         <ui:param name="id" value="graphVerticesDataTable" />
-                                        <ui:param name="data" value="#{graphCache.entity.vertices}" />
+                                        <ui:param name="data" value="#{vertexRepo.findByGraph(graphCache.entity)}" />
                                         <ui:param name="selection" value="#{requestScope.graphVertex}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />
                                     </ui:include>
+                                    <p:commandButton id="addNewGraphVertexButtonHidden" class="commandButton hidden"                                                     
+                                                     process="@this" update="@none">
+                                        <f:actionListener binding="#{vertexCache.schedule(crud.create(vertexBuilder.emptyVertextForGraph(graphCache.entity), vertexRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('vertex-edit')}" />
+                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton id="editSelectedGraphVertexButtonHidden" class="commandButton hidden"
+                                                     process="@this" update="@none">
+                                        <f:actionListener binding="#{vertexCache.schedule(crud.update(vertexCache.entity, vertexRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('vertex-edit')}" />
+                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton id="deleteSelectedGraphVertexButtonHidden" class="commandButton hidden"
+                                                     process="@this" update="@none">
+                                        <f:actionListener binding="#{vertexCache.schedule(crud.delete(vertexCache.entity, vertexRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('vertex-delete')}" />
+                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                    </p:commandButton>
+                                    <p:contextMenu for="graphVerticesDataTable">
+                                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
+                                                    onclick="document.getElementById('').click(); return false;"/>
+                                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
+                                                    onclick="document.getElementById('').click(); return false;"/>
+                                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
+                                                    onclick="document.getElementById('').click(); return false;"/>
+                                    </p:contextMenu>
                                 </p:tab>
                             </p:tabView>
                         </h:form>

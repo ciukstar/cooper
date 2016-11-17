@@ -1,0 +1,52 @@
+package edu.ciukstar.cooper.application.graph;
+
+import edu.ciukstar.cooper.application.CrudCache;
+import edu.ciukstar.cooper.application.Refresher;
+import edu.ciukstar.cooper.domain.Vertex;
+import edu.ciukstar.cooper.repo.CrudOperation;
+import java.util.Set;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
+/**
+ *
+ * @author sergiu
+ */
+@Named
+@RequestScoped
+public class VertexCache extends CrudCache<Vertex> {
+
+    @Inject
+    private Refresher refresher;
+    private CrudOperation<Vertex> crudOperation;
+    private Vertex entity;    
+
+    void refreshe(@Observes Set<Vertex> input) {
+        entity = refresher.select(input, entity).orElse(null);
+    }
+    
+    @Override
+    protected void setCrudOperation(CrudOperation<Vertex> op) {
+        this.crudOperation = op;
+        setEntity(op.getEntity());
+    }
+
+    @Override
+    protected CrudOperation<Vertex> getCrudOperation() {
+        return crudOperation;
+    }
+
+    @Override
+    public void setEntity(Vertex entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public Vertex getEntity() {
+        return this.entity;
+    }
+
+    
+}

@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "vertices")
-public class Vertex implements Serializable {
+public class Vertex implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,7 +45,16 @@ public class Vertex implements Serializable {
     private String icon;
     @Column(name = "description")
     private String description;
-    
+
+    Vertex(Graph graph) {
+        this.graph = graph;
+    }
+
+    Vertex() {
+        this(null);
+    }
+
+    @Override
     public Long getId() {
         return id;
     }
@@ -105,6 +113,11 @@ public class Vertex implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 
 }
