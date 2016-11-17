@@ -6,9 +6,6 @@
     position: fixed;
 
 }
-.commandButton.hidden {
-    display: none;
-}
 .ui-widget {
     font-size: 90%;
 }

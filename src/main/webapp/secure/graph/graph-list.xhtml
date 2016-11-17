@@ -3,17 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/default.xhtml">
-
-            <ui:define name="js">
-                <h:outputScript library="js" name="graph-list.js" />
+            <ui:define name="css">
+                <h:outputStylesheet library="css" name="hidden.css" />
             </ui:define>
-
             <ui:define name="title">
                 <h:outputText value="#{label.Graphs}" />
             </ui:define>
@@ -63,9 +60,12 @@
                                 <p:ajax event="dialogReturn" update="graphDataTable" />
                             </p:commandButton>
                             <p:contextMenu for="graphDataTable">
-                                <p:menuitem id="addNewGraphMenuitem" value="#{label.Add}" icon="fa fa-plus" />
-                                <p:menuitem id="editSelectedGraphMenuitem" value="#{label.Edit}" icon="fa fa-edit" />
-                                <p:menuitem id="deleteSelectedGraphMenuitem" value="#{label.Delete}" icon="fa fa-trash" />
+                                <p:menuitem id="addNewGraphMenuitem" value="#{label.Add}" icon="fa fa-plus" 
+                                            onclick="document.getElementById('graphListForm:addNewGraphCommandButtonHidden').click(); return false;"/>
+                                <p:menuitem id="editSelectedGraphMenuitem" value="#{label.Edit}" icon="fa fa-edit" 
+                                            onclick="document.getElementById('graphListForm:editSelectedGraphCommandButtonHidden').click(); return false;"/>
+                                <p:menuitem id="deleteSelectedGraphMenuitem" value="#{label.Delete}" icon="fa fa-trash"
+                                            onclick="document.getElementById('graphListForm:deleteSelectedGraphCommandButtonidden').click(); return false;"/>
                             </p:contextMenu>
                         </h:form>
                     </p:layoutUnit>
@@ -73,23 +73,13 @@
                         <h:form id="graphDefinitionForm">
                             <p:tabView id="graphDefinitionTabView" dynamic="true">
                                 <p:tab title="#{label.Nodes}">
-                                    <p:dataTable id="graphNodesDataTable" value="#{graphCache.entity.nodes}"
-                                                 var="n" rowKey="#{n.id}"
-                                                 selectionMode="single" selection="#{statusCache.entity}"
-                                                 emptyMessage="#{label.No_records_found}">
-                                        
-                                        <p:ajax event="rowSelect" process="@this" update="@none" />
-                                        
-                                        <f:facet name="header">
-                                            <h:outputText value="#{label.Nodes}" />                                            
-                                        </f:facet>
-                                        <p:column headerText="#{label.Code}">
-                                            <h:outputText value="#{n.code}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.The_name}">
-                                            <h:outputText value="#{n.name}" />
-                                        </p:column>
-                                    </p:dataTable>
+                                    <ui:include src="graph-nodes-data-table.xhtml">
+                                        <ui:param name="id" value="graphNodesDataTable" />
+                                        <ui:param name="data" value="#{graphCache.entity.nodes}" />
+                                        <ui:param name="selection" value="#{statusCache.entity}" />
+                                        <ui:param name="rowSelectDisabled" value="false" />
+                                        <ui:param name="onRowSelectUpdate" value="@none" />
+                                    </ui:include>
                                     <p:commandButton id="addNewGraphNodeCommandButtonHidden" class="commandButton hidden"
                                                      actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
                                                      action="#{dialog.displayInputForm('graph-node-chooser')}"
@@ -103,32 +93,20 @@
                                         <p:ajax event="dialogReturn" update="graphListForm:graphDataTable graphNodesDataTable" />
                                     </p:commandButton>
                                     <p:contextMenu for="graphNodesDataTable">
-                                        <p:menuitem id="addNewGraphNodeMenuitem" value="#{label.Add}" icon="fa fa-pencil" />
-                                        <p:menuitem id="deleteSelectedGraphNodeMenuitem" value="#{label.Delete}" icon="fa fa-trash" />
+                                        <p:menuitem id="addNewGraphNodeMenuitem" value="#{label.Add}" icon="fa fa-plus" 
+                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:addNewGraphNodeCommandButtonHidden').click(); return false;"/>
+                                        <p:menuitem id="deleteSelectedGraphNodeMenuitem" value="#{label.Delete}" icon="fa fa-trash"
+                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:deleteSelectedGraphNodeCommandButtonHidden').click(); return false;"/>
                                     </p:contextMenu>
                                 </p:tab>
                                 <p:tab title="#{label.Vertices}">
-                                    <p:dataTable id="graphVerticesDataTable" value="#{graphCache.entity.vertices}"
-                                                 var="v" rowKey="#{v.id}"
-                                                 selectionMode="single" selection="#{requestScope.graphVertex}"
-                                                 emptyMessage="#{label.No_records_found}">
-                                        
-                                        <f:facet name="header">
-                                            <h:outputText value="#{label.Vertices}" />
-                                        </f:facet>
-                                        <p:column headerText="#{label.The_name}">
-                                            <h:outputText value="#{v.label}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.Vertext_source}">
-                                            <h:outputText value="#{v.source.code}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.Vertex_target}">
-                                            <h:outputText value="#{v.target.code}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.Transition_name}">
-                                            <h:outputText value="#{v.transitionName}" />
-                                        </p:column>
-                                    </p:dataTable>
+                                    <ui:include src="graph-verticies-data-table.xhtml">
+                                        <ui:param name="id" value="graphVerticesDataTable" />
+                                        <ui:param name="data" value="#{graphCache.entity.vertices}" />
+                                        <ui:param name="selection" value="#{requestScope.graphVertex}" />
+                                        <ui:param name="rowSelectDisabled" value="false" />
+                                        <ui:param name="onRowSelectUpdate" value="@none" />
+                                    </ui:include>
                                 </p:tab>
                             </p:tabView>
                         </h:form>
