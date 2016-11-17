@@ -15,7 +15,7 @@
                         update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
 
                 <f:facet name="header">
-                    <h:outputText value="#{label.Graphs}" />
+                    <h:outputText value="#{empty tableHeader ? label.Graphs : tableHeader}" />
                 </f:facet>
                 <p:column headerText="#{label.Code}">
                     <h:outputText value="#{g.code}" />

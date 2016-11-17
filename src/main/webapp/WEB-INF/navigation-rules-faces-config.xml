@@ -4,6 +4,20 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
+        <from-view-id>/secure/graph/graph-list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>vertex-delete</from-outcome>
+            <to-view-id>/secure/graph/vertex/vertex-delete.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/graph/graph-list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>vertex-edit</from-outcome>
+            <to-view-id>/secure/graph/vertex/vertex-edit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/secure/status/status-list.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>status-edit</from-outcome>

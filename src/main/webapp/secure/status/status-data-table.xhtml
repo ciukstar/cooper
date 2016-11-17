@@ -7,13 +7,17 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{empty id ? 'statusDataTable' : id}" 
+            <p:dataTable id="#{empty id ? 'statusDataTable' : id}"
                          value="#{data}" var="s" rowKey="#{s.id}"
                          selectionMode="single" selection="#{selection}"
                          emptyMessage="#{label.No_records_found}">
 
+                <p:ajax event="rowSelect"
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled }"
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+
                 <f:facet name="header">
-                    <h:outputText value="#{label.States}" />
+                    <h:outputText value="#{empty tableHeader ? label.States : tableHeader}" />
                 </f:facet>
                 <p:column headerText="#{label.Code}">
                     <h:outputText value="#{s.code}" />

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Vertex}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Vertex}: #{vertexCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="graph" value="#{label.Graph}" />
+                        <h:panelGroup>
+                            <p:inputText id="graph" value="#{vertexCache.entity.graph.name}"
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('graph-chooser')}" />
+                                <p:ajax event="dialogReturn" update="graph" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="graph" />
+
+                        <p:outputLabel for="source" value="#{label.Vertext_source}" />
+                        <h:panelGroup>
+                            <p:inputText id="source" value="#{vertexCache.entity.source.name}"
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('source-chooser')}" />
+                                <p:ajax event="dialogReturn" update="source" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="source" />
+
+                        <p:outputLabel for="target" value="#{label.Vertex_target}" />
+                        <h:panelGroup>
+                            <p:inputText id="target" value="#{vertexCache.entity.target.name}"
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('target-chooser')}" />
+                                <p:ajax event="dialogReturn" update="target" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="target" />
+
+                        <p:outputLabel for="label" value="#{label.The_name}" />
+                        <p:inputText id="label" value="#{vertexCache.entity.label}" size="30" />
+                        <p:message for="label" />
+
+                        <p:outputLabel for="tarnsitionName" value="#{label.Transition_name}" />
+                        <p:inputText id="tarnsitionName" value="#{vertexCache.entity.tarnsitionName}" size="30" />
+                        <p:message for="tarnsitionName" />
+                        
+                        <p:outputLabel for="icon" value="#{label.Icon}" />
+                        <p:inputText id="icon" value="#{vertexCache.entity.icon}" size="30" />
+                        <p:message for="icon" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save"
+                                             process="@form" update="@form">
+                                <f:actionListener binding="#{vertexCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
+                                             process="@this" update="@none">
+                                <f:actionListener binding="#{vertexCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

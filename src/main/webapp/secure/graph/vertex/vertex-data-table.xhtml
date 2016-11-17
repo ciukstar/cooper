@@ -17,7 +17,7 @@
                         update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
                 
                 <f:facet name="header">
-                    <h:outputText value="#{label.Vertices}" />
+                    <h:outputText value="#{empty tableHeader ? label.Vertices : tableHeader}" />
                 </f:facet>
                 <p:column headerText="#{label.The_name}">
                     <h:outputText value="#{v.label}" />

@@ -9,7 +9,7 @@ import javax.enterprise.context.Dependent;
  */
 @Named
 @Dependent
-public class VertextBuilder {
+public class VertexBuilder {
 
     public Vertex emptyVertexForGraph(Graph graph) {
         return new Vertex(graph);
