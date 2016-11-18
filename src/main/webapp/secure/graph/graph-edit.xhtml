@@ -38,21 +38,20 @@
                         <h:panelGroup>
                             <p:inputText id="startNode"  size="30" readonly="true"
                                          value="#{graphCache.entity.startNode.name}" />
-                            <p:commandButton icon="fa fa-search"
-                                             actionListener="#{dialog.displayInputForm('start-node-chooser')}"
-                                             process="@this" update="@none">
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none"
+                                             actionListener="#{dialog.displayInputForm('start-node-chooser')}">
                                 <p:ajax event="dialogReturn" update="startNode" />
                             </p:commandButton>
                         </h:panelGroup>
                         <p:message for="startNode" />
 
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Save}" icon="fa fa-save" 
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save"
                                              process="@form" update="@form">
                                 <f:actionListener binding="#{graphCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
-                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" 
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
                                              process="@this" update="@none">
                                 <f:actionListener binding="#{graphCache.cancelCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
