@@ -24,7 +24,7 @@
                         </p:submenu>
                         <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
                             <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                        actionListener="#{userCache.schedule(crud.create(userBuilder.newUser(), userRepo))}"
+                                        actionListener="#{userCache.schedule(crud.create(userBuilder.newUser(graphRepo.findByCode('UserGraph').orElse(null)), userRepo))}"
                                         action="#{dialog.displayInputForm('user')}" />
                             <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
                                         action="#{dialog.displayInputForm('user')}" />
@@ -47,7 +47,7 @@
                     </ui:include>
                     <p:commandButton id="addNewUserCommandButtonHidden" class="commandButton hidden"
                                      process="@this" update="@none">
-                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newUser(), userRepo))}" />
+                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newUser(graphRepo.findByCode('UserGraph').orElse(null)), userRepo))}" />
                         <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>

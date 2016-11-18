@@ -37,14 +37,23 @@
                         <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
                         <p:inputText id="patronymic" value="#{userCache.entity.patronymic}" size="30" />
                         <p:message for="patronymic" />
-                        
+
                         <p:outputLabel for="email" value="#{label.Email}" />
-                        <p:inputText id="email" value="#{userCache.entity.email}" />
+                        <p:inputText id="email" value="#{userCache.entity.email}" size="30" />
                         <p:message for="email" />
-                        
+
                         <p:outputLabel for="phone" value="#{label.Phone}" />
-                        <p:inputText id="phone" value="#{userCache.entity.phone}" />
+                        <p:inputText id="phone" value="#{userCache.entity.phone}" size="30" />
                         <p:message for="phone" />
+
+                        <p:outputLabel for="status" value="#{label.Status}" />
+                        <h:panelGroup>
+                            <p:inputText id="status" value="#{userCache.entity.status}" size="30" />
+                            <p:commandButton icon="fa fa-search">
+
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="status" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save"
@@ -52,7 +61,7 @@
                                 <f:actionListener binding="#{userCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
-                            
+
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
                                              process="@this" update="@none">
                                 <f:actionListener binding="#{userCache.cancelCrudOperation()}" />
