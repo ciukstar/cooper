@@ -27,13 +27,12 @@ public class GraphCache extends CrudCache<Graph> implements Serializable {
     private Graph entity;
 
     void refresh(@Observes List<Graph> source) {
-        entity = refresher.select(source, entity).orElse(null);
+        entity = refresher.match(entity, source).orElse(null);
     }
     
     @Override
     protected void setCrudOperation(CrudOperation<Graph> op) {
         this.crudOperation = op;
-        setEntity(op.getEntity());
     }
 
     @Override

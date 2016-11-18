@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "users", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"username"})})
-public class User implements Serializable {
+public class User implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
 
@@ -91,6 +91,7 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -165,6 +166,11 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 
 }

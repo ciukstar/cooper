@@ -27,7 +27,7 @@ public abstract class CrudCache<T> {
     }
 
     public void cancelCrudOperation() {
-        setCrudOperation(null);
         setEntity(null);
+        setCrudOperation(null);
     }
 }

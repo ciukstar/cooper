@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
     @UniqueConstraint(columnNames = {"code"}),
     @UniqueConstraint(columnNames = {"name"})
 })
-public class Status implements Serializable {
+public class Status implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,6 +71,7 @@ public class Status implements Serializable {
         return true;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -105,6 +106,11 @@ public class Status implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
     
 }

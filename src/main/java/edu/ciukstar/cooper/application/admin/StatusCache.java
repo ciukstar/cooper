@@ -1,11 +1,15 @@
 package edu.ciukstar.cooper.application.admin;
 
 import edu.ciukstar.cooper.application.CrudCache;
+import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.domain.Status;
 import edu.ciukstar.cooper.repo.CrudOperation;
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
 /**
  *
@@ -15,8 +19,14 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class StatusCache extends CrudCache<Status> implements Serializable {
 
-    private CrudOperation op;
+    @Inject
+    private Refresher refresher;
+    private CrudOperation<Status> op;
     private Status entity;
+
+    public void refresh(@Observes List<Status> source) {
+        entity = refresher.match(entity, source).orElse(null);
+    }
 
     @Override
     protected void setCrudOperation(CrudOperation<Status> op) {
@@ -29,7 +39,7 @@ public class StatusCache extends CrudCache<Status> implements Serializable {
     }
 
     @Override
-    public void setEntity(Status entity) {        
+    public void setEntity(Status entity) {
         this.entity = entity;
     }
 
@@ -37,5 +47,5 @@ public class StatusCache extends CrudCache<Status> implements Serializable {
     public Status getEntity() {
         return entity;
     }
-    
+
 }

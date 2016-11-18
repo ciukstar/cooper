@@ -24,13 +24,12 @@ public class VertexCache extends CrudCache<Vertex> {
     private Vertex entity;    
 
     void refreshe(@Observes Set<Vertex> input) {
-        entity = refresher.select(input, entity).orElse(null);
+        entity = refresher.match(entity, input).orElse(null);
     }
     
     @Override
     protected void setCrudOperation(CrudOperation<Vertex> op) {
         this.crudOperation = op;
-        setEntity(op.getEntity());
     }
 
     @Override

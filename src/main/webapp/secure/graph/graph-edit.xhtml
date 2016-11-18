@@ -47,11 +47,16 @@
                         <p:message for="startNode" />
 
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Save}" icon="fa fa-save"
-                                             actionListener="#{graphCache.executeCrudOperation()}"
-                                             action="#{dialog.dispose()}" process="@form" update="@form" />
-                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
-                                             actionListener="#{dialog.dispose()}" process="@this" update="@none" />
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" 
+                                             process="@form" update="@form">
+                                <f:actionListener binding="#{graphCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" 
+                                             process="@this" update="@none">
+                                <f:actionListener binding="#{graphCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>

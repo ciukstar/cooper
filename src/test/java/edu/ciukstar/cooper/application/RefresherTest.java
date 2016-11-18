@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Mockito.mock;
@@ -45,7 +46,7 @@ public class RefresherTest {
         when(current.getCode()).thenReturn(code);
         when(current.isNew()).thenReturn(Boolean.TRUE);
         
-        Optional<Graph> result = refresher.select(asList(other, fresh), current);
+        Optional<Graph> result = refresher.match(current, asList(other, fresh));
         
         assertThat(result, is(Optional.of(current)));
     }
@@ -55,7 +56,7 @@ public class RefresherTest {
         final Persistable<?> current = mock(Persistable.class);
         when(current.isNew()).thenReturn(Boolean.FALSE);
         
-        Optional<Persistable<?>> result = refresher.select(Collections.EMPTY_LIST, current);
+        Optional<Persistable<?>> result = refresher.match(current, Collections.EMPTY_LIST);
         
         assertThat(result, is(Optional.empty()));
     }
@@ -66,7 +67,7 @@ public class RefresherTest {
         final Graph fresh = Graph.code(current.getCode()).nameAsCode().noDescription().get();
         final Graph other = mock(Graph.class);
         
-        Optional<Graph> result = refresher.select(asList(other, fresh), current);
+        Optional<Graph> result = refresher.match(current, asList(other, fresh));
         
         assertThat(result, is(Optional.of(fresh)));
     }

@@ -40,15 +40,15 @@
                                 <ui:param name="onRowSelectUpdate" value="graphDefinitionForm" />                                
                             </ui:include>
                             <p:commandButton id="addNewGraphCommandButtonHidden" class="commandButton hidden"
-                                             actionListener="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}"
-                                             action="#{dialog.displayInputForm('graph-edit')}"
                                              process="@this" update="@none">
+                                <f:actionListener binding="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
                                 <p:ajax event="dialogReturn" update="graphDataTable" />
                             </p:commandButton>
                             <p:commandButton id="editSelectedGraphCommandButtonHidden" class="commandButton hidden"
-                                             actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
-                                             action="#{dialog.displayInputForm('graph-edit')}"
                                              process="@this graphDataTable" update="@none">
+                                <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
                                 <p:ajax event="dialogReturn" update="graphDataTable" />
                             </p:commandButton>
                             <p:commandButton id="deleteSelectedGraphCommandButtonidden" class="commandButton hidden"

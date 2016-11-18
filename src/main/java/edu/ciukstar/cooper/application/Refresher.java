@@ -14,10 +14,14 @@ import javax.inject.Named;
 @Named
 @Dependent
 public class Refresher implements Serializable {
-    public <E extends Persistable<?>> Optional<E> select(Collection<E> candidates, E current) {
+
+    public <E extends Persistable<?>> Optional<E> match(E current, Collection<E> candidates) {
+        if (current == null) {
+            return candidates.stream().findFirst();
+        }
         if (current != null && current.isNew()) {
             return Optional.of(current);
         }
-        return candidates.stream().filter(g -> g.equals(current)).findAny();
+        return candidates.stream().filter(e -> e.getId().equals(current.getId())).findAny();
     }
 }
