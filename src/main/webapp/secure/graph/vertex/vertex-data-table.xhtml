@@ -7,8 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}"
-                         var="v" rowKey="#{v.id}"
+            <p:dataTable id="#{id}" value="#{data}" var="v" rowKey="#{v.id}"
                          selectionMode="single" selection="#{selection}"
                          emptyMessage="#{label.No_records_found}">
 

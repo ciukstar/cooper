@@ -4,9 +4,10 @@ import edu.ciukstar.cooper.application.CrudCache;
 import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.domain.Vertex;
 import edu.ciukstar.cooper.repo.CrudOperation;
+import java.io.Serializable;
 import java.util.Set;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -15,8 +16,8 @@ import javax.inject.Inject;
  * @author sergiu
  */
 @Named
-@RequestScoped
-public class VertexCache extends CrudCache<Vertex> {
+@SessionScoped
+public class VertexCache extends CrudCache<Vertex> implements Serializable {
 
     @Inject
     private Refresher refresher;
