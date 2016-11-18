@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 @Dependent
 public class UserBuilder {
-    public User emptyUser() {
+    public User newUser() {
         return new User();
     }
 }

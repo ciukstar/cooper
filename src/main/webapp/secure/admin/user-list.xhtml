@@ -24,7 +24,7 @@
                         </p:submenu>
                         <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
                             <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                        actionListener="#{userCache.schedule(crud.create(userBuilder.emptyUser(), userRepo))}"
+                                        actionListener="#{userCache.schedule(crud.create(userBuilder.newUser(), userRepo))}"
                                         action="#{dialog.displayInputForm('user')}" />
                             <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
                                         action="#{dialog.displayInputForm('user')}" />
@@ -45,21 +45,22 @@
                         <ui:param name="onRowSelectUpdate" value="@none" />
                         <ui:param name="tableHeader" value="#{label.Users}" />
                     </ui:include>
-                    <p:commandButton id="addNewUserCommandButtonHidden" style="display: none"
-                                     actionListener="#{userCache.schedule(crud.create(userBuilder.emptyUser(), userRepo))}"
-                                     action="#{dialog.displayInputForm('user-edit')}"
+                    <p:commandButton id="addNewUserCommandButtonHidden" class="commandButton hidden"
                                      process="@this" update="@none">
+                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newUser(), userRepo))}" />
+                        <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>
-                    <p:commandButton id="editSelectedUserCommandButtonHidden" style="display: none"
-                                     actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
-                                     action="#{dialog.displayInputForm('user-edit')}"
-                                     process="userDataTable @this" update="@none">
+                    <p:commandButton id="editSelectedUserCommandButtonHidden" class="commandButton hidden"
+                                     process="@this" update="@none">
+                        <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
+                        <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>
-                    <p:commandButton id="removeSelectedUserCommandButtonHidden" style="display: none"
-                                     actionListener="#{userCache.schedule(crud.delete(userCache.entity, userRepo))}"
-                                     action="#{dialog.displayConfirmationDialog('user-delete')}">
+                    <p:commandButton id="removeSelectedUserCommandButtonHidden" class="commandButton hidden"
+                                     process="@this" update="@none">
+                        <f:actionListener binding="#{userCache.schedule(crud.delete(userCache.entity, userRepo))}" />
+                        <f:actionListener binding="#{dialog.displayConfirmationDialog('user-delete')}" />
                         <p:ajax event="dialogReturn" update="userDataTable" />
                     </p:commandButton>
                     <p:contextMenu for="userDataTable">

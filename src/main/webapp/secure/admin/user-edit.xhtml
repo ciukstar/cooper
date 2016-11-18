@@ -15,47 +15,49 @@
                     <p:messages autoUpdate="true" closable="true" showDetail="true" />
                     <p:panelGrid columns="3">
                         <f:facet name="header">
-                            <h:outputText value="#{label.User}: #{userCache.user.id}" />
+                            <h:outputText value="#{label.User}: #{userCache.entity.id}" />
                         </f:facet>
 
                         <p:outputLabel for="username" value="#{label.Username}" />
-                        <p:inputText id="username" value="#{userCache.user.username}" size="30" />
+                        <p:inputText id="username" value="#{userCache.entity.username}" size="30" />
                         <p:message for="username" />
 
                         <p:outputLabel for="password" value="#{label.Password}" />
-                        <p:password id="password" value="#{userCache.user.password}" size="30" />
+                        <p:password id="password" value="#{userCache.entity.password}" size="30" />
                         <p:message for="password" />
 
                         <p:outputLabel for="surname" value="#{label.Surname}" />
-                        <p:inputText id="surname" value="#{userCache.user.surname}" size="30" />
+                        <p:inputText id="surname" value="#{userCache.entity.surname}" size="30" />
                         <p:message for="surname" />
 
                         <p:outputLabel for="name" value="#{label.Name}" />
-                        <p:inputText id="name" value="#{userCache.user.name}" size="30" />
+                        <p:inputText id="name" value="#{userCache.entity.name}" size="30" />
                         <p:message for="name" />
 
                         <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
-                        <p:inputText id="patronymic" value="#{userCache.user.patronymic}" size="30" />
+                        <p:inputText id="patronymic" value="#{userCache.entity.patronymic}" size="30" />
                         <p:message for="patronymic" />
                         
                         <p:outputLabel for="email" value="#{label.Email}" />
-                        <p:inputText id="email" value="#{userCache.user.email}" />
+                        <p:inputText id="email" value="#{userCache.entity.email}" />
                         <p:message for="email" />
                         
                         <p:outputLabel for="phone" value="#{label.Phone}" />
-                        <p:inputText id="phone" value="#{userCache.user.phone}" />
+                        <p:inputText id="phone" value="#{userCache.entity.phone}" />
                         <p:message for="phone" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save"
-                                             actionListener="#{userCache.performCrud()}"
-                                             action="#{dialog.dispose()}"
-                                             process="@form" update="@form"/>
+                                             process="@form" update="@form">
+                                <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
                             
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"
-                                             actionListener="#{userCache.cancelCrud()}"
-                                             action="#{dialog.dispose()}" 
-                                             process="@this" update="@none"/>
+                                             process="@this" update="@none">
+                                <f:actionListener binding="#{userCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
