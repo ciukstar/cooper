@@ -49,18 +49,7 @@ public class RefresherTest {
         
         assertThat(result, is(Optional.of(current)));
     }
-    
-    @Test
-    public void shouldReturnAnEmptyResultIfUnknoownElementPased() {
-        final Graph current = null;
-        final Graph fresh = Graph.code("g1").name("G1").description("D1").get();
-        final Graph other = mock(Graph.class);
         
-        Optional<Graph> result = refresher.select(asList(other, fresh), current);
-        
-        assertThat(result, anyOf(is(Optional.of(fresh)), is(Optional.of(other))));
-    }
-    
     @Test
     public void shouldReturnAnEmptyResultIfNoElementsToChooseFrom() {
         final Persistable<?> current = mock(Persistable.class);

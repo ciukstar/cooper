@@ -41,15 +41,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/status/graph-list.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>status-list</from-outcome>
-            <to-view-id>/secure/status/status-list.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/secure/admin/user-list.xhtml</from-view-id>
+        <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>status-list</from-outcome>
             <to-view-id>/secure/status/status-list.xhtml</to-view-id>

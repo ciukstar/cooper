@@ -40,9 +40,9 @@
                         <ui:param name="selection" value="#{statusCache.entity}" />
                     </ui:include>
                     <p:commandButton id="addNewStatusCommandButtonHidden" class="commandButton hidden"
-                                    actionListener="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}"
-                                    action="#{dialog.displayInputForm('status-edit')}"
                                     process="@this" update="@none">
+                        <f:actionListener binding="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}" />
+                        <f:actionListener binding="#{dialog.displayInputForm('status-edit')}" />
                         <p:ajax event="dialogReturn" update="statusDataTable" />
                     </p:commandButton>
                     <p:commandButton id="editSelectedStatusCommandButtonHidden" class="commandButton hidden"

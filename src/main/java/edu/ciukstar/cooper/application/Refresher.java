@@ -15,10 +15,7 @@ import javax.inject.Named;
 @Dependent
 public class Refresher implements Serializable {
     public <E extends Persistable<?>> Optional<E> select(Collection<E> candidates, E current) {
-        if (current == null) {
-            return candidates.stream().findAny();
-        }
-        if (current.isNew()) {
+        if (current != null && current.isNew()) {
             return Optional.of(current);
         }
         return candidates.stream().filter(g -> g.equals(current)).findAny();
