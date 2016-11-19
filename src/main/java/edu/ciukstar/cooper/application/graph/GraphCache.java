@@ -1,4 +1,4 @@
-package edu.ciukstar.cooper.application.admin;
+package edu.ciukstar.cooper.application.graph;
 
 import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.application.CrudCache;
