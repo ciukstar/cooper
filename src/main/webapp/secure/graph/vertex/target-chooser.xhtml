@@ -19,7 +19,7 @@
                     <p:panel>
                         <ui:include src="../../status/status-data-table.xhtml">
                             <ui:param name="id" value="vertextSourceDataTable" />
-                            <ui:param name="data" value="#{vertexCache.entity.graph.nodes}" />
+                            <ui:param name="data" value="#{edgeCache.entity.graph.nodes}" />
                             <ui:param name="selection" value="#{requestScope.vartexTarget}" />
                             <ui:param name="rowSelectDisabled" value="true" />
                             <ui:param name="header" value="#{label.Nodes}" />
@@ -27,7 +27,7 @@
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-check"
                                              process="@form" update="@none">
-                                <f:actionListener binding="#{vertexCache.entity.setTarget(requestScope.vartexTarget)}" />
+                                <f:actionListener binding="#{edgeCache.entity.setTarget(requestScope.vartexTarget)}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"

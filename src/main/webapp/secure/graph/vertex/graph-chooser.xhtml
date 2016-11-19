@@ -27,7 +27,7 @@
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Select}" icon="fa fa-check"
                                              process="@form" update="@none">
-                                <f:actionListener binding="#{vertexCache.entity.setGraph(requestScope.vertexGraph)}" />
+                                <f:actionListener binding="#{edgeCache.entity.setGraph(requestScope.vertexGraph)}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban"

@@ -15,18 +15,18 @@
             </ui:define>
 
             <ui:define name="header">
-                <h:outputText value="#{label.Vertex}: #{vertexCache.entity.id}" />
+                <h:outputText value="#{label.Vertex}: #{edgeCache.entity.id}" />
             </ui:define>
             
             <ui:define name="actions">
                 <p:commandButton value="#{label.Yes}" icon="fa fa-check"
                                  process="@form" update="@form">
-                    <f:actionListener binding="#{vertexCache.executeCrudOperation()}" />
+                    <f:actionListener binding="#{edgeCache.executeCrudOperation()}" />
                     <f:actionListener binding="#{dialog.dispose()}" />
                 </p:commandButton>
                 <p:commandButton value="#{label.No}" icon="fa fa-ban"
                                  process="@this" update="@none">
-                    <f:actionListener binding="#{vertexCache.cancelCrudOperation()}" />
+                    <f:actionListener binding="#{edgeCache.cancelCrudOperation()}" />
                     <f:actionListener binding="#{dialog.dispose()}" />
                 </p:commandButton> 
             </ui:define>

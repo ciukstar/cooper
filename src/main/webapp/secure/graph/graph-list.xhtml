@@ -114,13 +114,13 @@
                                     </p:commandButton>
                                     <p:commandButton id="editSelectedGraphVertexButtonHidden" class="commandButton hidden"
                                                      process="@this" update="@none">
-                                        <f:actionListener binding="#{vertexCache.schedule(crud.update(vertexCache.entity, edgeRepo))}" />
+                                        <f:actionListener binding="#{edgeCache.schedule(crud.update(edgeCache.entity, edgeRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('vertex-edit')}" />
                                         <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
                                     </p:commandButton>
                                     <p:commandButton id="deleteSelectedGraphVertexButtonHidden" class="commandButton hidden"
                                                      process="@this" update="@none">
-                                        <f:actionListener binding="#{vertexCache.schedule(crud.delete(vertexCache.entity, edgeRepo))}" />
+                                        <f:actionListener binding="#{edgeCache.schedule(crud.delete(edgeCache.entity, edgeRepo))}" />
                                         <f:actionListener binding="#{dialog.displayConfirmationDialog('vertex-delete')}" />
                                         <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
                                     </p:commandButton>

@@ -17,7 +17,7 @@ import javax.inject.Inject;
  */
 @Named
 @SessionScoped
-public class VertexCache extends CrudCache<Edge> implements Serializable {
+public class EdgeCache extends CrudCache<Edge> implements Serializable {
 
     @Inject
     private Refresher refresher;
