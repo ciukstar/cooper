@@ -30,37 +30,46 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form>
-                    <p:toolbar id="roleToolbar">
-                        <f:facet name="left">
-                            <h:outputText value="#{label.Roles}" />
-                        </f:facet>
-                        <f:facet name="right">
-                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                <f:actionListener binding="#{roleCache.schedule(crud.create(roleBuilder.emptyRole(), roleRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('role-edit')}" />
-                                <p:ajax event="dialogReturn" update="roleDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
-                                <f:actionListener binding="#{roleCache.schedule(crud.update(roleCache.entity, roleRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('role-edit')}" />
-                                <p:ajax event="dialogReturn" update="roleDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                <f:actionListener binding="#{roleCache.schedule(crud.delete(roleCache.entity, roleRepo))}" />
-                                <f:actionListener binding="#{dialog.displayConfirmationDialog('role-delete')}" />
-                                <p:ajax event="dialogReturn" update="roleDataTable" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:toolbar>
-                    <ui:include src="role-data-table.xhtml">
-                        <ui:param name="id" value="roleDataTable" />
-                        <ui:param name="data" value="#{roleRepo.findAll()}" />
-                        <ui:param name="selection" value="#{roleCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="false" />
-                        <ui:param name="onRowSelectUpdate" value="@form" />
-                    </ui:include>
-                </h:form>
+                <p:layout fullPage="false" resizeTitle="#{label.Resize}" >
+                    <p:layoutUnit position="center" resizable="true">
+                        <h:form id="roleForm">
+                            <p:toolbar id="roleToolbar">
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Roles}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{roleCache.schedule(crud.create(roleBuilder.emptyRole(), roleRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('role-edit')}" />
+                                        <p:ajax event="dialogReturn" update="roleDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{roleCache.schedule(crud.update(roleCache.entity, roleRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('role-edit')}" />
+                                        <p:ajax event="dialogReturn" update="roleDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{roleCache.schedule(crud.delete(roleCache.entity, roleRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('role-delete')}" />
+                                        <p:ajax event="dialogReturn" update="roleDataTable" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="role-data-table.xhtml">
+                                <ui:param name="id" value="roleDataTable" />
+                                <ui:param name="data" value="#{roleRepo.findAll()}" />
+                                <ui:param name="selection" value="#{roleCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectUpdate" value="@form" />
+                            </ui:include>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="50%" resizable="true">
+                        <h:form id="authorizationForm">
+                            <p:dataTable />
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>                
             </ui:define>
 
         </ui:composition>
