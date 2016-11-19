@@ -36,45 +36,79 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form id="userDataTableForm">
-                    <p:toolbar id="userAccountToolbar">
-                        <f:facet name="left">
-                            <h:outputText value="#{label.Users}" />
-                        </f:facet>
-                        <f:facet name="right">
-                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newEmptyUser(), userRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
-                                <p:ajax event="dialogReturn" update="userDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
-                                <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
-                                <p:ajax event="dialogReturn" update="userDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                <f:actionListener binding="#{userCache.schedule(crud.delete(userCache.entity, userRepo))}" />
-                                <f:actionListener binding="#{dialog.displayConfirmationDialog('user-delete')}" />
-                                <p:ajax event="dialogReturn" update="userDataTable" />
-                            </p:commandButton>
-                            <ui:repeat value="#{userCache.entity.outEdges.toArray()}" var="e">
-                                <p:commandButton value="#{e.transitionName}" icon="#{e.icon}"
-                                                 actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
-                                                 process="@this" update="@form">
-                                    <f:actionListener binding="#{userCache.entity.transition(e)}" />
-                                    <f:actionListener binding="#{userCache.executeCrudOperation()}" />
-                                </p:commandButton>
-                            </ui:repeat>
-                        </f:facet>
-                    </p:toolbar>
-                    <ui:include src="user-data-table.xhtml">
-                        <ui:param name="id" value="userDataTable" />
-                        <ui:param name="data" value="#{userRepo.findAll()}" />
-                        <ui:param name="selection" value="#{userCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="false" />
-                        <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
-                    </ui:include>                    
-                </h:form>
+
+                <p:layout fullPage="false" resizeTitle="#{label.Resize}">
+                    <p:layoutUnit position="center" resizable="true">
+                        <h:form id="userDataTableForm">
+                            <p:toolbar id="userAccountToolbar">
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Users}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newEmptyUser(), userRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
+                                        <p:ajax event="dialogReturn" update="userDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
+                                        <p:ajax event="dialogReturn" update="userDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{userCache.schedule(crud.delete(userCache.entity, userRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('user-delete')}" />
+                                        <p:ajax event="dialogReturn" update="userDataTable" />
+                                    </p:commandButton>
+                                    <ui:repeat value="#{userCache.entity.outEdges.toArray()}" var="e">
+                                        <p:commandButton value="#{e.transitionName}" icon="#{e.icon}"
+                                                         actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
+                                                         process="@this" update="@form">
+                                            <f:actionListener binding="#{userCache.entity.transition(e)}" />
+                                            <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                        </p:commandButton>
+                                    </ui:repeat>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="user-data-table.xhtml">
+                                <ui:param name="id" value="userDataTable" />
+                                <ui:param name="data" value="#{userRepo.findAll()}" />
+                                <ui:param name="selection" value="#{userCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
+                            </ui:include>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="50%" resizable="true">
+                        <h:form id="authorizationForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Roles}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('role-chooser')}" />
+                                        <p:ajax event="dialogReturn" update="userRoleDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash"
+                                                     process="@this userRoleDataTable" update="userRoleDataTable">
+                                        <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
+                                        <f:actionListener binding="#{userCache.entity.removeRole(requestScope.userRole)}" />
+                                        <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="role-data-table.xhtml">
+                                <ui:param name="id" value="userRoleDataTable" />
+                                <ui:param name="data" value="#{userCache.entity.roles}" />
+                                <ui:param name="selection" value="#{requestScope.userRole}" />
+                                <ui:param name="rowSelectDisabled" value="true" />
+                            </ui:include>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+
             </ui:define>
         </ui:composition>
 

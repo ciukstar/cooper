@@ -1,8 +1,9 @@
 package edu.ciukstar.cooper.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Predicate;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -44,7 +47,7 @@ public class User implements Persistable<Long>, StatusTrackable {
     @ManyToOne
     @JoinColumn(name = "status", referencedColumnName = "id", nullable = false)
     private Status status;
-    
+
     @ManyToOne
     @JoinColumn(name = "status_graph", referencedColumnName = "id", nullable = false)
     private Graph statusGraph;
@@ -52,12 +55,21 @@ public class User implements Persistable<Long>, StatusTrackable {
     @Email(message = "{Invalid_email_address}")
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "phone")
     private String phone;
-    
+
     @Lob
     private byte[] photo;
+
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = {
+                @JoinColumn(name = "userid")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "roleid")}, uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"userid", "roleid"})})
+    private List<Role> roles;
 
     public User() {
         this.fullName = FullName.empty();
@@ -68,15 +80,15 @@ public class User implements Persistable<Long>, StatusTrackable {
             setStatus(statusGraph.getStartNode());
         }
     }
-    
+
     public Set<Edge> getOutEdges() {
         return statusGraph.getOutEdges(this);
     }
-    
+
     public void transition(Edge edge) {
         statusGraph.transition(this, edge);
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -168,6 +180,7 @@ public class User implements Persistable<Long>, StatusTrackable {
         return status;
     }
 
+    @Override
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -196,6 +209,18 @@ public class User implements Persistable<Long>, StatusTrackable {
         this.phone = phone;
     }
 
+    public List<Role> getRoles() {
+        return new ArrayList<>(roles);
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
+    
     @Override
     public boolean isNew() {
         return null == getId();
