@@ -39,6 +39,9 @@
                 <h:form id="userDataTableForm">
                     <p:toolbar id="userAccountToolbar">
                         <f:facet name="left">
+                            <h:outputText value="#{label.Users}" />
+                        </f:facet>
+                        <f:facet name="right">
                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                 <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newEmptyUser(), userRepo))}" />
                                 <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
@@ -54,8 +57,6 @@
                                 <f:actionListener binding="#{dialog.displayConfirmationDialog('user-delete')}" />
                                 <p:ajax event="dialogReturn" update="userDataTable" />
                             </p:commandButton>
-                        </f:facet>
-                        <f:facet name="right">
                             <ui:repeat value="#{userCache.entity.outEdges.toArray()}" var="e">
                                 <p:commandButton value="#{e.transitionName}" icon="#{e.icon}"
                                                  actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
@@ -72,7 +73,6 @@
                         <ui:param name="selection" value="#{userCache.entity}" />
                         <ui:param name="rowSelectDisabled" value="false" />
                         <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
-                        <ui:param name="tableHeader" value="#{label.Users}" />
                     </ui:include>                    
                 </h:form>
             </ui:define>
