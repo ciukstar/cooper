@@ -37,14 +37,6 @@
 
             <ui:define name="center">
                 <h:form id="userDataTableForm">
-                    <ui:include src="user-data-table.xhtml">
-                        <ui:param name="id" value="userDataTable" />
-                        <ui:param name="data" value="#{userRepo.findAll()}" />
-                        <ui:param name="selection" value="#{userCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="false" />
-                        <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
-                        <ui:param name="tableHeader" value="#{label.Users}" />
-                    </ui:include>
                     <p:toolbar id="userAccountToolbar">
                         <f:facet name="left">
                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
@@ -74,6 +66,14 @@
                             </ui:repeat>
                         </f:facet>
                     </p:toolbar>
+                    <ui:include src="user-data-table.xhtml">
+                        <ui:param name="id" value="userDataTable" />
+                        <ui:param name="data" value="#{userRepo.findAll()}" />
+                        <ui:param name="selection" value="#{userCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                        <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
+                        <ui:param name="tableHeader" value="#{label.Users}" />
+                    </ui:include>                    
                 </h:form>
             </ui:define>
         </ui:composition>
