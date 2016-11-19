@@ -11,6 +11,10 @@ import javax.inject.Named;
 @Dependent
 public class UserBuilder {
     
+    public User newEmptyUser() {
+        return new User();
+    }
+    
     public User newUser(Graph graph) {
         return newUser(graph.getStartNode());
     }

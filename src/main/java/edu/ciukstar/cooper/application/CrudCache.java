@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.application;
 
+import edu.ciukstar.cooper.repo.CreateOperation;
 import edu.ciukstar.cooper.repo.CrudOperation;
 
 /**
@@ -27,7 +28,9 @@ public abstract class CrudCache<T> {
     }
 
     public void cancelCrudOperation() {
-        setEntity(null);
+        if (getCrudOperation() instanceof CreateOperation<?>) {
+            setEntity(null);
+        }
         setCrudOperation(null);
     }
 }

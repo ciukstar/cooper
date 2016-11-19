@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,10 +62,10 @@ public class Graph implements Persistable<Long>, Serializable {
     )
     private Set<Status> nodes;
     @OneToMany(mappedBy = "graph")
-    private Set<Vertex> vertices;
+    private Set<Edge> edges;
 
     public Graph() {
-        this.vertices = new HashSet<>();
+        this.edges = new HashSet<>();
         this.nodes = new HashSet<>();
     }
 
@@ -139,8 +140,8 @@ public class Graph implements Persistable<Long>, Serializable {
         return new HashSet<>(nodes);
     }
 
-    public Set<Vertex> getVertices() {
-        return new HashSet<>(vertices);
+    public Set<Edge> getEdges() {
+        return new HashSet<>(edges);
     }
 
     public void addNode(Status node) {
@@ -154,6 +155,24 @@ public class Graph implements Persistable<Long>, Serializable {
     @Override
     public boolean isNew() {
         return null == getId();
+    }
+
+    public void transition(StatusTrackable entity, Edge edge) {
+        if (!edge.getSource().equals(entity.getStatus())) {
+            throw new IllegalStateException(entity.getStatus().toString());
+        }
+        entity.setStatus(edge.getTarget());
+    }
+
+    public Set<Edge> getOutEdges(StatusTrackable entity) {
+        return getEdges().stream().filter(e -> e.getSource().equals(entity.getStatus()))
+                .collect(Collectors.toSet());
+    }
+
+    public Graph addEdge(Edge edge) {
+        this.edges.add(edge);
+        edge.setGraph(this);
+        return this;
     }
 
 }

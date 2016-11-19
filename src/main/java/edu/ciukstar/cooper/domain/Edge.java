@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +17,13 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "vertices")
-public class Vertex implements Persistable<Long> {
+@Table(name = "edges")
+public class Edge implements Persistable<Long> {
 
+    public static EdgeBuilder.TargetStep source(Status s) {
+        return EdgeBuilder.source(s);
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,13 +51,48 @@ public class Vertex implements Persistable<Long> {
     @Column(name = "description")
     private String description;
 
-    Vertex(Graph graph) {
+    Edge(Graph graph) {
         this.graph = graph;
     }
 
-    Vertex() {
+    public Edge() {
         this(null);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.graph);
+        hash = 83 * hash + Objects.hashCode(this.source);
+        hash = 83 * hash + Objects.hashCode(this.target);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Edge other = (Edge) obj;
+        if (!Objects.equals(this.graph, other.graph)) {
+            return false;
+        }
+        if (!Objects.equals(this.source, other.source)) {
+            return false;
+        }
+        if (!Objects.equals(this.target, other.target)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     @Override
     public Long getId() {

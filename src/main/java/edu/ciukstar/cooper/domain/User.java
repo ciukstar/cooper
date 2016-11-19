@@ -1,7 +1,8 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "users", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"username"})})
-public class User implements Persistable<Long> {
+public class User implements Persistable<Long>, StatusTrackable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,6 +44,10 @@ public class User implements Persistable<Long> {
     @ManyToOne
     @JoinColumn(name = "status", referencedColumnName = "id", nullable = false)
     private Status status;
+    
+    @ManyToOne
+    @JoinColumn(name = "status_graph", referencedColumnName = "id", nullable = false)
+    private Graph statusGraph;
 
     @Email(message = "{Invalid_email_address}")
     @Column(name = "email")
@@ -58,6 +63,20 @@ public class User implements Persistable<Long> {
         this.fullName = FullName.empty();
     }
 
+    public void initStatusIf(Boolean predicate) {
+        if (predicate) {
+            setStatus(statusGraph.getStartNode());
+        }
+    }
+    
+    public Set<Edge> getOutEdges() {
+        return statusGraph.getOutEdges(this);
+    }
+    
+    public void transition(Edge edge) {
+        statusGraph.transition(this, edge);
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -144,12 +163,21 @@ public class User implements Persistable<Long> {
         this.photo = photo;
     }
 
+    @Override
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Graph getStatusGraph() {
+        return statusGraph;
+    }
+
+    public void setStatusGraph(Graph statusGraph) {
+        this.statusGraph = statusGraph;
     }
 
     public String getEmail() {
