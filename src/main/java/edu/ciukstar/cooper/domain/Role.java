@@ -1,14 +1,17 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -19,59 +22,33 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "roles", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"code"})
     ,@UniqueConstraint(columnNames = {"name"})})
-public class Role implements Serializable {
+public class Role implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "{Code_may_not_be_blank}")
-    private String code;
-
     @NotBlank(message = "{Name_may_not_be_blank}")
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull(message = "{Type_may_not_be_null}")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private RoleType type;
+    
+    @Column(name = "description")
     private String description;
 
     @Lob
     private byte[] image;
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.code);
-        return hash;
-    }
+    
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Role other = (Role) obj;
-        if (!Objects.equals(this.code, other.code)) {
-            return false;
-        }
-        return true;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -80,6 +57,14 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public RoleType getType() {
+        return type;
+    }
+
+    public void setType(RoleType type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -96,5 +81,10 @@ public class Role implements Serializable {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 }
