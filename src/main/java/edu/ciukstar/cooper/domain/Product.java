@@ -105,11 +105,11 @@ public class Product implements Serializable {
         this.photo = photo;
     }
 
-    public Vender getVender() {
+    public Manufacturer getVender() {
         return vender;
     }
 
-    public void setVender(Vender vender) {
+    public void setVender(Manufacturer vender) {
         this.vender = vender;
     }
 
@@ -133,5 +133,5 @@ public class Product implements Serializable {
     private byte[] photo;
     @ManyToOne
     @JoinColumn(name = "vender", referencedColumnName = "id")
-    private Vender vender;
+    private Manufacturer vender;
 }

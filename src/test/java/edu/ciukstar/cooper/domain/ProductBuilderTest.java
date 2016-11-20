@@ -25,7 +25,7 @@ public class ProductBuilderTest {
 
     private Validator validator;
     
-    private final Vender vender = mock(Vender.class);
+    private final Manufacturer vender = mock(Manufacturer.class);
     private final String photo = "rawdata";
     private final BigDecimal price = BigDecimal.ONE;
     private final String description = "A Description";

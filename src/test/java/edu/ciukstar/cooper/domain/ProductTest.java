@@ -42,7 +42,7 @@ public class ProductTest {
         assertThat(newProduct.getVender(), is(vender));
         
     }
-    private final Vender vender = mock(Vender.class);
+    private final Manufacturer vender = mock(Manufacturer.class);
     private final BigDecimal price = BigDecimal.ONE;
     private final String description = "A Description";
     private final String name = "The Name";

@@ -35,7 +35,7 @@ public class ProductBuilder {
     }
 
     public interface VenderStep {
-        BuildStep vender(Vender vender);
+        BuildStep vender(Manufacturer vender);
         BuildStep noVender();
     }
 
@@ -50,7 +50,7 @@ public class ProductBuilder {
         private String description;
         private BigDecimal price;
         private byte[] photo;
-        private Vender vender;
+        private Manufacturer vender;
 
         @Override
         public NameStep code(String value) {
@@ -95,7 +95,7 @@ public class ProductBuilder {
         }
 
         @Override
-        public BuildStep vender(Vender vender) {
+        public BuildStep vender(Manufacturer vender) {
             this.vender = vender;
             return this;
         }
