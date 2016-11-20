@@ -5,7 +5,7 @@
     font-size: 100%;
 }
 .ui-layout-north, .ui-layout-north .ui-layout-unit-content {
-    z-index: 2000 !important;
+    z-index: 20 !important;
     overflow: visible !important;
 }
 .global-ajax-status {
