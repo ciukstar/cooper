@@ -1,18 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
-        <ui:composition template="./../../../WEB-INF/templates/dialog.xhtml">
+        <ui:composition template="/WEB-INF/templates/dialog.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Roles}" />
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h:form>
+                    <p:panel>
+                        <ui:include src="../role/role-data-table.xhtml">
+                            <ui:param name="id" value="roleDataTable" />
+                            <ui:param name="data" value="#{roleRepo.findAll()}" />
+                            <ui:param name="selection" value="#{requestScope.selectedRole}" />
+                            <ui:param name="rowSelectDisabled" value="true" />
+                            <ui:param name="tableHeader" value="#{label.Roles}" />
+                        </ui:include>
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@none">
+                                <f:actionListener binding="#{resourceCache.entity.setRole(requestScope.selectedRole)}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
             </ui:define>
 
         </ui:composition>

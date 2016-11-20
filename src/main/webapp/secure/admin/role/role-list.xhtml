@@ -74,12 +74,12 @@
                                 <f:facet name="right">
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{resourceCache.schedule(crud.create(resourceBuilder.newResourceFor(roleCache.entity), resourceRepo))}" />
-                                        <f:actionListener binding="#{dialog.displayInputForm('edit-resource')}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('resource-edit')}" />
                                         <p:ajax event="dialogReturn" update="@form" />
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
                                         <f:actionListener binding="#{resourceCache.schedule(crud.update(resourceCache.entity, resourceRepo))}" />
-                                        <f:actionListener binding="#{dialog.displayInputForm('edit-resource')}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('resource-edit')}" />
                                         <p:ajax event="dialogReturn" update="@form" />
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
