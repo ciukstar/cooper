@@ -4,19 +4,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="g" rowKey="#{g.id}"
                          selectionMode="single" selection="#{selection}"
+                         resizableColumns="true"
                          emptyMessage="#{label.No_records_found}">
 
-                <p:ajax event="rowSelect"  disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
+                <p:ajax event="rowSelect"  
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
                         update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
 
-                <f:facet name="header">
-                    <h:outputText value="#{empty tableHeader ? label.Graphs : tableHeader}" />
-                </f:facet>
+                <c:if test="#{not empty tableHeader}">
+                    <f:facet name="header">
+                        <h:outputText value="#{tableHeader}" />
+                    </f:facet>
+                </c:if>
                 <p:column headerText="#{label.Code}">
                     <h:outputText value="#{g.code}" />
                 </p:column>

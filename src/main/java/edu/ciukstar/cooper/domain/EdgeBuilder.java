@@ -11,7 +11,7 @@ import javax.inject.Named;
 @Dependent
 public class EdgeBuilder {
 
-    public Edge emptyVertexForGraph(Graph graph) {
+    public Edge emptyEdgeForGraph(Graph graph) {
         return new Edge(graph);
     }
 

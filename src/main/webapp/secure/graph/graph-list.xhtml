@@ -32,45 +32,58 @@
                 <p:layout fullPage="false">
                     <p:layoutUnit position="center">
                         <h:form id="graphListForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Graphs}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@form" update="@none">
+                                        <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@form" update="@none">
+                                        <f:actionListener binding="#{graphCache.schedule(crud.delete(graphCache.entity, graphRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('graph-delete')}" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
                             <ui:include src="graph-data-table.xhtml">
                                 <ui:param name="id" value="graphDataTable" />
                                 <ui:param name="data" value="#{graphRepo.findAll()}"/>
                                 <ui:param name="selection" value="#{graphCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
-                                <ui:param name="onRowSelectUpdate" value="graphDefinitionForm" />                                
+                                <ui:param name="onRowSelectUpdate" value="graphDefinitionForm" />
                             </ui:include>
-                            <p:commandButton id="addNewGraphCommandButtonHidden" class="commandButton hidden"
-                                             process="@this" update="@none">
-                                <f:actionListener binding="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
-                                <p:ajax event="dialogReturn" update="graphDataTable" />
-                            </p:commandButton>
-                            <p:commandButton id="editSelectedGraphCommandButtonHidden" class="commandButton hidden"
-                                             process="@this graphDataTable" update="@none">
-                                <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
-                                <p:ajax event="dialogReturn" update="graphDataTable" />
-                            </p:commandButton>
-                            <p:commandButton id="deleteSelectedGraphCommandButtonidden" class="commandButton hidden"
-                                             actionListener="#{graphCache.schedule(crud.delete(graphCache.entity, graphRepo))}"
-                                             action="#{dialog.displayConfirmationDialog('graph-delete')}"
-                                             process="@this graphDataTable" update="@none">
-                                <p:ajax event="dialogReturn" update="graphDataTable" />
-                            </p:commandButton>
-                            <p:contextMenu for="graphDataTable">
-                                <p:menuitem id="addNewGraphMenuitem" value="#{label.Add}" icon="fa fa-plus" 
-                                            onclick="document.getElementById('graphListForm:addNewGraphCommandButtonHidden').click(); return false;"/>
-                                <p:menuitem id="editSelectedGraphMenuitem" value="#{label.Edit}" icon="fa fa-edit" 
-                                            onclick="document.getElementById('graphListForm:editSelectedGraphCommandButtonHidden').click(); return false;"/>
-                                <p:menuitem id="deleteSelectedGraphMenuitem" value="#{label.Delete}" icon="fa fa-trash"
-                                            onclick="document.getElementById('graphListForm:deleteSelectedGraphCommandButtonidden').click(); return false;"/>
-                            </p:contextMenu>
                         </h:form>
                     </p:layoutUnit>
                     <p:layoutUnit position="south" size="50%">
                         <h:form id="graphDefinitionForm">
                             <p:tabView id="graphDefinitionTabView" dynamic="true">
                                 <p:tab title="#{label.Nodes}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Nodes}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('graph-node-chooser')}" />
+                                                <p:ajax event="dialogReturn" update="graphNodesDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                                <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayConfirmationDialog('graph-node-delete')}" />
+                                                <p:ajax event="dialogReturn" update="graphListForm:graphDataTable graphNodesDataTable" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:toolbar>
                                     <ui:include src="../status/status-data-table.xhtml">
                                         <ui:param name="id" value="graphNodesDataTable" />
                                         <ui:param name="data" value="#{graphCache.entity.nodes}" />
@@ -79,64 +92,42 @@
                                         <ui:param name="onRowSelectUpdate" value="@none" />
                                         <ui:param name="tableHeader" value="#{label.Nodes}" />
                                     </ui:include>
-                                    <p:commandButton id="addNewGraphNodeCommandButtonHidden" class="commandButton hidden"
-                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
-                                                     action="#{dialog.displayInputForm('graph-node-chooser')}"
-                                                     process="@this" update="@none">
-                                        <p:ajax event="dialogReturn" update="graphNodesDataTable" />
-                                    </p:commandButton>
-                                    <p:commandButton id="deleteSelectedGraphNodeCommandButtonHidden" class="commandButton hidden"
-                                                     actionListener="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}"
-                                                     action="#{dialog.displayConfirmationDialog('graph-node-delete')}"
-                                                     process="@this" update="@none">
-                                        <p:ajax event="dialogReturn" update="graphListForm:graphDataTable graphNodesDataTable" />
-                                    </p:commandButton>
-                                    <p:contextMenu for="graphNodesDataTable">
-                                        <p:menuitem id="addNewGraphNodeMenuitem" value="#{label.Add}" icon="fa fa-plus" 
-                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:addNewGraphNodeCommandButtonHidden').click(); return false;"/>
-                                        <p:menuitem id="deleteSelectedGraphNodeMenuitem" value="#{label.Delete}" icon="fa fa-trash"
-                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:deleteSelectedGraphNodeCommandButtonHidden').click(); return false;"/>
-                                    </p:contextMenu>
                                 </p:tab>
-                                <p:tab title="#{label.Vertices}">
-                                    <ui:include src="vertex/vertex-data-table.xhtml">
+                                <p:tab title="#{label.Edges}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Edges}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{edgeCache.schedule(crud.create(edgeBuilder.emptyEdgeForGraph(graphCache.entity), edgeRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('edge-edit')}" />
+                                                <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                                <f:actionListener binding="#{edgeCache.schedule(crud.update(edgeCache.entity, edgeRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('edge-edit')}" />
+                                                <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                                <f:actionListener binding="#{edgeCache.schedule(crud.delete(edgeCache.entity, edgeRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayConfirmationDialog('edge-delete')}" />
+                                                <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <ui:include src="edge/edge-data-table.xhtml">
                                         <ui:param name="id" value="graphVerticesDataTable" />
                                         <ui:param name="data" value="#{edgeRepo.findByGraph(graphCache.entity)}" />
-                                        <ui:param name="selection" value="#{requestScope.graphVertex}" />
+                                        <ui:param name="selection" value="#{edgeCache.entity}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />
                                     </ui:include>
-                                    <p:commandButton id="addNewGraphVertexButtonHidden" class="commandButton hidden"                                                     
-                                                     process="@this" update="@none">
-                                        <f:actionListener binding="#{vertexCache.schedule(crud.create(edgeBuilder.emptyVertexForGraph(graphCache.entity), edgeRepo))}" />
-                                        <f:actionListener binding="#{dialog.displayInputForm('vertex-edit')}" />
-                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
-                                    </p:commandButton>
-                                    <p:commandButton id="editSelectedGraphVertexButtonHidden" class="commandButton hidden"
-                                                     process="@this" update="@none">
-                                        <f:actionListener binding="#{edgeCache.schedule(crud.update(edgeCache.entity, edgeRepo))}" />
-                                        <f:actionListener binding="#{dialog.displayInputForm('vertex-edit')}" />
-                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
-                                    </p:commandButton>
-                                    <p:commandButton id="deleteSelectedGraphVertexButtonHidden" class="commandButton hidden"
-                                                     process="@this" update="@none">
-                                        <f:actionListener binding="#{edgeCache.schedule(crud.delete(edgeCache.entity, edgeRepo))}" />
-                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('vertex-delete')}" />
-                                        <p:ajax event="dialogReturn" update="graphVerticesDataTable" />
-                                    </p:commandButton>
-                                    <p:contextMenu for="graphVerticesDataTable">
-                                        <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:addNewGraphVertexButtonHidden').click(); return false;"/>
-                                        <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
-                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:editSelectedGraphVertexButtonHidden').click(); return false;"/>
-                                        <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
-                                                    onclick="document.getElementById('graphDefinitionForm:graphDefinitionTabView:deleteSelectedGraphVertexButtonHidden').click(); return false;"/>
-                                    </p:contextMenu>
                                 </p:tab>
                             </p:tabView>
                         </h:form>
                     </p:layoutUnit>
-                </p:layout>                
+                </p:layout>
             </ui:define>
 
         </ui:composition>

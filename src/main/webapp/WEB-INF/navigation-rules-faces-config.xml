@@ -4,6 +4,20 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
+        <from-view-id>/secure/graph/graph-list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>edge-delete</from-outcome>
+            <to-view-id>/secure/graph/edge/edge-delete.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/graph/graph-list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>edge-edit</from-outcome>
+            <to-view-id>/secure/graph/edge/edge-edit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/secure/admin/role/role-list.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>resource-delete</from-outcome>
