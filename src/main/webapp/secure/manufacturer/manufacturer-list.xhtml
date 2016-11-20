@@ -24,25 +24,34 @@
 
             <ui:define name="center">
                 <h:form>
-                    <p:dataTable id="manufacturerDataTable"
-                                 value="#{manufacturerRepo.findAll()}" var="m" rowKey="#{m.id}"
-                                 selectionMode="single" selection="#{manufacturerCache.entity}"
-                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
-
-                        <p:ajax event="rowSelect"
-                                disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
-                                update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}"/>
-
-                        <c:if test="#{not empty tableHeader}">
-                            <f:facet name="header">
-                                <h:outputText value="#{tableHeader}" />
-                            </f:facet>
-                        </c:if>
-
-                        <p:column headerText="">
-
-                        </p:column>
-                    </p:dataTable>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Manufacturers}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{manufacturerCache.schedule(crud.create(manufacturerBuilder.emptyManufacturer(), manufacturerRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('manufacturer-edit')}" />
+                                <p:ajax event="dialogReturn" update="@form" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{manufacturerCache.schedule(crud.update(manufacturerCache.entity, manufacturerRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('manufacturer-edit')}" />
+                                <p:ajax event="dialogReturn" update="@form" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{manufacturerCache.schedule(crud.delete(manufacturerCache.entity, manufacturerRepo))}" />
+                                <f:actionListener binding="#{dialog.displayConfirmationDialog('manufacturer-delete')}" />
+                                <p:ajax event="dialogReturn" update="@form" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                    <ui:include src="manufacturer-data-table.xhtml">
+                        <ui:param name="id" value="manufacturerDataTable" />
+                        <ui:param name="data" value="#{manufacturerRepo.findAll()}" />
+                        <ui:param name="selection" value="#{manufacturerCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                    </ui:include>
                 </h:form>
             </ui:define>
 

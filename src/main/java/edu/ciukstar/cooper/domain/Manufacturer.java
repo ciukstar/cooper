@@ -28,6 +28,9 @@ public class Manufacturer implements Persistable<Long> {
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;
     
+    @Column(name = "COUNTRY")
+    private String country;
+    
     @Lob
     @Column(name = "LOGO")
     private byte[] logo;
@@ -60,6 +63,14 @@ public class Manufacturer implements Persistable<Long> {
             return false;
         }
         return true;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getName() {

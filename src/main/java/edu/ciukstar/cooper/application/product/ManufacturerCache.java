@@ -1,11 +1,26 @@
 package edu.ciukstar.cooper.application.product;
 
 import edu.ciukstar.cooper.application.CrudCache;
+import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.domain.Manufacturer;
 import edu.ciukstar.cooper.repo.CrudOperation;
+import edu.ciukstar.cooper.repo.ManufacturerRepo;
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -15,8 +30,36 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class ManufacturerCache extends CrudCache<Manufacturer> implements Serializable {
 
+    @Inject
+    private ManufacturerRepo repo;
+    @Inject
+    private Refresher refresher;
     private CrudOperation<Manufacturer> op;
     private Manufacturer entity;
+
+    public StreamedContent logoAsStreamedContent(String paramName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        } else {
+
+            String id = context.getExternalContext().getRequestParameterMap().get(paramName);
+
+            byte[] image = repo.find(Long.valueOf(id)).getLogo();
+
+            return new DefaultStreamedContent(new ByteArrayInputStream(image));
+
+        }
+    }
+
+    public void uploadLogo(FileUploadEvent e) {
+        entity.setLogo(e.getFile().getContents());
+    }
+
+    void refresh(@Observes List<Manufacturer> source) {
+        entity = refresher.match(entity, source).orElse(null);
+    }
 
     @Override
     protected void setCrudOperation(CrudOperation<Manufacturer> op) {

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Manufacturer}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="manufacturerForm">
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Manufacturer}: #{manufacturerCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{manufacturerCache.entity.name}" size="30" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="country" value="#{label.Country}" />
+                        <p:inputText id="country" value="#{manufacturerCache.entity.country}" size="30" />
+                        <p:message for="country" />
+
+                        <p:outputLabel for="logo" value="#{label.Logo}" />
+                        <h:panelGroup>
+                            <p:graphicImage id="logo" value="#{img.toStreamedContent(manufacturerCache.entity.logo, 'image/png')}" />
+                            <p:commandButton icon="fa fa-upload" onclick="PF('logoUploader').show()" />
+                        </h:panelGroup>
+                        <p:message for="logo" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{manufacturerCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{manufacturerCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                <p:dialog widgetVar="logoUploader" modal="true" height="200" width="700">
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload label="#{label.Choose}" 
+                                      uploadLabel="#{label.Upload}" 
+                                      cancelLabel="#{label.Cancel}"
+                                      fileUploadListener="#{manufacturerCache.uploadLogo}" 
+                                      process="@form" update="manufacturerForm"/>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
