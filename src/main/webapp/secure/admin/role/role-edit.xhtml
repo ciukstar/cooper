@@ -32,6 +32,16 @@
                         </p:selectOneMenu>
                         <p:message for="type" />
                         
+                        <p:outputLabel for="resourceStatusGraph" value="#{label.Resource_status_graph}" />
+                        <h:panelGroup>
+                        <p:inputText id="resourceStatusGraph" value="#{roleCache.entity.resourceStatusGraph.name}" size="30" readonly="true" />
+                        <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                            <f:actionListener binding="#{dialog.displayInputForm('graph-chooser')}" />
+                            <p:ajax event="dialogReturn" update="resourceStatusGraph" />
+                        </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="resourceStatusGraph" />
+                        
                         <p:outputLabel for="description" value="#{label.Description}" />
                         <p:inputTextarea id="description" value="#{roleCache.entity.description}"
                                          cols="30" rows="3"/>

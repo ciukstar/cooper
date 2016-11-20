@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,7 +7,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -38,6 +39,11 @@ public class Role implements Persistable<Long> {
     @Column(name = "type", nullable = false)
     private RoleType type;
     
+    @ManyToOne
+    @NotNull(message = "{Resource_status_graph_may_not_be_null}")
+    @JoinColumn(name = "RESOURCE_STATUS_GRAPH", nullable = false, referencedColumnName = "ID")
+    private Graph resourceStatusGraph;
+    
     @Column(name = "description")
     private String description;
 
@@ -65,6 +71,14 @@ public class Role implements Persistable<Long> {
 
     public void setType(RoleType type) {
         this.type = type;
+    }
+
+    public Graph getResourceStatusGraph() {
+        return resourceStatusGraph;
+    }
+
+    public void setResourceStatusGraph(Graph resourceStatusGraph) {
+        this.resourceStatusGraph = resourceStatusGraph;
     }
 
     public String getDescription() {
