@@ -34,34 +34,33 @@
 
             <ui:define name="center">
                 <h:form id="statusListForm">
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Status}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('status-edit')}" />
+                                <p:ajax event="dialogReturn" update="statusDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@form" update="@none">
+                                <f:actionListener binding="#{statusCache.schedule(crud.update(statusCache.entity, statusRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('status-edit')}" />
+                                <p:ajax event="dialogReturn" update="statusDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@form" update="@none">
+                                <f:actionListener binding="#{statusCache.schedule(crud.delete(statusCache.entity, statusRepo))}" />
+                                <f:actionListener binding="#{dialog.displayConfirmationDialog('status-delete')}" />
+                                <p:ajax event="dialogReturn" update="statusDataTable" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
                     <ui:include src="status-data-table.xhtml">
                         <ui:param name="id" value="statusDataTable" />
                         <ui:param name="data" value="#{statusRepo.findAll()}" />
                         <ui:param name="selection" value="#{statusCache.entity}" />
                     </ui:include>
-                    <p:commandButton id="addNewStatusCommandButtonHidden" class="commandButton hidden"
-                                    process="@this" update="@none">
-                        <f:actionListener binding="#{statusCache.schedule(crud.create(statusBuilder.emptyStatus(), statusRepo))}" />
-                        <f:actionListener binding="#{dialog.displayInputForm('status-edit')}" />
-                        <p:ajax event="dialogReturn" update="statusDataTable" />
-                    </p:commandButton>
-                    <p:commandButton id="editSelectedStatusCommandButtonHidden" class="commandButton hidden"
-                                     actionListener="#{statusCache.schedule(crud.update(statusCache.entity, statusRepo))}"
-                                     action="#{dialog.displayInputForm('status-edit')}"
-                                     process="@form" update="@none">
-                        <p:ajax event="dialogReturn" update="statusDataTable" />
-                    </p:commandButton>
-                    <p:commandButton id="deleteSelectedStatusCommandButtonidden" class="commandButton hidden"
-                                     actionListener="#{statusCache.schedule(crud.delete(statusCache.entity, statusRepo))}"
-                                     action="#{dialog.displayConfirmationDialog('status-delete')}"
-                                     process="@form" update="@none">
-                        <p:ajax event="dialogReturn" update="statusDataTable" />
-                    </p:commandButton>
-                    <p:contextMenu for="statusDataTable">
-                        <p:menuitem id="addNewStatusMenuitem" value="#{label.Add}" icon="fa fa-plus" />
-                        <p:menuitem id="editSelectedStatusMenuitem" value="#{label.Edit}" icon="fa fa-edit" />
-                        <p:menuitem id="deleteSelectedStatusMenuitem" value="#{label.Delete}" icon="fa fa-trash" />
-                    </p:contextMenu>
                 </h:form>
             </ui:define>
 

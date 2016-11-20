@@ -1,3 +1,13 @@
+.ui-widget {
+    font-size: 90%;
+}
+.ui-widget .ui-widget {
+    font-size: 100%;
+}
+.ui-layout-north, .ui-layout-north .ui-layout-unit-content {
+    z-index: 2000 !important;
+    overflow: visible !important;
+}
 .global-ajax-status {
     width: 64px;
     height: 64px;
@@ -5,10 +15,4 @@
     right: 5px;
     position: fixed;
 
-}
-.ui-widget {
-    font-size: 90%;
-}
-.ui-widget .ui-widget {
-    font-size: 100%;
 }
