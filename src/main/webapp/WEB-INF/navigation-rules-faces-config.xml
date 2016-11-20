@@ -7,7 +7,7 @@
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>role-list</from-outcome>
-            <to-view-id>/secure/admin/role-list.xhtml</to-view-id>
+            <to-view-id>/secure/admin/role/role-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -59,7 +59,7 @@
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>user-list</from-outcome>
-            <to-view-id>/secure/admin/user-list.xhtml</to-view-id>
+            <to-view-id>/secure/admin/user/user-list.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

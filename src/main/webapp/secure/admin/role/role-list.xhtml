@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -66,7 +67,48 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" size="50%" resizable="true">
                         <h:form id="authorizationForm">
-                            <p:dataTable />
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Authorization}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{resourceCache.schedule(crud.create(resourceBuilder.newResourceFor(roleCache.entity), resourceRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('edit-resource')}" />
+                                        <p:ajax event="dialogReturn" update="@form" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{resourceCache.schedule(crud.update(resourceCache.entity, resourceRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('edit-resource')}" />
+                                        <p:ajax event="dialogReturn" update="@form" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{resourceCache.schedule(crud.delete(resourceCache.entity, resourceRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('resource-delete')}" />
+                                        <p:ajax event="dialogReturn" update="@form" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <p:dataTable id="resourceDataTable"
+                                         value="#{resourceRepo.findByRole(roleCache.entity)}" 
+                                         var="res" rowKey="#{res.id}"
+                                         selectionMode="single" selection="#{resourceCache.entity}"
+                                         emptyMessage="#{label.No_records_found}">
+                                <p:ajax event="rowSelect"
+                                        disabled="true"
+                                        update="@none" />
+                                <c:if test="#{not empty tableHeader}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{tableHeader}" />
+                                    </f:facet>
+                                </c:if>
+                                <p:column headerText="#{label.Resource}">
+                                    <h:outputText value="#{res.name}" />
+                                </p:column>
+                                <p:column headerText="#{label.Status}">
+                                    <h:outputText value="#{res.status}" />
+                                </p:column>
+                            </p:dataTable>
                         </h:form>
                     </p:layoutUnit>
                 </p:layout>                
