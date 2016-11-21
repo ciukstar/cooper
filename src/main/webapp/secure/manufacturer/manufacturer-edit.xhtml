@@ -15,6 +15,7 @@
             </ui:define>
 
             <ui:define name="content">
+                <p:messages autoUpdate="true" closable="true" />
                 <h:form id="manufacturerForm">
                     <p:panelGrid columns="3">
                         <f:facet name="header">
@@ -30,10 +31,16 @@
                         <p:message for="country" />
 
                         <p:outputLabel for="logo" value="#{label.Logo}" />
-                        <h:panelGroup>
+                        <h:panelGrid columns="3">
                             <p:graphicImage id="logo" value="#{img.toStreamedContent(manufacturerCache.entity.logo, 'image/png')}" />
-                            <p:commandButton icon="fa fa-upload" onclick="PF('logoUploader').show()" />
-                        </h:panelGroup>
+                            <p:spacer width="10" />
+                            <h:panelGroup>
+                                <p:commandButton icon="fa fa-upload" onclick="PF('logoUploader').show()" />
+                                <p:commandButton icon="fa fa-trash" process="@this" update="logo">
+                                    <f:actionListener binding="#{manufacturerCache.entity.setLogo(null)}" />
+                                </p:commandButton>
+                            </h:panelGroup>
+                        </h:panelGrid>
                         <p:message for="logo" />
 
                         <f:facet name="footer">
