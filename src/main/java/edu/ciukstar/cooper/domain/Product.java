@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
@@ -23,8 +22,32 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "products")
-public class Product implements Serializable {
+@Table(name = "PRODUCTS")
+public class Product implements Persistable<Long> {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private Long id;
+    @NotBlank(message = "{Code_may_not_be_blank}")
+    @Column(name = "CODE", nullable = false)
+    private String code;
+    @NotBlank(message = "{Name_may_not_be_blank}")
+    @Column(name = "NAME", nullable = false)
+    private String name;
+    @Column(name = "DESCRIPTION")
+    private String description;
+    @NotNull(message = "{Price_may_not_be_null}")
+    @Min(value = 0, message = "{Price_must_be_greater_or_equal_to_value}")
+    @Column(name = "PRICE", nullable = false)
+    private BigDecimal price;
+    @Lob
+    @Column(name = "IMAGE")
+    private byte[] image;
+    @ManyToOne
+    @JoinColumn(name = "MANUFACTURER", referencedColumnName = "ID")
+    private Manufacturer manufacturer;
 
     @Override
     public String toString() {
@@ -61,6 +84,7 @@ public class Product implements Serializable {
         return true;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -97,41 +121,24 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
-    public Manufacturer getVender() {
-        return vender;
+    public Manufacturer getManufacturer() {
+        return manufacturer;
     }
 
-    public void setVender(Manufacturer vender) {
-        this.vender = vender;
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @NotBlank(message = "{Code_may_not_be_blank}")
-    @Column(name = "code", nullable = false)
-    private String code;
-    @NotBlank(message = "{Name_may_not_be_blank}")
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "description")
-    private String description;
-    @NotNull(message = "{Price_may_not_be_null}")
-    @Min(value = 0, message = "{Price_must_be_greater_or_equal_to_value}")
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
-    @Lob
-    private byte[] photo;
-    @ManyToOne
-    @JoinColumn(name = "vender", referencedColumnName = "id")
-    private Manufacturer vender;
+    @Override
+    public boolean isNew() {
+        return null == getId();
+    }
 }

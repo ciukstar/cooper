@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Goods}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-link" />
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <p:dataTable id="productDataTabble" 
+                             value="#{productRepo.findAll()}" var="p" rowKey="#{p.id}"
+                             selectionMode="single" selection="#{productCache.entity}"
+                             resizableColumns="true" emptyMessage="#{label.No_records_found}">
+                    
+                    <c:if test="#{not empty tableHeader}">
+                        <f:facet name="header">
+                            <h:outputText value="#{tableHeader}" />
+                        </f:facet>
+                    </c:if>
+                    
+                    <p:column headerText="#{label.Number}">
+                        <h:outputText value="#{p.code}" />
+                    </p:column>
+                    <p:column headerText="#{label.The_name}">
+                        <h:outputText value="#{p.name}" />
+                    </p:column>
+                    <p:column headerText="#{label.Price}">
+                        <h:outputText value="#{p.price}" />
+                    </p:column>
+                    <p:column headerText="#{label.Image}">
+                        <p:graphicImage value="#{img.getContent(param['pid'], 'image', productRepo)}">
+                            <f:param name="pid" value="#{p.id}" />
+                        </p:graphicImage>
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

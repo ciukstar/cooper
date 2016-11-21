@@ -38,8 +38,8 @@ public class ProductTest {
         assertThat(newProduct.getName(), is(name));
         assertThat(newProduct.getDescription(), is(description));
         assertThat(newProduct.getPrice(), is(price));
-        assertThat(newProduct.getPhoto(), is(nullValue()));
-        assertThat(newProduct.getVender(), is(vender));
+        assertThat(newProduct.getImage(), is(nullValue()));
+        assertThat(newProduct.getManufacturer(), is(vender));
         
     }
     private final Manufacturer vender = mock(Manufacturer.class);

@@ -113,8 +113,8 @@ public class ProductBuilder {
             product.setName(name);
             product.setDescription(description);
             product.setPrice(price);
-            product.setPhoto(photo);
-            product.setVender(vender);
+            product.setImage(photo);
+            product.setManufacturer(vender);
             return product;
         }
 

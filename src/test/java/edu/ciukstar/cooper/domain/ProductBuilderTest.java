@@ -92,8 +92,8 @@ public class ProductBuilderTest {
         assertThat(product.getName(), is(name));
         assertThat(product.getDescription(), is(description));
         assertThat(product.getPrice(), is(price));
-        assertThat(new String(product.getPhoto()), is(photo));
-        assertThat(product.getVender(), is(vender));
+        assertThat(new String(product.getImage()), is(photo));
+        assertThat(product.getManufacturer(), is(vender));
         
     }
     
