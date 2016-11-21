@@ -48,12 +48,11 @@
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
-                <p:dialog widgetVar="logoUploader" modal="true" height="200" width="700">
+                <p:dialog widgetVar="logoUploader" modal="true" height="#{dialog.height * .5}" width="#{dialog.width * .8}">
                     <h:form enctype="multipart/form-data">
-                        <p:fileUpload label="#{label.Choose}" 
-                                      uploadLabel="#{label.Upload}" 
-                                      cancelLabel="#{label.Cancel}"
-                                      fileUploadListener="#{manufacturerCache.uploadLogo}" 
+                        <p:fileUpload label="#{label.Choose}" uploadLabel="#{label.Upload}" cancelLabel="#{label.Cancel}"
+                                      fileUploadListener="#{manufacturerCache.uploadLogo}"
+                                      oncomplete="PF('logoUploader').hide()"
                                       process="@form" update="manufacturerForm"/>
                     </h:form>
                 </p:dialog>

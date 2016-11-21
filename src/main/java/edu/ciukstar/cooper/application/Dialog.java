@@ -1,9 +1,7 @@
 package edu.ciukstar.cooper.application;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
@@ -17,6 +15,9 @@ import org.primefaces.context.RequestContext;
 @Dependent
 public class Dialog {
 
+    private Integer width = 800;
+    private Integer height = 500; 
+    
     public void displayConfirmationDialog(final String outcome) {
         displayInputForm(outcome);
     }
@@ -35,12 +36,28 @@ public class Dialog {
         this.options = new HashMap<String, Object>() {
             {
                 put("modal", true);
-                put("width", 800);
-                put("height", 500);
+                put("width", width);
+                put("height", height);
                 put("contentWidth", "100%");
                 put("contentHeight", "100%");
             }
         };
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
 }
