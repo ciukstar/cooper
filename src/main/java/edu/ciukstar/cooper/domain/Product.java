@@ -46,6 +46,9 @@ public class Product implements Persistable<Long> {
     @Column(name = "IMAGE")
     private byte[] image;
     @ManyToOne
+    @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")
+    private Category category;
+    @ManyToOne
     @JoinColumn(name = "MANUFACTURER", referencedColumnName = "ID")
     private Manufacturer manufacturer;
 
@@ -135,6 +138,14 @@ public class Product implements Persistable<Long> {
 
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
