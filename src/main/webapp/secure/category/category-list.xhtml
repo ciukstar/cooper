@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -29,12 +30,31 @@
                             <h:outputText value="#{label.Categories}" />
                         </f:facet>
                         <f:facet name="right">
-                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
-                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
-                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{categoryCache.schedule(crud.create(categoryBuilder.emptyCategory(), categoryRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('category-edit')}" />
+                                <p:ajax event="dialogReturn" update="categoryDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{categoryCache.schedule(crud.update(categoryCache.entity, categoryRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('category-edit')}" />
+                                <p:ajax event="dialogReturn" update="categoryDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{categoryCache.schedule(crud.delete(categoryCache.entity, categoryRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('category-delete')}" />
+                                <p:ajax event="dialogReturn" update="categoryDataTable" />
+                            </p:commandButton>
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable />
+                    <ui:include src="category-data-table.xhtml">
+                        <ui:param name="id" value="categoryDataTable" />
+                        <ui:param name="data" value="#{categoryRepo.findAll()}" />
+                        <ui:param name="selection" value="#{categoryCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                        <ui:param name="onRowSelectUpdate" value="@none" />
+                    </ui:include>
+                    
                 </h:form>
             </ui:define>
 

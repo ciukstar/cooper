@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition>
+            <p:dataTable id="#{id}" value="#{data}" var="c" rowKey="#{c.id}"
+                         selectionMode="single" selection="#{selection}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
+
+                <p:ajax event="rowSelect" 
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+                <c:if test="#{not empty tableHeader}">
+                    <f:facet name="header">
+                        <h:outputText value="#{tableHeader}" />
+                    </f:facet>
+                </c:if>
+
+                <p:column headerText="#{label.The_name}">
+                    <h:outputText value="#{c.name}" />
+                </p:column>
+                <p:column headerText="#{label.Description}">
+                    <h:outputText value="#{c.description}" />
+                </p:column>
+                <p:column headerText="#{label.Image}">
+                    <p:graphicImage value="#{img.getContent(param['catid'], image, categoryRepo)}">
+                        <f:param name="catid" value="#{c.id}" />
+                    </p:graphicImage>
+                </p:column>
+            </p:dataTable>
+
+        </ui:composition>
+    </h:body>
+</html>
+
