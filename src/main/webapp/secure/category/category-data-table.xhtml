@@ -28,7 +28,7 @@
                     <h:outputText value="#{c.description}" />
                 </p:column>
                 <p:column headerText="#{label.Image}">
-                    <p:graphicImage value="#{img.getContent(param['catid'], image, categoryRepo)}">
+                    <p:graphicImage value="#{img.getContent(param['catid'], 'image', categoryRepo)}">
                         <f:param name="catid" value="#{c.id}" />
                     </p:graphicImage>
                 </p:column>

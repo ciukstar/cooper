@@ -28,14 +28,18 @@ public class Img implements Serializable {
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new DefaultStreamedContent();
         } else {
-            final T e = (T)repo.find(Long.valueOf(entityId));
+            final T e = (T) repo.find(Long.valueOf(entityId));
             Field field = e.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);            
+            field.setAccessible(true);
             byte[] image = (byte[]) field.get(e);
-            return new DefaultStreamedContent(new ByteArrayInputStream(image));
+            if (image != null) {
+                return new DefaultStreamedContent(new ByteArrayInputStream(image));
+            } else {
+                return new DefaultStreamedContent();
+            }
         }
     }
-    
+
     public StreamedContent toStreamedContent(byte[] raw, String type) {
         if (raw != null && type != null) {
             return new DefaultStreamedContent(new ByteArrayInputStream(raw), type);

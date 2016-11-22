@@ -54,7 +54,7 @@
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
-                <p:dialog id="uploadDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
+                <p:dialog widgetVar="uploadDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
                     <h:form enctype="multipart/form-data">
                         <p:fileUpload label="#{label.Choose}" cancelLabel="#{label.Cancel}" uploadLabel="#{label.Upload}"
                                       fileUploadListener="#{categoryCache.uploadCategoryImage}"
