@@ -1,13 +1,21 @@
 package edu.ciukstar.cooper.domain;
 
 import java.math.BigDecimal;
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 
 /**
  *
  * @author sergiu
  */
+@Named
+@Dependent
 public class ProductBuilder {
 
+    public Product emptyProduct() {
+        return new Product();
+    }
+    
     public static CodeStep from() {
         return new Steps();
     }

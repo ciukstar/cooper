@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Product}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <p:messages autoUpdate="true" closable="true" />
+                <h:form id="productForm">
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Product}: #{productCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="code" value="#{label.Code}" />
+                        <p:inputText id="code" value="#{productCache.entity.code}" size="30" />
+                        <p:message for="code" />
+
+                        <p:outputLabel for="name" value="#{label.Name}" />
+                        <p:inputText id="name" value="#{productCache.entity.name}" size="30" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="description" value="#{label.Description}" />
+                        <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="30" />
+                        <p:message for="description" />
+
+                        <p:outputLabel for="price" value="#{label.Price}" />
+                        <p:inputText id="price" value="#{productCache.entity.price}" size="30" />
+                        <p:message for="price" />
+
+                        <p:outputLabel for="category" value="#{label.Category}" />
+                        <h:panelGroup>
+                            <p:inputText id="category" value="#{productCache.entity.category.name}" size="30" readonly="true" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('category-chooser')}" />
+                                <p:ajax event="dialogReturn" update="category" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="category" />
+
+                        <p:outputLabel for="manufacturer" value="#{label.Manufacturer}" />
+                        <h:panelGroup>
+                            <p:inputText id="manufacturer" value="#{productCache.entity.manufacturer.name}" size="30" readonly="true" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('manufacturer-chooser')}" />
+                                <p:ajax event="dialogReturn" update="manufacturer" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="manufacturer" />
+
+                        <p:outputLabel for="image" value="#{label.Image}" />
+                        <h:panelGrid columns="3">
+                            <p:graphicImage id="image" value="#{img.toStreamedContent(productCache.entity.image, 'image/png')}" />
+                            <p:spacer width="10" />
+                            <h:panelGroup>
+                                <p:commandButton icon="fa fa-upload" onclick="PF('uploadDialog').show()" />
+                                <p:commandButton icon="fa fa-trash" process="@this" update="image">
+                                    <f:actionListener binding="#{productCache.entity.setImage(null)}" />
+                                </p:commandButton>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <p:message for="image" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{productCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+
+                <p:dialog widgetVar="uploadDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload label="#{label.Choose}" uploadLabel="#{label.Upload}" cancelLabel="#{label.Cancel}"
+                                      fileUploadListener="#{productCache.uploadImage}"
+                                      oncomplete="PF('uploadDialog').hide()" process="@form" update="productForm" />
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

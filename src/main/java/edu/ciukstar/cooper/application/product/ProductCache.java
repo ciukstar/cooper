@@ -6,6 +6,7 @@ import edu.ciukstar.cooper.repo.CrudOperation;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -18,6 +19,10 @@ public class ProductCache extends CrudCache<Product> implements Serializable {
     private CrudOperation<Product> op;
     private Product entity;
 
+    public void uploadImage(FileUploadEvent e) {
+        entity.setImage(e.getFile().getContents());
+    }
+    
     @Override
     protected void setCrudOperation(CrudOperation<Product> op) {
         this.op = op;        

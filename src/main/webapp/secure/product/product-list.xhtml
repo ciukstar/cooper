@@ -46,42 +46,13 @@
                         </p:commandButton>
                     </f:facet>
                 </p:toolbar>
-                <p:dataTable id="productDataTable"
-                             value="#{productRepo.findAll()}" var="p" rowKey="#{p.id}"
-                             selectionMode="single" selection="#{productCache.entity}"
-                             resizableColumns="true" emptyMessage="#{label.No_records_found}">
-
-                    <p:ajax event="rowSelect"
-                            disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
-                            update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
-
-                    <c:if test="#{not empty tableHeader}">
-                        <f:facet name="header">
-                            <h:outputText value="#{tableHeader}" />
-                        </f:facet>
-                    </c:if>
-
-                    <p:column headerText="#{label.Number}">
-                        <h:outputText value="#{p.code}" />
-                    </p:column>
-                    <p:column headerText="#{label.The_name}">
-                        <h:outputText value="#{p.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Price}">
-                        <h:outputText value="#{p.price}" />
-                    </p:column>                    
-                    <p:column headerText="#{label.Image}">
-                        <p:graphicImage value="#{img.getContent(param['pid'], 'image', productRepo)}">
-                            <f:param name="pid" value="#{p.id}" />
-                        </p:graphicImage>
-                    </p:column>
-                    <p:column headerText="#{label.Category}">
-                        <h:outputText value="#{p.category.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Manufacturer}">
-                        <h:outputText value="#{p.manufacturer.name}" />
-                    </p:column>
-                </p:dataTable>
+                <ui:include src="product-data-table.xhtml">
+                    <ui:param name="id" value="productDataTable" />
+                    <ui:param name="data" value="#{productRepo.findAll()}" />
+                    <ui:param name="selection" value="#{productCache.entity}" />
+                    <ui:param name="rowSelectDisabled" value="false" />
+                    <ui:param name="onRowSelectUpdate" value="@none" />
+                </ui:include>
             </ui:define>
 
         </ui:composition>
