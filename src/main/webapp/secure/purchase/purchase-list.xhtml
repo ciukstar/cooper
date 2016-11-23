@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Purchases}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" />
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <h:form>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Purchases}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(), purchaseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
+                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
+                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{purchaseCache.schedule(crud.delete(purchaseCache.entity, purchaseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayConfirmationDialog('purchase-delete')}" />
+                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                    <ui:include src="purchase-data-table.xhtml">
+                        <ui:param name="id" value="purchaseDataTable" />
+                        <ui:param name="data" value="#{purchaseRepo.findAll()}" />
+                        <ui:param name="selection" value="#{purchaseCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                        <ui:param name="onRowSelectDisabled" value="@none" />
+                    </ui:include>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
