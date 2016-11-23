@@ -19,7 +19,7 @@ public class Refresher implements Serializable {
         if (current == null) {
             return candidates.stream().findFirst();
         }
-        if (current != null && current.isNew()) {
+        if (current.isNew()) {
             return Optional.of(current);
         }
         return candidates.stream().filter(e -> e.getId().equals(current.getId())).findAny();

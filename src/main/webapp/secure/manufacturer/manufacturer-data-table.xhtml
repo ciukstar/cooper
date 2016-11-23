@@ -9,9 +9,8 @@
     <h:body>
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="m" rowKey="#{m.id}"
-                         selectionMode="single" selection="#{selection}"                         
-                         resizableColumns="true" 
-                         emptyMessage="#{label.No_records_found}">
+                         selectionMode="single" selection="#{selection}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
