@@ -10,8 +10,7 @@
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="r" rowKey="#{r.id}"
                              selectionMode="single" selection="#{selection}"
-                             resizableColumns="true"
-                             emptyMessage="#{label.No_records_found}">
+                             resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                     <p:ajax event="rowSelect" 
                             disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 

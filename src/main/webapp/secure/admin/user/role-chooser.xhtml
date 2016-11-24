@@ -17,7 +17,7 @@
             <ui:define name="content">
                 <h:form>
                     <p:panel>
-                        <ui:include src="role-data-table.xhtml">
+                        <ui:include src="../role/role-data-table.xhtml">
                             <ui:param name="id" value="roleDataTable" />
                             <ui:param name="data" value="#{roleRepo.findAll()}" />
                             <ui:param name="selection" value="#{requestScope.userRole}" />

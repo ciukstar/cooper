@@ -28,7 +28,7 @@
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@none">
-                                <f:actionListener binding="#{userCache.entity.setOrganizer(requestScope.organizer)}" />
+                                <f:actionListener binding="#{purchaseCache.entity.setOrganizer(requestScope.organizer)}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">

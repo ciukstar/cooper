@@ -17,10 +17,11 @@
             <ui:define name="content">
                 <h:form>
                     <p:panel>
-                        <ui:include src="../graph/graph-data-table.xhtml">
+                        <ui:include src="../../graph/graph-data-table.xhtml">
                             <ui:param name="id" value="graphDataTable" />
                             <ui:param name="data" value="#{graphRepo.findAll()}" />
                             <ui:param name="selection" value="#{requestScope.statusGraph}" />
+                            <ui:param name="tableHeader" value="#{label.Graphs}" />
                         </ui:include>
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@none">
