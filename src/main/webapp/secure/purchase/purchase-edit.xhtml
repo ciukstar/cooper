@@ -38,7 +38,7 @@
                             </p:commandButton>
                         </h:panelGroup>
                         <p:message for="product" />
-                        
+
                         <p:outputLabel for="organizer" value="#{label.Organizer}" />
                         <h:panelGroup>
                             <p:inputText id="organizer" value="#{purchaseCache.entity.organizer.fullName}" readonly="true" size="30" />
@@ -49,6 +49,43 @@
                         </h:panelGroup>
                         <p:message for="organizer" />
 
+                        <p:outputLabel for="startedAt" value="#{label.Start}" />
+                        <p:calendar id="startedAt" value="#{purchaseCache.entity.startedAt}"
+                                    pattern="dd.MM.yyyy HH:mm:ss"/>
+                        <p:message for="startedAt" />
+
+                        <p:outputLabel for="closedAt" value="#{label.Closed}" />
+                        <p:calendar id="closedAt" value="#{purchaseCache.entity.closedAt}"
+                                    pattern="dd.MM.yyyy HH:mm:ss"/>
+                        <p:message for="closedAt" />
+
+                        <p:outputLabel for="minimumPrice" value="#{label.Minimum_price}" />
+                        <p:inputText id="minimumPrice" value="#{purchaseCache.entity.minimumPrice}" />
+                        <p:message for="minimumPrice" />
+
+                        <p:outputLabel for="organizationCostAsCoefficient" value="#{label.Organization_cost}" />
+                        <p:inputText id="organizationCostAsCoefficient" value="#{purchaseCache.entity.organizationCostAsCoefficient}" />
+                        <p:message for="organizationCostAsCoefficient" />
+
+                        <p:outputLabel for="status" value="#{label.Status}" />
+                        <h:panelGroup>
+                            <p:inputText id="status" value="#{purchaseCache.entity.status}" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('status-chooser')}" />
+                                <p:ajax event="dialogReturn" update="status" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="status" />
+
+                        <p:outputLabel for="dispenser" value="#{label.Dispenser}" />
+                        <h:panelGroup>
+                            <p:inputText id="dispenser" value="#{purchaseCache.entity.dispenser}" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-chooser')}" />
+                                <p:ajax event="dialogReturn" update="dispenser" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="dispenser" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">

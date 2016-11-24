@@ -66,8 +66,8 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "DISPENCER", referencedColumnName = "id", nullable = false)
-    private Dispencer dispencer;
+    @JoinColumn(name = "DISPENSER", referencedColumnName = "id", nullable = false)
+    private Dispenser dispenser;
 
     @Override
     public String toString() {
@@ -152,12 +152,12 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
         this.closedAt = closedAt;
     }
 
-    public Dispencer getDispencer() {
-        return dispencer;
+    public Dispenser getDispenser() {
+        return dispenser;
     }
 
-    public void setDispencer(Dispencer dispencer) {
-        this.dispencer = dispencer;
+    public void setDispenser(Dispenser dispenser) {
+        this.dispenser = dispenser;
     }
 
     public BigDecimal getMinimumPrice() {

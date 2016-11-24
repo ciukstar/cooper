@@ -12,8 +12,8 @@ import javax.persistence.Table;
  * @author sergiu
  */
 @Entity
-@Table(name = "dispencers")
-public class Dispencer implements Serializable {
+@Table(name = "dispensers")
+public class Dispenser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,10 +38,10 @@ public class Dispencer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Dispencer)) {
+        if (!(object instanceof Dispenser)) {
             return false;
         }
-        Dispencer other = (Dispencer) object;
+        Dispenser other = (Dispenser) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
