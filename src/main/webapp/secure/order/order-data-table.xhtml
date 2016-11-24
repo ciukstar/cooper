@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition>
+            <p:dataTable id="#{id}" value="#{data}" var="o" rowKey="#{o.id}"
+                         selectionMode="single" selection="#{selection}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
+
+                <p:ajax event="rowSelect" 
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+                
+                <c:if test="#{not empty tableHeader}">
+                    <f:facet name="header">
+                        <h:outputText value="#{tableHeader}" />
+                    </f:facet>
+                </c:if>
+                
+                <p:column headerText="#{label.Number}">
+                    <h:outputText value="#{o.number}" />
+                </p:column>
+                <p:column headerText="#{label.Issue_date}">
+                    <h:outputText value="#{o.issuedAt}" />
+                </p:column>
+                <p:column headerText="#{label.Purchase}">
+                    <h:outputText value="#{o.purchase}" />
+                </p:column>
+                <p:column headerText="#{label.Customer}">
+                    <h:outputText value="#{o.customer}" />
+                </p:column>
+                <p:column headerText="#{label.Quantity}">
+                    <h:outputText value="#{o.quantity}" />
+                </p:column>
+            </p:dataTable>
+        </ui:composition>
+    </h:body>
+</html>
+

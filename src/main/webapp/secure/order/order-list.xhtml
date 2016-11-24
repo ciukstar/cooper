@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Orders}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" />
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="#{label.Orders}" />
+                    </f:facet>
+                    <f:facet name="right">
+                        <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                            <f:actionListener binding="#{orderCache.schedule(crud.create(orderBuilder.emptyOrder(), orderRepo))}" />
+                            <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
+                            <p:ajax event="dialogReturn" update="orderDataTable" />
+                        </p:commandButton>
+                        <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                            <f:actionListener binding="#{orderCache.schedule(crud.update(orderCache.entity, orderRepo))}" />
+                            <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
+                            <p:ajax event="dialogReturn" update="orderDataTable" />
+                        </p:commandButton>
+                        <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                            <f:actionListener binding="#{orderCache.schedule(crud.delete(orderCache.entity, orderCache))}" />
+                            <f:actionListener binding="#{dialog.displayConfirmationDialog('order-delete')}" />
+                            <p:ajax event="dialogReturn" update="orderDataTable" />
+                        </p:commandButton>
+                    </f:facet>
+                </p:toolbar>
+                <ui:include src="order-data-table.xhtml">
+                    <ui:param name="id" value="orderDataTable" />
+                    <ui:param name="data" value="#{orderRepo.findAll()}" />
+                    <ui:param name="selection" value="#{orderCache.entity}" />
+                    <ui:param name="rowSelectDisabled" value="false" />
+                    <ui:param name="onRowSelectUpdate" value="@none" />
+                </ui:include>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

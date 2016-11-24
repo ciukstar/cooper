@@ -19,8 +19,35 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "purchase_orders")
-public class Order implements Serializable {
+@Table(name = "ORDERS")
+public class Order implements Persistable<Long> {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
+    private Long id;
+
+    @NotBlank(message = "{Order_number_may_not_be_blank}")
+    @Column(name = "ORDER_NUMBER", nullable = false)
+    private String number;
+
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER", referencedColumnName = "id", nullable = false)
+    private User customer;
+
+    @ManyToOne
+    @JoinColumn(name = "PURCHASE", referencedColumnName = "id", nullable = false)
+    private Purchase purchase;
+
+    @NotNull(message = "{Issue_at_may_not_be_null}")
+    @Column(name = "ISSUED_AT", nullable = false)
+    private LocalDateTime issuedAt;
+
+    @NotNull(message = "{Quantity_may_not_be_null}")
+    @Min(value = 1, message = "{Quantity_greater_or_equal_to_value}")
+    @Column(name = "QUANTITY", nullable = false)
+    private Integer quantity;
 
     public User getCustomer() {
         return customer;
@@ -62,34 +89,14 @@ public class Order implements Serializable {
         this.number = number;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    @NotBlank(message = "{Order_number_may_not_be_blank}")
-    @Column(name = "order_number", nullable = false)
-    private String number;
-    
-    @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "id", nullable = false)
-    private User customer;
-    
-    @ManyToOne
-    @JoinColumn(name = "purchase", referencedColumnName = "id", nullable = false)
-    private Purchase purchase;
-    
-    @NotNull(message = "{Issue_at_may_not_be_null}")    
-    @Column(name = "issued_at", nullable = false)
-    private LocalDateTime issuedAt;
-    
-    @NotNull(message = "{Quantity_may_not_be_null}")
-    @Min(value = 1, message = "{Quantity_greater_or_equal_to_value}")
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
-    
+    @Override
+    public boolean isNew() {
+        return null == getId();
+    }
+
 }
