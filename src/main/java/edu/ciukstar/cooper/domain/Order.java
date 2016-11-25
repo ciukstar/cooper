@@ -40,9 +40,9 @@ public class Order implements Persistable<Long> {
     @JoinColumn(name = "PURCHASE", referencedColumnName = "id", nullable = false)
     private Purchase purchase;
 
-    @NotNull(message = "{Issue_at_may_not_be_null}")
-    @Column(name = "ISSUED_AT", nullable = false)
-    private LocalDateTime issuedAt;
+    @NotNull(message = "{Order_date_may_not_be_null}")
+    @Column(name = "ORDER_DATE", nullable = false)
+    private LocalDateTime orderDate;
 
     @NotNull(message = "{Quantity_may_not_be_null}")
     @Min(value = 1, message = "{Quantity_greater_or_equal_to_value}")
@@ -65,12 +65,12 @@ public class Order implements Persistable<Long> {
         this.purchase = purchase;
     }
 
-    public LocalDateTime getIssuedAt() {
-        return issuedAt;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 
-    public void setIssuedAt(LocalDateTime issuedAt) {
-        this.issuedAt = issuedAt;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     public Integer getQuantity() {

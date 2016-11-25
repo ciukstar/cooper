@@ -1,18 +1,72 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Order}" />
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h:form>
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Order}: #{orderCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="orderNumber" value="#{label.Number}" />
+                        <p:inputText id="orderNumber" value="#{orderCache.entity.number}" size="30" />
+                        <p:message for="orderNumber" />
+
+                        <p:outputLabel for="customer" value="#{label.Customer}" />
+                        <h:panelGroup>
+                            <p:inputText id="customer" value="#{orderCache.entity.customer.fullName}" readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('customer-chooser')}" />
+                                <p:ajax event="dialogReturn" update="customer" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="customer" />
+
+                        <p:outputLabel for="purchase" value="#{label.Purchase}" />
+                        <h:panelGroup>
+                            <p:inputText id="purchase" value="#{orderCache.entity.purchase.code}" readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('purchase-chooser')}" />
+                                <p:ajax event="dialogReturn" update="purchase" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="purchase" />
+
+                        <p:outputLabel for="orderDate" value="#{label.Order_date}" />
+                        <p:calendar id="orderDate" value="#{orderCache.entity.orderDate}" />
+                        <p:message for="orderDate" />
+
+                        <p:outputLabel for="quantity" value="#{label.Quantity}" />
+                        <p:inputText id="quantity" value="#{orderCache.entity.quantity}">
+                            <f:convertNumber maxFractionDigits="0" groupingUsed="true" />
+                        </p:inputText>
+                        <p:message for="quantity" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{orderCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{orderCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
             </ui:define>
 
         </ui:composition>
