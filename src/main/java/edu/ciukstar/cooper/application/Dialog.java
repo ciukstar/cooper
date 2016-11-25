@@ -16,12 +16,12 @@ import org.primefaces.context.RequestContext;
 public class Dialog {
 
     private Integer width = 800;
-    private Integer height = 500; 
-    
+    private Integer height = 500;
+
     public void displayConfirmationDialog(final String outcome) {
         displayInputForm(outcome);
     }
-    
+
     public void dispose() {
         RequestContext.getCurrentInstance().closeDialog(null);
     }
@@ -60,4 +60,13 @@ public class Dialog {
         this.height = height;
     }
 
+    public Dialog height(Integer height) {
+        this.height = height;
+        return this;
+    }
+    
+    public Dialog width(Integer width) {
+        this.width = width;
+        return this;
+    }
 }

@@ -37,6 +37,9 @@
                                     <h:outputText value="#{label.Graphs}" />
                                 </f:facet>
                                 <f:facet name="right">
+                                    <p:commandButton icon="fa fa-image" process="@this" update="@none">
+                                        <f:actionListener binding="#{dialog.displayInputForm('graph-diagram')}" />
+                                    </p:commandButton>
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
