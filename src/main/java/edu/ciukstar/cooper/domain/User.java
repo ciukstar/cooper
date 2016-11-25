@@ -33,27 +33,30 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @NotBlank(message = "{Username_may_not_be_blank}")
+    @Column(name = "USERNAME", nullable = false)
     private String username;
 
     @NotBlank(message = "{Password_may_not_be_blank}")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Embedded
     private FullName fullName;
 
     @ManyToOne
-    @JoinColumn(name = "status", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "STATUS", referencedColumnName = "id", nullable = false)
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "status_graph", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "STATUS_GRAPH", referencedColumnName = "id", nullable = false)
     private Graph statusGraph;
 
     @Email(message = "{Invalid_email_address}")
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
     @Column(name = "phone")
@@ -63,12 +66,12 @@ public class User implements Persistable<Long>, StatusTrackable {
     private byte[] photo;
 
     @ManyToMany
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "USER_ROLES",
             joinColumns = {
-                @JoinColumn(name = "userid")},
+                @JoinColumn(name = "USERID")},
             inverseJoinColumns = {
-                @JoinColumn(name = "roleid")}, uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"userid", "roleid"})})
+                @JoinColumn(name = "ROLEID")}, uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"USERID", "ROLEID"})})
     private List<Role> roles;
 
     public User() {

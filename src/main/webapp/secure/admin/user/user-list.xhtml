@@ -75,7 +75,7 @@
                                 <ui:param name="data" value="#{userRepo.findAll()}" />
                                 <ui:param name="selection" value="#{userCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
-                                <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar" />
+                                <ui:param name="onRowSelectUpdate" value="@form:userAccountToolbar authorizationForm" />
                             </ui:include>
                         </h:form>
                     </p:layoutUnit>

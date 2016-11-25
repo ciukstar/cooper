@@ -20,37 +20,36 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "roles", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"code"})
-    ,@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "ROLES", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"NAME"})
+})
 public class Role implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @NotBlank(message = "{Name_may_not_be_blank}")
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @NotNull(message = "{Type_may_not_be_null}")
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "TYPE", nullable = false)
     private RoleType type;
-    
+
     @ManyToOne
     @NotNull(message = "{Resource_status_graph_may_not_be_null}")
     @JoinColumn(name = "RESOURCE_STATUS_GRAPH", nullable = false, referencedColumnName = "ID")
     private Graph resourceStatusGraph;
-    
-    @Column(name = "description")
+
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @Lob
     private byte[] image;
-
-    
 
     @Override
     public Long getId() {

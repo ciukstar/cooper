@@ -101,11 +101,11 @@ public class FullName implements Serializable {
     }
     
     @NotBlank(message = "{Surname_may_not_be_blank}")
-    @Column(name = "surname")
+    @Column(name = "SURNAME")
     private String surname;    
     @NotBlank(message = "{Name_may_not_be_blank}")
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
-    @Column(name = "patronymic")
+    @Column(name = "PATRONYMIC")
     private String patronymic;
 }
