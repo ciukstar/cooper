@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Warehouses}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-link">
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <h:form>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Warehouses}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{warehouseCache.schedule(crud.create(warehouseBuilder.emptyWarehouse(), warehouseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('warehouse-edit')}" />
+                                <p:ajax event="dialogReturn" update="warehouseDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{warehouseCache.schedule(crud.update(warehouseCache.entity, warehouseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('warehouse-edit')}" />
+                                <p:ajax event="dialogReturn" update="warehouseDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{warehouseCache.schedule(crud.delete(warehouseCache.entity, warehouseRepo))}" />
+                                <f:actionListener binding="#{dialog.displayConfirmationDialog('warehouse-delete')}" />
+                                <p:ajax event="dialogReturn" update="warehouseDataTable" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                    <ui:include src="warehouse-data-table.xhtml">
+                        <ui:param name="id" value="warehouseDataTable" />
+                        <ui:param name="data" value="#{warehouseRepo.findAll()}" />
+                        <ui:param name="selection" value="#{warehouseCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                        <ui:param name="onRowSelectUpdate" value="@none" />
+                    </ui:include>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

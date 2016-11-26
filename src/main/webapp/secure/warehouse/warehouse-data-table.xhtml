@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition>
+
+            <p:dataTable id="#{id}" value="#{data}" var="w" rowKey="#{w.id}"
+                         selectionMode="single" selection="#{selection}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
+
+                <p:ajax event="rowSelect"
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+
+                <c:if test="#{not empty tableHeader}">
+                    <f:facet name="header">
+                        <h:outputText value="#{tableHeader}" />
+                    </f:facet>
+                </c:if>
+
+                <p:column headerText="#{label.The_name}">
+                    <h:outputText value="#{w.name}" />
+                </p:column>
+                <p:column headerText="#{label.Address}">
+                    <h:outputText value="#{w.address}" />
+                </p:column>
+                <p:column headerText="#{label.Map}">
+                    <p:commandLink value="gmap" />
+                </p:column>
+            </p:dataTable>
+
+        </ui:composition>
+
+    </body>
+</html>
