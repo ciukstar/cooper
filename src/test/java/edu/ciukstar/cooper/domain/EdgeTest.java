@@ -1,13 +1,11 @@
 package edu.ciukstar.cooper.domain;
 
-import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -24,6 +22,8 @@ public class EdgeTest {
 
     private Edge edge;
 
+    
+    
     @Test
     public void shouldNotBeEqualIfBelogToDiffrentGraphs() {
         Edge other = Edge.source(edge.getSource()).target(edge.getTarget()).graph(mock(Graph.class)).get();

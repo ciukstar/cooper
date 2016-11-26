@@ -35,23 +35,28 @@ public class Graph implements Persistable<Long>, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @NotBlank(message = "{Code_many_not_be_blank}")
-    @Column(name = "code", nullable = false)
+    @Column(name = "CODE", nullable = false)
     private String code;
 
     @NotBlank(message = "{The_name_may_not_be_blank}")
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "start_status", referencedColumnName = "id")
+    @JoinColumn(name = "START_STATUS", referencedColumnName = "ID")
     private Status startNode;
 
+    @ManyToOne
+    @JoinColumn(name = "END_STATUS", referencedColumnName = "ID")
+    private Status endNode;
+    
     @ManyToMany
     @JoinTable(
             name = "graph_nodes",
@@ -136,6 +141,14 @@ public class Graph implements Persistable<Long>, Serializable {
         this.startNode = startNode;
     }
 
+    public Status getEndNode() {
+        return endNode;
+    }
+
+    public void setEndNode(Status endNode) {
+        this.endNode = endNode;
+    }
+
     public Set<Status> getNodes() {
         return new HashSet<>(nodes);
     }
@@ -173,6 +186,10 @@ public class Graph implements Persistable<Long>, Serializable {
         this.edges.add(edge);
         edge.setGraph(this);
         return this;
+    }
+
+    public boolean isStartNode(Status node) {
+        return getStartNode().equals(node);
     }
 
 }

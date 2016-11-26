@@ -3,6 +3,8 @@ package edu.ciukstar.cooper.domain;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "edges")
+@Table(name = "EDGES")
 public class Edge implements Persistable<Long> {
 
     public static EdgeBuilder.TargetStep source(Status s) {
@@ -27,30 +29,35 @@ public class Edge implements Persistable<Long> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     private Long id;
     @ManyToOne
     @NotNull(message = "{Graph_may_not_be_null}")
-    @JoinColumn(name = "graph", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "GRAPH", nullable = false, referencedColumnName = "ID")
     private Graph graph;
     @ManyToOne
     @NotNull(message = "{Source_may_not_be_null}")
-    @JoinColumn(name = "source", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "SOURCE", referencedColumnName = "ID", nullable = false)
     private Status source;
     @ManyToOne
     @NotNull(message = "{Target_may_not_be_null}")
-    @JoinColumn(name = "target", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "TARGET", referencedColumnName = "ID", nullable = false)
     private Status target;
     @NotBlank(message = "{Label_may_not_be_blank}")
-    @Column(name = "label", nullable = false)
+    @Column(name = "LABEL", nullable = false)
     private String label;
     @NotBlank(message = "{Transition_name_may_not_be_blank}")
-    @Column(name = "transition_name", nullable = false)
+    @Column(name = "TRANSITION_NAME", nullable = false)
     private String transitionName;
-    @Column(name = "icon")
+    @Column(name = "ICON")
     private String icon;
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EDGE_TYPE", nullable = false)
+    private EdgeType type;
+    
     Edge(Graph graph) {
         this.graph = graph;
     }
@@ -158,6 +165,22 @@ public class Edge implements Persistable<Long> {
     @Override
     public boolean isNew() {
         return null == getId();
+    }
+
+    public EdgeType getType() {
+        return type;
+    }
+
+    public void setType(EdgeType type) {
+        this.type = type;
+    }
+    
+    public boolean isForward() {
+        return type.isForward();
+    }
+    
+    public boolean isBackward() {
+        return !isForward();
     }
 
 }

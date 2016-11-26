@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +15,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author sergiu
  */
 @Entity
-@Table(name = "statuses", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"code"}),
-    @UniqueConstraint(columnNames = {"name"})
+@Table(name = "STATUSES", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"CODE"}),
+    @UniqueConstraint(columnNames = {"NAME"})
 })
 public class Status implements Persistable<Long> {
 
@@ -28,17 +27,17 @@ public class Status implements Persistable<Long> {
     private Long id;
     
     @NotEmpty(message = "{Code_may_not_be_empty}")
-    @Column(name = "code", nullable = false)
+    @Column(name = "CODE", nullable = false)
     private String code;
     
     @NotEmpty(message = "{The_name_may_not_be_empty}")
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
     
-    @Column(name = "description", nullable = true)
+    @Column(name = "DESCRIPTION", nullable = true)
     private String description;
     
-    @Column(name = "icon", nullable = true)
+    @Column(name = "ICON", nullable = true)
     private String icon;
 
     @Override

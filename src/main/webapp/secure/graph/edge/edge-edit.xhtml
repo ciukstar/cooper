@@ -54,6 +54,13 @@
                         </h:panelGroup>
                         <p:message for="target" />
 
+                        <p:outputLabel for="edgeType" value="#{label.Type}" />
+                        <p:selectOneMenu id="edgeType" value="#{edgeCache.entity.type}">
+                            <f:selectItems value="#{edgeRepo.findAllEdgeTypes()}" var="et"
+                                           itemLabel="#{label.getString(et)}"/>
+                        </p:selectOneMenu>
+                        <p:message for="edgeType" />
+                        
                         <p:outputLabel for="label" value="#{label.The_name}" />
                         <p:inputText id="label" value="#{edgeCache.entity.label}" size="30" />
                         <p:message for="label" />
