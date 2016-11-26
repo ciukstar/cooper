@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.application.graph;
 
-import edu.ciukstar.cooper.domain.Edge;
 import edu.ciukstar.cooper.domain.Graph;
 import java.io.Serializable;
 import java.util.Random;
@@ -27,6 +26,10 @@ public class GraphDiagrammer implements Serializable {
 
     private DiagramModel diagram;
 
+    public void refresh(Graph graph) {
+        this.diagram = buildDiagram(graph);
+    }
+    
     public DiagramModel getDiagram(Graph graph) {
         return diagram == null ? diagram = buildDiagram(graph) : diagram;
     }
@@ -43,7 +46,7 @@ public class GraphDiagrammer implements Serializable {
         Random rand = new Random();
         
         graph.getNodes().stream().forEach(node -> {
-            Element elem = new Element(node, rand.nextInt(20) + "em", rand.nextInt(20) + "em");
+            Element elem = new Element(node, rand.nextInt(40) + "em", rand.nextInt(25) + "em");
             if (graph.isStartNode(node)) {
                 elem.setStyleClass("start-node");
             }

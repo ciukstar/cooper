@@ -43,7 +43,7 @@
             </ui:define>
 
             <ui:define name="title">
-                <h:outputText value="#{label.Diagram}" />
+                <h:outputText value="#{graphCache.entity.name}" />
             </ui:define>
 
             <ui:define name="content">
@@ -55,7 +55,10 @@
                         </p:diagram>
 
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Close}" icon="fa fa-close" process="@this" update="@none">
+                            <p:commandButton value="#{label.Refresh}" icon="fa fa-refresh" process="@this" update="@form">
+                                <f:actionListener binding="#{graphDiagrammer.refresh(graphCache.entity)}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Close}" icon="fa fa-close" process="@this" update="@none">                                
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                         </f:facet>
