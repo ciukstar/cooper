@@ -49,7 +49,7 @@
                         <p:outputLabel for="map" value="#{label.Map}" />
                         <p:gmap id="map" center="#{warehouseCache.entity.latitude}, #{warehouseCache.entity.longitude}"
                                 zoom="15" type="HYBRID" style="width:100%;height:250px" />
-                        <p:commandButton icon="fa fa-refresh" process="cooredinates" update="map" />
+                        <p:commandButton icon="fa fa-refresh" process="cooredinates gmapApiKey" update="map" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
