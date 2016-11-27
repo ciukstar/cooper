@@ -30,6 +30,37 @@ public class Warehouse implements Persistable<Long> {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
+    @Column(name = "LATITUDE")
+    private String latitude;
+    @Column(name = "LONGITUDE")
+    private String longitude;
+    @Column(name = "GMAP_API_KEY")
+    private String gmapApiKey;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getGmapApiKey() {
+        return gmapApiKey;
+    }
+
+    public void setGmapApiKey(String gmapApiKey) {
+        this.gmapApiKey = gmapApiKey;
+    }
+    
     public String getName() {
         return name;
     }

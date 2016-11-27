@@ -1,18 +1,68 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Warehouse}" />
             </ui:define>
-
+            <ui:define name="js">
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=#{warehouseCache.entity.gmapApiKey}&amp;sensor=true"></script>
+            </ui:define>
             <ui:define name="content">
-                content
+                <h:form>
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Warehouse}: #{warehouseCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{warehouseCache.entity.name}" size="30" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="address" value="#{label.Address}" />
+                        <p:inputTextarea id="address" value="#{warehouseCache.entity.address}" cols="30" rows="2" />
+                        <p:message for="address" />
+
+                        <p:outputLabel for="cooredinates" value="#{label.Coordinates}" />
+                        <h:panelGrid id="cooredinates" columns="5">
+                            <p:outputLabel for="latitude" value="#{label.Latitude}" />
+                            <p:inputText id="latitude" value="#{warehouseCache.entity.latitude}" size="10" />
+                            <p:spacer width="5" />
+                            <p:outputLabel for="longitude" value="#{label.Longitude}" />
+                            <p:inputText id="longitude" value="#{warehouseCache.entity.longitude}" size="10" />
+                        </h:panelGrid>
+                        <p:message for="cooredinates" />
+
+                        <p:outputLabel for="gmapApiKey" value="#{label.Gmaps_API_key}" />
+                        <p:inputText id="gmapApiKey" value="#{warehouseCache.entity.gmapApiKey}" size="50" />
+                        <p:message for="gmapApiKey" />
+
+
+                        <p:outputLabel for="map" value="#{label.Map}" />
+                        <p:gmap id="map" center="#{warehouseCache.entity.latitude}, #{warehouseCache.entity.longitude}"
+                                zoom="15" type="HYBRID" style="width:100%;height:250px" />
+                        <p:commandButton icon="fa fa-refresh" process="cooredinates" update="map" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{warehouseCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{warehouseCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
             </ui:define>
 
         </ui:composition>
