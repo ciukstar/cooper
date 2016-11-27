@@ -23,37 +23,74 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <h:outputText value="#{label.Purchases}" />
-                        </f:facet>
-                        <f:facet name="right">
-                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(), purchaseRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
-                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
-                                <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
-                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                <f:actionListener binding="#{purchaseCache.schedule(crud.delete(purchaseCache.entity, purchaseRepo))}" />
-                                <f:actionListener binding="#{dialog.displayConfirmationDialog('purchase-delete')}" />
-                                <p:ajax event="dialogReturn" update="purchaseDataTable" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:toolbar>
-                    <ui:include src="purchase-data-table.xhtml">
-                        <ui:param name="id" value="purchaseDataTable" />
-                        <ui:param name="data" value="#{purchaseRepo.findAll()}" />
-                        <ui:param name="selection" value="#{purchaseCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="false" />
-                        <ui:param name="onRowSelectDisabled" value="@none" />
-                    </ui:include>
-                </h:form>
+                <p:layout fullPage="false" resizeTitle="#{label.Resize}">
+                    <p:layoutUnit position="center" resizable="true">
+                        <h:form id="purchaseForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Purchases}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(), purchaseRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
+                                        <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
+                                        <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{purchaseCache.schedule(crud.delete(purchaseCache.entity, purchaseRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('purchase-delete')}" />
+                                        <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="purchase-data-table.xhtml">
+                                <ui:param name="id" value="purchaseDataTable" />
+                                <ui:param name="data" value="#{purchaseRepo.findAll()}" />
+                                <ui:param name="selection" value="#{purchaseCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectDisabled" value="@none" />
+                            </ui:include>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" resizable="true" size="50%">
+                        <h:form id="purchaseStructureForm">
+                            <p:tabView id="purchaseStructureTabView" dynamic="true">
+                                <p:tab title="#{label.Articles}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Articles}" />                                            
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
+                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <p:dataTable id="articleDataTable" />
+                                </p:tab>
+                                <p:tab title="#{label.Dispensing_points}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Dispensing_points}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
+                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <p:dataTable id="dispensingPointDataTable" />
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+
             </ui:define>
 
         </ui:composition>
