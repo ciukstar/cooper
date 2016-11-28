@@ -6,6 +6,22 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>currency-list</from-outcome>
+            <to-view-id>/secure/currency/currency-list.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>country-list</from-outcome>
+            <to-view-id>/secure/country/country-list.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>warehouse-list</from-outcome>
             <to-view-id>/secure/warehouse/warehouse-list.xhtml</to-view-id>
             <redirect />
