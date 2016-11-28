@@ -30,7 +30,7 @@
                         </f:facet>
                         <f:facet name="right">
                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                <f:actionListener binding="#{countryCache.schedule(crud.create(countryBuidler.emptyCountry(), countryRepo))}" />
+                                <f:actionListener binding="#{countryCache.schedule(crud.create(countryBuilder.emptyCountry(), countryRepo))}" />
                                 <f:actionListener binding="#{dialog.displayInputForm('country-edit')}" />
                                 <p:ajax event="dialogReturn" update="countryDataTable" />
                             </p:commandButton>
@@ -48,7 +48,7 @@
                     </p:toolbar>
                     <ui:include src="country-data-table.xhtml">
                         <ui:param name="id" value="countryDataTable" />
-                        <ui:param name="data" value="#{coutryRepo.findAll()}" />
+                        <ui:param name="data" value="#{countryRepo.findAll()}" />
                         <ui:param name="selection" value="#{countryCache.entity}" />
                         <ui:param name="rowSelectDisabled" value="falese" />
                         <ui:param name="onRowSelectUpdate" value="@none" />

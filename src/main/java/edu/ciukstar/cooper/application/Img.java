@@ -22,7 +22,7 @@ import org.primefaces.model.StreamedContent;
 @Dependent
 public class Img implements Serializable {
 
-    public <T> StreamedContent getContent(String entityId, String fieldName, AbstractRepo<T> repo) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public <T> StreamedContent getContent(String entityId, String fieldName, AbstractRepo<T> repo) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {        
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -43,6 +43,14 @@ public class Img implements Serializable {
     public StreamedContent toStreamedContent(byte[] raw, String type) {
         if (raw != null && type != null) {
             return new DefaultStreamedContent(new ByteArrayInputStream(raw), type);
+        } else {
+            return new DefaultStreamedContent();
+        }
+    }
+
+    public StreamedContent toStreamedContent(byte[] raw) {
+        if (raw != null) {
+            return new DefaultStreamedContent(new ByteArrayInputStream(raw));
         } else {
             return new DefaultStreamedContent();
         }
