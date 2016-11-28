@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
@@ -34,7 +35,7 @@ public class Currency implements Persistable<Long> {
     
     @ManyToOne
     @NotBlank(message = "{Country_mey_not_be_blank}")
-    @Column(name = "COUNTRY", nullable = false)
+    @JoinColumn(name = "COUNTRY", nullable = false, referencedColumnName = "ID")
     private Country country;
 
     @Override

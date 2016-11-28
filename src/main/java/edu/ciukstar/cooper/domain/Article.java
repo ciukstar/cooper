@@ -33,11 +33,11 @@ public class Article implements Persistable<Long> {
     private String number;
     @ManyToOne
     @NotNull(message = "{Product_may_not_be_null}")
-    @JoinColumn(name = "PRODUCT", nullable = false)
+    @JoinColumn(name = "PRODUCT", nullable = false, referencedColumnName = "ID")
     private Product product;
     @ManyToOne
     @NotNull(message = "{Purchase_may_not_be_null}")
-    @Column(name = "PURCHASE", nullable = false)
+    @JoinColumn(name = "PURCHASE", nullable = false, referencedColumnName = "ID")
     private Purchase purchase;
     @NotNull(message = "{Price_may_not_be_null}")
     @Min(value = 0, message = "{Prive_should_be_greater_than_zero}")
@@ -45,7 +45,7 @@ public class Article implements Persistable<Long> {
     private BigDecimal price;
     @ManyToOne
     @NotNull(message = "{Currency_may_not_be_null}")
-    @Column(name = "CURRENCY", nullable = false)
+    @JoinColumn(name = "CURRENCY", nullable = false, referencedColumnName = "ID")
     private Currency currency;
 
     @Override
