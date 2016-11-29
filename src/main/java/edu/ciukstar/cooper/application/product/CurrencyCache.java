@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -24,6 +25,10 @@ public class CurrencyCache extends CrudCache<Currency> implements Serializable {
     private CrudOperation<Currency> op;
     private Currency entity;
 
+    public void uploadCurrencySymbol(FileUploadEvent e) {
+        this.entity.setIcon(e.getFile().getContents());
+    }
+    
     void refresh(@Observes List<Currency> source) {
         this.entity = refresher.match(entity, source).orElse(null);
     }

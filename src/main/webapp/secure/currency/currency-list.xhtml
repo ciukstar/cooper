@@ -44,25 +44,12 @@
                             </p:commandButton>
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable id="currencyDataTable" value="#{currencyRepo.findAll()}" var="curr" rowKey="#{curr.id}"
-                                 selectionMode="single" selection="#{currencyCache.entity}"
-                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
-
-                        <p:column headerText="#{label.Code}">
-                            <h:outputText value="#{curr.code}" />
-                        </p:column>
-                        <p:column headerText="#{label.Name}">
-                            <h:outputText value="#{curr.name}" />
-                        </p:column>
-                        <p:column headerText="#{label.Icon}">
-                            <span style="#{curre.icon}"></span>
-                        </p:column>
-                        <p:column headerText="#{label.Symbol}">
-                            <p:graphicImage value="#{img.getContent(param['currid'], symbol, currencyRepo)}">
-                                <f:param name="currid" value="#{curr.id}" />
-                            </p:graphicImage>
-                        </p:column>
-                    </p:dataTable>
+                    <ui:include src="currency-data-table.xhtml">
+                        <ui:param name="id" value="currencyDataTable" />
+                        <ui:param name="data" value="#{currencyRepo.findAll()}" />
+                        <ui:param name="selection" value="#{currencyCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="true" />
+                    </ui:include>
                 </h:form>
             </ui:define>
 

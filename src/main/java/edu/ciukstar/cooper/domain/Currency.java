@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -35,16 +36,16 @@ public class Currency implements Persistable<Long> {
     private String name;
 
     @ManyToOne
-    @NotBlank(message = "{Country_mey_not_be_blank}")
+    @NotNull(message = "{Country_may_not_be_null}")
     @JoinColumn(name = "COUNTRY", nullable = false, referencedColumnName = "ID")
     private Country country;
-    
-    @Column(name = "ICON")
-    private String icon;
-    
-    @Lob
+
     @Column(name = "SYMBOL")
-    private byte[] symbol;
+    private String symbol;
+
+    @Lob
+    @Column(name = "ICON")
+    private byte[] icon;
 
     @Override
     public String toString() {
@@ -100,20 +101,20 @@ public class Currency implements Persistable<Long> {
         this.country = country;
     }
 
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public byte[] getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(byte[] symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public byte[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
     }
 
     @Override

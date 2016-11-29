@@ -1,18 +1,80 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Currency}" />
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h:form id="currencyForm">
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Currency}: #{currencyCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="currCode" value="#{label.Code}" />
+                        <p:inputText id="currCode" value="#{currencyCache.entity.code}" size="30" />
+                        <p:message for="currCode" />
+
+                        <p:outputLabel for="currName" value="#{label.The_name}" />
+                        <p:inputText id="currName" value="#{currencyCache.entity.name}" size="30" />
+                        <p:message for="currName" />
+
+                        <p:outputLabel for="country" value="#{label.Country}" />
+                        <h:panelGroup>
+                            <p:inputText id="country" value="#{currencyCache.entity.country.name}" readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('country-cooser')}" />
+                                <p:ajax event="dialogReturn" update="country" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="country" />
+
+                        <p:outputLabel for="currIcon" value="#{label.Icon}" />
+                        <p:inputText id="currIcon" value="#{currencyCache.entity.symbol}" size="30" />
+                        <p:message for="currIcon" />
+
+                        <p:outputLabel for="currSymbol" value="#{label.Symbol}" />
+                        <h:panelGrid columns="3">
+                            <p:graphicImage id="currSymbol" value="#{img.toStreamedContent(currencyCache.entity.icon)}" />
+                            <p:spacer width="10" />
+                            <h:panelGroup>
+                                <p:commandButton icon="fa fa-upload" onclick="PF('uploadSymbolDialog').show()" />
+                                <p:commandButton icon="fa fa-trash" process="@this" update="currSymbol">
+                                    <f:actionListener binding="#{currencyCache.entity.setIcon(null)}" />
+                                </p:commandButton>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <p:message for="currSymbol" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{currencyCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{currencyCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                <p:dialog widgetVar="uploadSymbolDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
+                    <h:form>
+                        <p:fileUpload label="#{label.Choose}" uploadLabel="#{label.Upload}" cancelLabel="#{label.Cancel}"
+                                      fileUploadListener="#{currencyCache.uploadCurrencySymbol}"
+                                      process="@form" update="currencyForm" oncomplete="PF('uploadSymbolDialog').hide()" />
+                    </h:form>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>
