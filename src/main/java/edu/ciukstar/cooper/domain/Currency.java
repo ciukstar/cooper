@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,19 +25,26 @@ public class Currency implements Persistable<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false)
     private Long id;
-    
+
     @NotBlank(message = "{Code_may_not_be_blank}")
     @Column(name = "CODE", nullable = false, unique = true)
     private String code;
-    
+
     @NotBlank(message = "{The_name_may_not_be_blank}")
     @Column(name = "NAME", nullable = false)
     private String name;
-    
+
     @ManyToOne
     @NotBlank(message = "{Country_mey_not_be_blank}")
     @JoinColumn(name = "COUNTRY", nullable = false, referencedColumnName = "ID")
     private Country country;
+    
+    @Column(name = "ICON")
+    private String icon;
+    
+    @Lob
+    @Column(name = "SYMBOL")
+    private byte[] symbol;
 
     @Override
     public String toString() {
@@ -91,7 +99,23 @@ public class Currency implements Persistable<Long> {
     public void setCountry(Country country) {
         this.country = country;
     }
-    
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public byte[] getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(byte[] symbol) {
+        this.symbol = symbol;
+    }
+
     @Override
     public boolean isNew() {
         return null == getId();

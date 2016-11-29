@@ -1,22 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/default.xhtml">
 
             <ui:define name="title">
-                title
+                <h:outputText value="#{label.Currencies}" />
             </ui:define>
 
             <ui:define name="west">
-                west
+                <h:form>
+                    <p:submenu label="#{label.Links}" icon="fa fa-link" />
+                </h:form>
             </ui:define>
 
             <ui:define name="center">
-                center
+                <h:form>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Currencies}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{currencyCache.schedule(crud.create(currencyBuilder.emptyCurrency(), currencyRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('currency-edit')}" />
+                                <p:ajax event="dialogReturn" update="currencyDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{currencyCache.schedule(crud.update(currencyCache.entity, currencyRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('currency-edit')}" />
+                                <p:ajax event="dialogReturn" update="currencyDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{currencyCache.schedule(crud.delete(currencyCache.entity, currencyRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('currency-delete')}" />
+                                <p:ajax event="dialogReturn" update="currencyDataTable" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:dataTable id="currencyDataTable" value="#{currencyRepo.findAll()}" var="curr" rowKey="#{curr.id}"
+                                 selectionMode="single" selection="#{currencyCache.entity}"
+                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
+
+                        <p:column headerText="#{label.Code}">
+                            <h:outputText value="#{curr.code}" />
+                        </p:column>
+                        <p:column headerText="#{label.Name}">
+                            <h:outputText value="#{curr.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Icon}">
+                            <span style="#{curre.icon}"></span>
+                        </p:column>
+                        <p:column headerText="#{label.Symbol}">
+                            <p:graphicImage value="#{img.getContent(param['currid'], symbol, currencyRepo)}">
+                                <f:param name="currid" value="#{curr.id}" />
+                            </p:graphicImage>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </ui:define>
 
         </ui:composition>
