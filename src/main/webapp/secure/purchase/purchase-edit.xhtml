@@ -13,7 +13,9 @@
             <ui:define name="title">
                 <h:outputText value="#{label.Purchase}" />
             </ui:define>
-
+            <ui:define name="js">
+                <h:outputScript library="js" name="calendar-ru.js" />
+            </ui:define>
             <ui:define name="content">
                 <h:form>
                     <p:panelGrid columns="3">
@@ -51,12 +53,14 @@
 
                         <p:outputLabel for="startedAt" value="#{label.Start}" />
                         <p:calendar id="startedAt" value="#{purchaseCache.entity.startedAt}"
-                                    pattern="dd.MM.yyyy HH:mm:ss"/>
+                                    showOn="button" showButtonPanel="true" navigator="true"
+                                    pattern="dd.MM.yyyy HH:mm:ss" converter="#{localDateTimeConverter}"/>
                         <p:message for="startedAt" />
 
                         <p:outputLabel for="closedAt" value="#{label.Closed}" />
                         <p:calendar id="closedAt" value="#{purchaseCache.entity.closedAt}"
-                                    pattern="dd.MM.yyyy HH:mm:ss"/>
+                                    showOn="button" showButtonPanel="true" navigator="true"
+                                    pattern="dd.MM.yyyy HH:mm:ss" converter="#{localDateTimeConverter}"/>
                         <p:message for="closedAt" />
 
                         <p:outputLabel for="minimumPrice" value="#{label.Minimum_price}" />
@@ -69,7 +73,7 @@
 
                         <p:outputLabel for="status" value="#{label.Status}" />
                         <h:panelGroup>
-                            <p:inputText id="status" value="#{purchaseCache.entity.status}" />
+                            <p:inputText id="status" value="#{purchaseCache.entity.status}" readonly="true" />
                             <p:commandButton icon="fa fa-search" process="@this" update="@none">
                                 <f:actionListener binding="#{dialog.displayInputForm('status-chooser')}" />
                                 <p:ajax event="dialogReturn" update="status" />

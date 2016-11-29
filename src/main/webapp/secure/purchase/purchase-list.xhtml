@@ -32,7 +32,7 @@
                                 </f:facet>
                                 <f:facet name="right">
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                        <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(), purchaseRepo))}" />
+                                        <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(graphRepo.findByCode('Граф состояния закупки').get().getStartNode()), purchaseRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
                                         <p:ajax event="dialogReturn" update="purchaseDataTable" />
                                     </p:commandButton>

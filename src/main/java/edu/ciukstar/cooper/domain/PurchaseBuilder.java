@@ -11,6 +11,10 @@ import javax.enterprise.context.Dependent;
 @Dependent
 public class PurchaseBuilder {
 
+    public Purchase emptyPurchase(Status status) {
+        return new Purchase(status);
+    }
+
     public Purchase emptyPurchase() {
         return new Purchase();
     }

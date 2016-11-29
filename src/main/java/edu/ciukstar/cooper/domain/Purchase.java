@@ -69,6 +69,14 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "DISPENSER", referencedColumnName = "id", nullable = false)
     private Dispenser dispenser;
 
+    public Purchase(Status status) {
+        this.status = status;
+    }
+
+    public Purchase() {
+        this(null);
+    }
+
     @Override
     public String toString() {
         return "Purchase{" + "code=" + code + '}';
