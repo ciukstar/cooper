@@ -2,6 +2,8 @@ package edu.ciukstar.cooper.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -42,10 +45,10 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @NotBlank(message = "{Code_may_not_be_blank}")
     @Column(name = "CODE", nullable = false, unique = true)
     private String code;
-    
+
     @Column(name = "DESCRIPTION")
     private String description;
-    
+
     @Column(name = "STARTED_AT", nullable = true)
     private LocalDateTime startedAt;
 
@@ -65,11 +68,15 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "id", nullable = false)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "DISPENSER", referencedColumnName = "id", nullable = false)
-    private Dispenser dispenser;
+    @OneToMany(mappedBy = "purchase")
+    private List<Article> articles;
+
+    @OneToMany(mappedBy = "purchase")
+    private List<Dispenser> dispensers;
 
     public Purchase(Status status) {
+        this.dispensers = new ArrayList<>();
+        this.articles = new ArrayList<>();
         this.status = status;
     }
 
@@ -160,12 +167,12 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
         this.closedAt = closedAt;
     }
 
-    public Dispenser getDispenser() {
-        return dispenser;
+    public List<Article> getArticles() {
+        return new ArrayList<>(articles);
     }
 
-    public void setDispenser(Dispenser dispenser) {
-        this.dispenser = dispenser;
+    public List<Dispenser> getDispensers() {
+        return new ArrayList<>(dispensers);
     }
 
     public BigDecimal getMinimumPrice() {
