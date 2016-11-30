@@ -82,16 +82,6 @@
                         </h:panelGroup>
                         <p:message for="status" />
 
-                        <p:outputLabel for="dispenser" value="#{label.Dispenser}" />
-                        <h:panelGroup>
-                            <p:inputText id="dispenser" value="#{purchaseCache.entity.dispenser}" />
-                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-chooser')}" />
-                                <p:ajax event="dialogReturn" update="dispenser" />
-                            </p:commandButton>
-                        </h:panelGroup>
-                        <p:message for="dispenser" />
-
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
                                 <f:actionListener binding="#{purchaseCache.executeCrudOperation()}" />

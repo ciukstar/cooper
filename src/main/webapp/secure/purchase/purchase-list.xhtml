@@ -63,7 +63,7 @@
                                 <p:tab title="#{label.Articles}">
                                     <p:toolbar>
                                         <f:facet name="left">
-                                            <h:outputText value="#{label.Articles}" />                                            
+                                            <h:outputText value="#{label.Articles}" />
                                         </f:facet>
                                         <f:facet name="right">
                                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
@@ -71,7 +71,29 @@
                                             <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
                                         </f:facet>
                                     </p:toolbar>
-                                    <p:dataTable id="articleDataTable" />
+                                    <p:dataTable id="articleDataTable" value="#{articleRepo.findByPurchase(purchaseCache.entity)}" var="art" rowKey="#{art.id}"
+                                                 selectionMode="single" selection="#{articleCache.entity}"
+                                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
+
+                                        <p:ajax event="rowSelect" disabled="true" update="@none" />
+
+                                        <f:facet name="header">
+                                            <h:outputText value="#{label.Articles}" />
+                                        </f:facet>
+
+                                        <p:column headerText="#{label.Number}">
+                                            <h:outputText value="#{art.number}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.The_name}">
+                                            <h:outputText value="#{art.product.name}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Price}">
+                                            <h:outputText value="#{art.price}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Currency}">
+                                            <h:outputText value="#{art.currency.code}" />
+                                        </p:column>
+                                    </p:dataTable>
                                 </p:tab>
                                 <p:tab title="#{label.Dispensing_points}">
                                     <p:toolbar>
