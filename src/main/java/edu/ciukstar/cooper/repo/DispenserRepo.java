@@ -1,7 +1,7 @@
 package edu.ciukstar.cooper.repo;
 
-import edu.ciukstar.cooper.domain.Article;
-import edu.ciukstar.cooper.domain.Article_;
+import edu.ciukstar.cooper.domain.Dispenser;
+import edu.ciukstar.cooper.domain.Dispenser_;
 import edu.ciukstar.cooper.domain.Purchase;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,36 +20,36 @@ import javax.persistence.criteria.Root;
  */
 @Named
 @Stateless
-public class ArticleRepo extends AbstractRepo<Article> {
+public class DispenserRepo extends AbstractRepo<Dispenser> {
 
     @PersistenceContext
     private EntityManager em;
     @Inject
-    private Event<List<Article>> e;
+    private Event<List<Dispenser>> e;
 
-    public List<Article> findByPurchase(Purchase purchase) {
+    public DispenserRepo() {
+        super(Dispenser.class);
+    }
+
+    public List<Dispenser> findByPurchase(Purchase purchase) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Article> cq = cb.createQuery(Article.class);
-        Root<Article> article = cq.from(Article.class);
-        cq.select(article).where(cb.equal(article.get(Article_.purchase), purchase));
-        final List<Article> res = getEntityManager().createQuery(cq).getResultList();
+        CriteriaQuery<Dispenser> cq = cb.createQuery(Dispenser.class);
+        Root<Dispenser> dispenser = cq.from(Dispenser.class);
+        cq.select(dispenser).where(cb.equal(dispenser.get(Dispenser_.purchase), purchase));
+        final List<Dispenser> res = getEntityManager().createQuery(cq).getResultList();
         e.fire(res);
         return res;
     }
 
     @Override
-    public List<Article> findAll() {
-        final List<Article> res = super.findAll();
+    public List<Dispenser> findAll() {
+        final List<Dispenser> res = super.findAll();
         e.fire(res);
         return res;
-    }
-
-    public ArticleRepo() {
-        super(Article.class);
     }
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 }
