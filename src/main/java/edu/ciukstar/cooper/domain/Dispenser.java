@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DISPENSERS")
-public class Dispenser implements Serializable {
+public class Dispenser implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,11 +28,11 @@ public class Dispenser implements Serializable {
     @ManyToOne
     @JoinColumn(name = "PURCHASE", nullable = false, referencedColumnName = "ID")
     private Purchase purchase;
-    
+
     @ManyToOne
     @JoinColumn(name = "WAREHOUSE", nullable = false, referencedColumnName = "ID")
     private Warehouse warehouse;
-    
+
     @Embedded
     private Schedule schedule;
 
@@ -70,7 +69,7 @@ public class Dispenser implements Serializable {
         }
         return true;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -98,5 +97,10 @@ public class Dispenser implements Serializable {
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
-    
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
+    }
+
 }
