@@ -71,29 +71,13 @@
                                             <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
                                         </f:facet>
                                     </p:toolbar>
-                                    <p:dataTable id="articleDataTable" value="#{articleRepo.findByPurchase(purchaseCache.entity)}" var="art" rowKey="#{art.id}"
-                                                 selectionMode="single" selection="#{articleCache.entity}"
-                                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
-
-                                        <p:ajax event="rowSelect" disabled="true" update="@none" />
-
-                                        <f:facet name="header">
-                                            <h:outputText value="#{label.Articles}" />
-                                        </f:facet>
-
-                                        <p:column headerText="#{label.Number}">
-                                            <h:outputText value="#{art.number}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.The_name}">
-                                            <h:outputText value="#{art.product.name}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.Price}">
-                                            <h:outputText value="#{art.price}" />
-                                        </p:column>
-                                        <p:column headerText="#{label.Currency}">
-                                            <h:outputText value="#{art.currency.code}" />
-                                        </p:column>
-                                    </p:dataTable>
+                                    <ui:include src="article/article-data-table.xhtml">
+                                        <ui:param name="id" value="articleDataTable" />
+                                        <ui:param name="data" value="#{articleRepo.findByPurchase(purchaseCache.entity)}" />
+                                        <ui:param name="selection" value="#{articleCache.entity}" />
+                                        <ui:param name="rowSelectDisabled" value="false" />
+                                        <ui:param name="onRowSelectUpdate" value="@none" />
+                                    </ui:include>
                                 </p:tab>
                                 <p:tab title="#{label.Dispensing_points}">
                                     <p:toolbar>
