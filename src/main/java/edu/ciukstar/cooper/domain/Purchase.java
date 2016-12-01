@@ -37,11 +37,6 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "ORGANIZER", referencedColumnName = "id", nullable = false)
     private User organizer;
 
-    @ManyToOne
-    @NotNull(message = "{Product_may_not_be_null}")
-    @JoinColumn(name = "PRODUCT", referencedColumnName = "id", nullable = false)
-    private Product product;
-
     @NotBlank(message = "{Code_may_not_be_blank}")
     @Column(name = "CODE", nullable = false, unique = true)
     private String code;
@@ -125,14 +120,6 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
 
     public void setOrganizer(User organizer) {
         this.organizer = organizer;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public String getCode() {

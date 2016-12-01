@@ -32,16 +32,6 @@
                         <p:inputTextarea id="description" value="#{purchaseCache.entity.description}" cols="30" rows="2" />
                         <p:message for="description" />
 
-                        <p:outputLabel for="product" value="#{label.Product}" />
-                        <h:panelGroup>
-                            <p:inputText id="product" value="#{purchaseCache.entity.product.name}" readonly="true" size="30" />
-                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                <f:actionListener binding="#{dialog.displayInputForm('product-chooser')}" />
-                                <p:ajax event="dialogReturn" update="product" />
-                            </p:commandButton>
-                        </h:panelGroup>
-                        <p:message for="product" />
-
                         <p:outputLabel for="organizer" value="#{label.Organizer}" />
                         <h:panelGroup>
                             <p:inputText id="organizer" value="#{purchaseCache.entity.organizer.fullName}" readonly="true" size="30" />
