@@ -66,9 +66,21 @@
                                             <h:outputText value="#{label.Articles}" />
                                         </f:facet>
                                         <f:facet name="right">
-                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
-                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
-                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{articleCache.schedule(crud.create(articleBuilder.forPurchase(purchaseCache.entity), articleRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('article-edit')}" />
+                                                <p:ajax event="dialogReturn" update="articleDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                                <f:actionListener binding="#{articleCache.schedule(crud.update(articleCache.entity, articleRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('article-edit')}" />
+                                                <p:ajax event="dialogReturn" update="articleDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                                <f:actionListener binding="#{articleCache.schedule(crud.delete(articleCache.entity, articleRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayConfirmationDialog('article-delete')}" />
+                                                <p:ajax event="dialogReturn" update="articleDataTable" />
+                                            </p:commandButton>
                                         </f:facet>
                                     </p:toolbar>
                                     <ui:include src="article/article-data-table.xhtml">
