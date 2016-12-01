@@ -97,9 +97,21 @@
                                             <h:outputText value="#{label.Dispensers}" />
                                         </f:facet>
                                         <f:facet name="right">
-                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
-                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
-                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{dispenserCache.schedule(crud.create(dispenserBuilder.forPurchase(purchaseCache.entity), dispenserRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-edit')}" />
+                                                <p:ajax event="dialogReturn" update="dispenserDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                                <f:actionListener binding="#{dispenserCache.schedule(crud.update(dispenserCache.entity, dispenserRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-edit')}" />
+                                                <p:ajax event="dialogReturn" update="dispenserDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                                <f:actionListener binding="#{dispenserCache.schedule(crud.delete(dispenserCache.entity, dispenserRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayConfirmationDialog('dispenser-delete')}" />
+                                                <p:ajax event="dialogReturn" update="dispenserDataTable" />
+                                            </p:commandButton>
                                         </f:facet>
                                     </p:toolbar>
                                     <ui:include src="dispenser/dispenser-data-table.xhtml">
