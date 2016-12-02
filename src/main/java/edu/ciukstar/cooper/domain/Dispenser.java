@@ -2,7 +2,6 @@ package edu.ciukstar.cooper.domain;
 
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +32,8 @@ public class Dispenser implements Persistable<Long> {
     @JoinColumn(name = "WAREHOUSE", nullable = false, referencedColumnName = "ID")
     private Warehouse warehouse;
 
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "SCHEDULE")
     private Schedule schedule;
 
     @Override
@@ -70,6 +70,7 @@ public class Dispenser implements Persistable<Long> {
         return true;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

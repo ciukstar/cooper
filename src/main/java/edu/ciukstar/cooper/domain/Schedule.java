@@ -1,46 +1,70 @@
 package edu.ciukstar.cooper.domain;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author sergiu
  */
-@Embeddable
-public class Schedule implements Serializable {
+@Entity
+@Table(name = "SCHEDULE")
+public class Schedule implements Persistable<Long> {
 
-    public static Schedule of(LocalDateTime start, LocalDateTime end) {
-        return new Schedule(start, end);
-    }
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)    
+    private Long id;
+
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
     @Column(name = "START_TIME")
-    private LocalDateTime startTime;
+    private LocalDateTime start;
     @Column(name = "END_TIME")
-    private LocalDateTime endTime;
+    private LocalDateTime end;
 
+    @ManyToOne
+    @JoinColumn(name = "PARENT")
+    private Schedule parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<Schedule> slices;
+    
     private Schedule(LocalDateTime start, LocalDateTime end) {
-        this.startTime = start;
-        this.endTime = end;
+        this.slices = new ArrayList<>();
+        this.start = start;
+        this.end = end;
     }
 
     public Schedule() {
         this(null, null);
+        this.slices = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        return "Schedule{" + startTime + " - " + endTime + '}';
+        return "Schedule{" + start + " - " + end + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.startTime);
-        hash = 41 * hash + Objects.hashCode(this.endTime);
+        hash = 41 * hash + Objects.hashCode(this.start);
+        hash = 41 * hash + Objects.hashCode(this.end);
         return hash;
     }
 
@@ -56,29 +80,55 @@ public class Schedule implements Serializable {
             return false;
         }
         final Schedule other = (Schedule) obj;
-        if (!Objects.equals(this.startTime, other.startTime)) {
+        if (!Objects.equals(this.start, other.start)) {
             return false;
         }
-        if (!Objects.equals(this.endTime, other.endTime)) {
+        if (!Objects.equals(this.end, other.end)) {
             return false;
         }
         return true;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getStart() {
+        return start;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Schedule getParent() {
+        return parent;
+    }
+
+    public void setParent(Schedule parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 
 }
