@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://www.ironjacamar.org/doc/schema'
+    xsi:schemaLocation='http://www.ironjacamar.org/doc/schema file:/home/sergiu/NetBeansProjects/cooper/src/main/resources/datasources_1_1.xsd'>
+    <datasource jta="true" jndi-name="java:jboss/cooperDS"
+                pool-name="PostgresDS"
+                enabled="true" use-java-context="true" spy="false" use-ccm="true">
+        <connection-url>jdbc:postgresql://localhost:5432/cooper</connection-url>
+        <driver>postgresql</driver>
+        <security>
+            <user-name>cooper</user-name>
+            <password>cooper</password>
+        </security>
+        <validation>
+            <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"></valid-connection-checker>
+            <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"></exception-sorter>
+        </validation>
+    </datasource>
+    <drivers>
+        <driver name="postgresql" module="org.postgresql">
+            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+        </driver>
+    </drivers>
+</datasources>
