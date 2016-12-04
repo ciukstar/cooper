@@ -43,17 +43,17 @@
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{graphCache.schedule(crud.create(graphBuilder.emptyGraph(), graphRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
-                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable graphDefinitionForm" />
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@form" update="@none">
                                         <f:actionListener binding="#{graphCache.schedule(crud.update(graphCache.entity, graphRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('graph-edit')}" />
-                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable graphDefinitionForm" />
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@form" update="@none">
                                         <f:actionListener binding="#{graphCache.schedule(crud.delete(graphCache.entity, graphRepo))}" />
                                         <f:actionListener binding="#{dialog.displayConfirmationDialog('graph-delete')}" />
-                                        <p:ajax event="dialogReturn" update="graphDataTable" />
+                                        <p:ajax event="dialogReturn" update="graphDataTable graphDefinitionForm" />
                                     </p:commandButton>
                                 </f:facet>
                             </p:toolbar>

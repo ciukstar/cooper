@@ -32,7 +32,8 @@
                                 <h:outputText value="#{purch.description}" />
                             </f:facet>
                             <h:outputText value="#{purch.organizer.fullName}" />
-                            <ui:repeat value="#{purch.articles}" var="art">
+                            <ui:repeat value="#{articleRepo.findByPurchase(purchaseCache.entity)}"
+                                       var="art">
                                 <h:outputText value="#{art.name}" />
                             </ui:repeat>
                         </h:panelGrid>
