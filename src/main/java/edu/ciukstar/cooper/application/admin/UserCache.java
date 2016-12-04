@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -21,31 +22,35 @@ public class UserCache extends CrudCache<User> implements Serializable {
 
     @Inject
     private Refresher refresher;
-    private CrudOperation crudOperation;
-    private User user;
+    private CrudOperation op;
+    private User entity;
 
+    public void uploadUserPhoto(FileUploadEvent e) {
+        entity.setPhoto(e.getFile().getContents());
+    }
+    
     void refresh(@Observes List<User> source) {
-        user = refresher.match(user, source).orElse(null);
+        entity = refresher.match(entity, source).orElse(null);
     }
     
     @Override
     protected void setCrudOperation(CrudOperation<User> op) {
-        this.crudOperation = op;
+        this.op = op;
     }
 
     @Override
     protected CrudOperation<User> getCrudOperation() {
-        return this.crudOperation;
+        return this.op;
     }
 
     @Override
     public void setEntity(User entity) {
-        this.user = entity;
+        this.entity = entity;
     }
 
     @Override
     public User getEntity() {
-        return user;
+        return entity;
     }
 
 }
