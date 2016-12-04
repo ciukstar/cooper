@@ -5,10 +5,11 @@
     <jta-data-source>java:jboss/datasources/PostgersDS</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-    <property name="" value="" />
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="org.hibernate.SQL.level" value="FINEST"/>
+      <property name="org.hibernate.type.level" value="FINEST"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.logging.parameters" value="true"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
