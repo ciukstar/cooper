@@ -29,12 +29,8 @@ public class ProductBuilder {
     }
 
     public interface DescriptionStep {        
-        PriceStep description(String value);
-        PriceStep noDescription();
-    }
-
-    public interface PriceStep {
-        PhotoStep price(BigDecimal value);
+        PhotoStep description(String value);
+        PhotoStep noDescription();
     }
 
     public interface PhotoStep {
@@ -51,7 +47,7 @@ public class ProductBuilder {
         Product get();
     }
 
-    private static class Steps implements CodeStep, NameStep, DescriptionStep, PriceStep, PhotoStep, VenderStep, BuildStep {
+    private static class Steps implements CodeStep, NameStep, DescriptionStep, PhotoStep, VenderStep, BuildStep {
 
         private String code;
         private String name;
@@ -73,20 +69,14 @@ public class ProductBuilder {
         }
 
         @Override
-        public PriceStep description(String value) {
+        public PhotoStep description(String value) {
             this.description = value;
             return this;
         }
 
         @Override
-        public PriceStep noDescription() {
+        public PhotoStep noDescription() {
             this.description = null;
-            return this;
-        }
-
-        @Override
-        public PhotoStep price(BigDecimal value) {
-            this.price = value;
             return this;
         }
 
@@ -120,7 +110,6 @@ public class ProductBuilder {
             product.setCode(code);
             product.setName(name);
             product.setDescription(description);
-            product.setPrice(price);
             product.setImage(photo);
             product.setManufacturer(vender);
             return product;

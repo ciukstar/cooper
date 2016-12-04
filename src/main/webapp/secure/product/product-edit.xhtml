@@ -34,10 +34,6 @@
                         <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="30" />
                         <p:message for="description" />
 
-                        <p:outputLabel for="price" value="#{label.Price}" />
-                        <p:inputText id="price" value="#{productCache.entity.price}" size="30" />
-                        <p:message for="price" />
-
                         <p:outputLabel for="category" value="#{label.Category}" />
                         <h:panelGroup>
                             <p:inputText id="category" value="#{productCache.entity.category.name}" size="30" readonly="true" />
@@ -60,7 +56,8 @@
 
                         <p:outputLabel for="image" value="#{label.Image}" />
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="image" value="#{img.toStreamedContent(productCache.entity.image, 'image/png')}" />
+                            <p:graphicImage id="image" width="80" height="80" 
+                                            value="#{img.toStreamedContent(productCache.entity.image, 'image/png')}" />
                             <p:spacer width="10" />
                             <h:panelGroup>
                                 <p:commandButton icon="fa fa-upload" onclick="PF('uploadDialog').show()" />

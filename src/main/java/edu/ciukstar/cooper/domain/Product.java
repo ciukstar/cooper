@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -38,10 +35,6 @@ public class Product implements Persistable<Long> {
     private String name;
     @Column(name = "DESCRIPTION")
     private String description;
-    @NotNull(message = "{Price_may_not_be_null}")
-    @Min(value = 0, message = "{Price_must_be_greater_or_equal_to_value}")
-    @Column(name = "PRICE", nullable = false)
-    private BigDecimal price;
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
@@ -114,14 +107,6 @@ public class Product implements Persistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public byte[] getImage() {

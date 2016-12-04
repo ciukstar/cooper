@@ -17,7 +17,7 @@ public class ProductTest {
     @Before
     public void setUp() {
         product = Product.from().code(code).name(name).description(description)
-                .price(price).noPhoto().vender(vender).get();
+                .noPhoto().vender(vender).get();
     }
 
     private Product product;
@@ -32,12 +32,11 @@ public class ProductTest {
     @Test
     public void shouldBuildAProductByUsingProductBuilderApi() {
         Product newProduct = Product.from().code(code).name(name).description(description)
-                .price(price).noPhoto().vender(vender).get();
+                .noPhoto().vender(vender).get();
         
         assertThat(newProduct.getCode(), is(code));
         assertThat(newProduct.getName(), is(name));
         assertThat(newProduct.getDescription(), is(description));
-        assertThat(newProduct.getPrice(), is(price));
         assertThat(newProduct.getImage(), is(nullValue()));
         assertThat(newProduct.getManufacturer(), is(vender));
         

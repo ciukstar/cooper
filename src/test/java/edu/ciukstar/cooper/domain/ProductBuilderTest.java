@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -27,7 +26,6 @@ public class ProductBuilderTest {
     
     private final Manufacturer vender = mock(Manufacturer.class);
     private final String photo = "rawdata";
-    private final BigDecimal price = BigDecimal.ONE;
     private final String description = "A Description";
     private final String name = "The Name";
     private final String code = "The Code";
@@ -38,7 +36,6 @@ public class ProductBuilderTest {
                 .code(null)
                 .name(name)
                 .noDescription()
-                .price(price)
                 .noPhoto()
                 .noVender()
                 .get();
@@ -53,7 +50,6 @@ public class ProductBuilderTest {
                 .code(code)
                 .name(name)
                 .noDescription()
-                .price(price)
                 .noPhoto()
                 .noVender()
                 .get();
@@ -68,7 +64,6 @@ public class ProductBuilderTest {
                 .code(code)
                 .name(name)
                 .description(description)
-                .price(price)
                 .photo(photo.getBytes())
                 .vender(vender)
                 .get();
@@ -83,7 +78,6 @@ public class ProductBuilderTest {
                 .code(code)
                 .name(name)
                 .description(description)
-                .price(price)
                 .photo(photo.getBytes())
                 .vender(vender)
                 .get();
@@ -91,7 +85,6 @@ public class ProductBuilderTest {
         assertThat(product.getCode(), is(code));
         assertThat(product.getName(), is(name));
         assertThat(product.getDescription(), is(description));
-        assertThat(product.getPrice(), is(price));
         assertThat(new String(product.getImage()), is(photo));
         assertThat(product.getManufacturer(), is(vender));
         

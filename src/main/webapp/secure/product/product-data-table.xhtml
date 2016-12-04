@@ -28,11 +28,9 @@
                 <p:column headerText="#{label.The_name}">
                     <h:outputText value="#{p.name}" />
                 </p:column>
-                <p:column headerText="#{label.Price}">
-                    <h:outputText value="#{p.price}" />
-                </p:column>
                 <p:column headerText="#{label.Image}">
-                    <p:graphicImage value="#{img.getContent(param['pid'], 'image', productRepo)}">
+                    <p:graphicImage width="80" height="80" 
+                                    value="#{img.getContent(param['pid'], 'image', productRepo)}">
                         <f:param name="pid" value="#{p.id}" />
                     </p:graphicImage>
                 </p:column>
