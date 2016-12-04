@@ -19,15 +19,25 @@
                 </p:menu>
             </ui:define>
             <ui:define name="center">
-                <p:dataTable value="#{purchaseRepo.findAll()}" var="p"
-                             emptyMessage="#{label.No_records_found}">
+                <p:dataGrid id="purchaseDataGrid" value="#{purchaseRepo.findAll()}" var="purch"
+                            columns="1" layout="grid" rows="12"
+                            emptyMessage="#{label.No_records_found}">
                     <f:facet name="header">
                         <h:outputText value="#{label.Purchases}" />
                     </f:facet>
-                    <p:column headerText="#{label.Organizer}">
-                        <h:outputText value="#{p.organizer.fullName}" />
-                    </p:column>
-                </p:dataTable>
+                    
+                    <p:panel>
+                        <h:panelGrid columns="2">
+                            <f:facet name="header">
+                                <h:outputText value="#{purch.description}" />
+                            </f:facet>
+                            <h:outputText value="#{purch.organizer.fullName}" />
+                            <ui:repeat value="#{purch.articles}" var="art">
+                                <h:outputText value="#{art.name}" />
+                            </ui:repeat>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:dataGrid>
             </ui:define>
         </ui:composition>
     </h:body>
