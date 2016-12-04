@@ -44,7 +44,10 @@ public class Product implements Persistable<Long> {
     @ManyToOne
     @JoinColumn(name = "MANUFACTURER", referencedColumnName = "ID")
     private Manufacturer manufacturer;
-
+    @ManyToOne
+    @JoinColumn(name = "COUNTRY", referencedColumnName = "ID")
+    private Country country;
+    
     @Override
     public String toString() {
         return Arrays.asList(getCode(), getName()).stream()
@@ -115,6 +118,14 @@ public class Product implements Persistable<Long> {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Manufacturer getManufacturer() {

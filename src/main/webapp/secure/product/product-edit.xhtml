@@ -54,6 +54,17 @@
                         </h:panelGroup>
                         <p:message for="manufacturer" />
 
+                        <p:outputLabel for="country" value="#{label.Country}" />
+                        <h:panelGroup>
+                            <p:inputText id="country" value="#{productCache.entity.country.name}" 
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('country-chooser')}" />
+                                <p:ajax event="dialogReturn" update="country" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="country" />
+
                         <p:outputLabel for="image" value="#{label.Image}" />
                         <h:panelGrid columns="3">
                             <p:graphicImage id="image" width="80" height="80" 
