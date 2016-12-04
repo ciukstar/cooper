@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="js">
+                <h:outputScript library="js" name="calendar-ru.js" />
+            </ui:define>
+            
+            <ui:define name="title">
+                <h:outputText value="#{label.Schedule}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Schedule}: #{scheduleCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{scheduleCache.entity.name}" size="30" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="start" value="#{label.From}" />
+                        <p:calendar id="start" value="#{scheduleCache.entity.start}"
+                                    showOn="button" showButtonPanel="true" navigator="true"
+                                    pattern="dd.MM.yyyy HH:mm:ss"
+                                    converter="#{localDateTimeConverter}" />
+                        <p:message for="start" />
+
+                        <p:outputLabel for="end" value="#{label.To}" />
+                        <p:calendar id="end" value="#{scheduleCache.entity.end}" 
+                                    showOn="button" showButtonPanel="true" navigator="true"
+                                    pattern="dd.MM.yyyy HH:mm:ss"
+                                    converter="#{localDateTimeConverter}" />
+                        <p:message for="end" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{scheduleCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{scheduleCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
