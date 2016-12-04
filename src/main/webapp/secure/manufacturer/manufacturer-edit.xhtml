@@ -27,7 +27,14 @@
                         <p:message for="name" />
 
                         <p:outputLabel for="country" value="#{label.Country}" />
-                        <p:inputText id="country" value="#{manufacturerCache.entity.country}" size="30" />
+                        <h:panelGroup>
+                            <p:inputText id="country" value="#{manufacturerCache.entity.country.name}"
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('country-chooser')}" />
+                                <p:ajax event="dialogReturn" update="country" />
+                            </p:commandButton>
+                        </h:panelGroup>
                         <p:message for="country" />
 
                         <p:outputLabel for="logo" value="#{label.Logo}" />

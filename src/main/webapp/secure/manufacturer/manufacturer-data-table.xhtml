@@ -26,11 +26,10 @@
                     <h:outputText value="#{m.name}" />
                 </p:column>
                 <p:column headerText="#{label.Country}">
-                    <h:outputText value="#{m.country}" />
+                    <h:outputText value="#{m.country.name}" />
                 </p:column>
                 <p:column headerText="#{label.Logo}">
-                    <p:graphicImage value="#{img.getContent(param['mid'], 'logo', manufacturerRepo)}"
-                                     style="height: 32px; width: 32px">
+                    <p:graphicImage value="#{img.getContent(param['mid'], 'logo', manufacturerRepo)}">
                         <f:param name="mid" value="#{m.id}" />
                     </p:graphicImage>
                 </p:column>

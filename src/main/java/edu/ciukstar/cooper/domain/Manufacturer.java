@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -28,8 +30,9 @@ public class Manufacturer implements Persistable<Long> {
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;
     
-    @Column(name = "COUNTRY")
-    private String country;
+    @ManyToOne
+    @JoinColumn(name = "COUNTRY")
+    private Country country;
     
     @Lob
     @Column(name = "LOGO")
@@ -65,11 +68,11 @@ public class Manufacturer implements Persistable<Long> {
         return true;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
