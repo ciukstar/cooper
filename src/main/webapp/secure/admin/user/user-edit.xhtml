@@ -59,7 +59,8 @@
 
                         <p:outputLabel for="userPhoto" value="#{label.Image}" />
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="userPhoto" value="#{img.toStreamedContent(userCache.entity.photo)}" />
+                            <p:graphicImage id="userPhoto" width="80" height="80"
+                                            value="#{img.toStreamedContent(userCache.entity.photo)}" />
                             <p:spacer width="20" />
                             <h:panelGroup>
                                 <p:commandButton icon="fa fa-upload" onclick="PF('userPhotoUploader').show()" process="@none" update="@none" />
