@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/default.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Photos}" />
+            </ui:define>
+
+            <ui:define name="west">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Links}" icon="fa fa-link" />
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="center">
+                <h:form>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:outputText value="#{label.Photos}" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{photoCache.schedule(crud.create(photoBuilder.emptyPhoto(), photoRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('photo-edit')}" />
+                                <p:ajax event="dialogReturn" update="photoDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{photoCache.schedule(crud.update(photoCache.entity, photoRepo))}" />
+                                <f:actionListener binding="#{dialog.displayInputForm('photo-edit')}" />
+                                <p:ajax event="dialogReturn" update="photoDataTable" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                <f:actionListener binding="#{photoCache.schedule(crud.delete(photoCache.entity, photoRepo))}" />
+                                <f:actionListener binding="#{dialog.displayConfirmationDialog('photo-delete')}" />
+                                <p:ajax event="dialogReturn" update="photoDataTable" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:dataTable id="photoDataTable" value="#{photoRepo.findAll()}" var="photo" rowKey="#{photo.id}"
+                                 selectionMode="single" selection="#{photoCache.entity}"
+                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
+                        <p:ajax event="rowSelect" disabled="true" update="@none" />
+
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Photos}" />
+                        </f:facet>
+
+                        <p:column headerText="#{label.MIME}">
+                            <h:outputText value="#{photo.mime}" />
+                        </p:column>
+
+                        <p:column headerText="#{label.Extension}">
+                            <h:outputText value="#{photo.ext}" />
+                        </p:column>
+
+                        <p:column headerText="#{label.Description}">
+                            <h:outputText value="#{photo.description}" />
+                        </p:column>
+
+                        <p:column headerText="#{label.Preview}">
+                            <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
+                                <f:param name="photoid" value="#{photo.id}" />
+                            </p:graphicImage>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
