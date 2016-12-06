@@ -2,11 +2,14 @@ package edu.ciukstar.cooper.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,17 +57,17 @@ public class Product implements Persistable<Long> {
     @JoinColumn(name = "COUNTRY", referencedColumnName = "ID")
     private Country country;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "PRODUCT_PHOTOS", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"PRODUCT", "PHOTO"})},
             joinColumns = {
                 @JoinColumn(name = "PRODUCT", nullable = false)},
             inverseJoinColumns = {
                 @JoinColumn(name = "PHOTO", nullable = false)})
-    private List<Photo> photos;
+    private Set<Photo> photos;
 
     public Product() {
-        this.photos = new ArrayList<>();
+        this.photos = new HashSet<>();
     }
 
     @Override
@@ -170,5 +173,9 @@ public class Product implements Persistable<Long> {
     @Override
     public boolean isNew() {
         return null == getId();
+    }
+
+    public void addPhoto(Photo photo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

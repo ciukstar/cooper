@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -27,10 +26,6 @@ public class ProductCache extends CrudCache<Product> implements Serializable {
 
     void refresh(@Observes List<Product> source) {
         this.entity = refresher.match(entity, source).orElse(null);
-    }
-
-    public void uploadImage(FileUploadEvent e) {
-        entity.setImage(e.getFile().getContents());
     }
 
     @Override
