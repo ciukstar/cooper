@@ -3,3 +3,5 @@
 *.vpp.bak_*
 *.vpp.lck
 /nbproject/
+/*.NavData
+/nb-configuration.xml
