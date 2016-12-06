@@ -1,6 +1,8 @@
 package edu.ciukstar.cooper.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
@@ -9,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -38,6 +43,7 @@ public class Product implements Persistable<Long> {
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
+
     @ManyToOne
     @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")
     private Category category;
@@ -47,7 +53,20 @@ public class Product implements Persistable<Long> {
     @ManyToOne
     @JoinColumn(name = "COUNTRY", referencedColumnName = "ID")
     private Country country;
-    
+
+    @OneToMany
+    @JoinTable(name = "PRODUCT_PHOTOS", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"PRODUCT", "PHOTO"})},
+            joinColumns = {
+                @JoinColumn(name = "PRODUCT", nullable = false)},
+            inverseJoinColumns = {
+                @JoinColumn(name = "PHOTO", nullable = false)})
+    private List<Photo> photos;
+
+    public Product() {
+        this.photos = new ArrayList<>();
+    }
+
     @Override
     public String toString() {
         return Arrays.asList(getCode(), getName()).stream()
@@ -110,6 +129,10 @@ public class Product implements Persistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Photo> getPhotos() {
+        return new ArrayList<>(photos);
     }
 
     public byte[] getImage() {
