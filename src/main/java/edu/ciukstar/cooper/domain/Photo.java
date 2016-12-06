@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author sergiu
  */
 @Entity
-@Table(name = "PRODUCT_IMAGES")
+@Table(name = "PHOTOS")
 public class Photo implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
