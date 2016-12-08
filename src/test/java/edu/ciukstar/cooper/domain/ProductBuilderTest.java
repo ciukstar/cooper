@@ -24,8 +24,7 @@ public class ProductBuilderTest {
 
     private Validator validator;
     
-    private final Manufacturer vender = mock(Manufacturer.class);
-    private final String photo = "rawdata";
+    private final Manufacturer manufacturer = mock(Manufacturer.class);
     private final String description = "A Description";
     private final String name = "The Name";
     private final String code = "The Code";
@@ -36,8 +35,7 @@ public class ProductBuilderTest {
                 .code(null)
                 .name(name)
                 .noDescription()
-                .noPhoto()
-                .noVender()
+                .noManufacturer()
                 .get();
         
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
@@ -50,8 +48,7 @@ public class ProductBuilderTest {
                 .code(code)
                 .name(name)
                 .noDescription()
-                .noPhoto()
-                .noVender()
+                .noManufacturer()
                 .get();
         
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
@@ -63,9 +60,8 @@ public class ProductBuilderTest {
         Product product = ProductBuilder.from()
                 .code(code)
                 .name(name)
-                .description(description)
-                .photo(photo.getBytes())
-                .vender(vender)
+                .description(description)                
+                .manufacturer(manufacturer)
                 .get();
         
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
@@ -78,15 +74,13 @@ public class ProductBuilderTest {
                 .code(code)
                 .name(name)
                 .description(description)
-                .photo(photo.getBytes())
-                .vender(vender)
+                .manufacturer(manufacturer)
                 .get();
         
         assertThat(product.getCode(), is(code));
         assertThat(product.getName(), is(name));
         assertThat(product.getDescription(), is(description));
-        assertThat(new String(product.getImage()), is(photo));
-        assertThat(product.getManufacturer(), is(vender));
+        assertThat(product.getManufacturer(), is(manufacturer));
         
     }
     

@@ -29,31 +29,24 @@ public class ProductBuilder {
     }
 
     public interface DescriptionStep {        
-        PhotoStep description(String value);
-        PhotoStep noDescription();
+        ManufacturerStep description(String value);
+        ManufacturerStep noDescription();
     }
 
-    public interface PhotoStep {
-        VenderStep photo(byte[] raw);
-        VenderStep noPhoto();
-    }
-
-    public interface VenderStep {
-        BuildStep vender(Manufacturer vender);
-        BuildStep noVender();
+    public interface ManufacturerStep {
+        BuildStep manufacturer(Manufacturer manufacturer);
+        BuildStep noManufacturer();
     }
 
     public interface BuildStep {
         Product get();
     }
 
-    private static class Steps implements CodeStep, NameStep, DescriptionStep, PhotoStep, VenderStep, BuildStep {
+    private static class Steps implements CodeStep, NameStep, DescriptionStep, ManufacturerStep, BuildStep {
 
         private String code;
         private String name;
         private String description;
-        private BigDecimal price;
-        private byte[] photo;
         private Manufacturer vender;
 
         @Override
@@ -69,37 +62,25 @@ public class ProductBuilder {
         }
 
         @Override
-        public PhotoStep description(String value) {
+        public ManufacturerStep description(String value) {
             this.description = value;
             return this;
         }
 
         @Override
-        public PhotoStep noDescription() {
+        public ManufacturerStep noDescription() {
             this.description = null;
             return this;
         }
 
         @Override
-        public VenderStep photo(byte[] raw) {
-            this.photo = raw;
-            return this;
-        }
-
-        @Override
-        public VenderStep noPhoto() {
-            this.photo = null;
-            return this;
-        }
-
-        @Override
-        public BuildStep vender(Manufacturer vender) {
+        public BuildStep manufacturer(Manufacturer vender) {
             this.vender = vender;
             return this;
         }
 
         @Override
-        public BuildStep noVender() {
+        public BuildStep noManufacturer() {
             this.vender = null;
             return this;
         }
@@ -110,7 +91,6 @@ public class ProductBuilder {
             product.setCode(code);
             product.setName(name);
             product.setDescription(description);
-            product.setImage(photo);
             product.setManufacturer(vender);
             return product;
         }

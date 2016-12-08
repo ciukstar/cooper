@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
@@ -43,10 +44,6 @@ public class Product implements Persistable<Long> {
     private String name;
     @Column(name = "DESCRIPTION")
     private String description;
-    @Lob
-    @Column(name = "IMAGE")
-    private byte[] image;
-
     @ManyToOne
     @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")
     private Category category;
@@ -70,6 +67,14 @@ public class Product implements Persistable<Long> {
         this.photos = new HashSet<>();
     }
 
+    public Optional<Photo> anyPhoto() {
+        return getPhotos().stream().findAny();
+    }
+    
+    public Photo getAnyPhoto() {
+        return anyPhoto().orElse(null);
+    }
+    
     @Override
     public String toString() {
         return Arrays.asList(getCode(), getName()).stream()
@@ -138,14 +143,6 @@ public class Product implements Persistable<Long> {
         return new ArrayList<>(photos);
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public Country getCountry() {
         return country;
     }
@@ -178,7 +175,7 @@ public class Product implements Persistable<Long> {
     public void addPhoto(Photo photo) {
         this.photos.add(photo);
     }
-    
+
     public void removePhoto(Photo photo) {
         this.photos.remove(photo);
     }

@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.math.BigDecimal;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
@@ -17,7 +16,7 @@ public class ProductTest {
     @Before
     public void setUp() {
         product = Product.from().code(code).name(name).description(description)
-                .noPhoto().vender(vender).get();
+                .manufacturer(manufacturer).get();
     }
 
     private Product product;
@@ -32,17 +31,15 @@ public class ProductTest {
     @Test
     public void shouldBuildAProductByUsingProductBuilderApi() {
         Product newProduct = Product.from().code(code).name(name).description(description)
-                .noPhoto().vender(vender).get();
+                .manufacturer(manufacturer).get();
         
         assertThat(newProduct.getCode(), is(code));
         assertThat(newProduct.getName(), is(name));
         assertThat(newProduct.getDescription(), is(description));
-        assertThat(newProduct.getImage(), is(nullValue()));
-        assertThat(newProduct.getManufacturer(), is(vender));
+        assertThat(newProduct.getManufacturer(), is(manufacturer));
         
     }
-    private final Manufacturer vender = mock(Manufacturer.class);
-    private final BigDecimal price = BigDecimal.ONE;
+    private final Manufacturer manufacturer = mock(Manufacturer.class);
     private final String description = "A Description";
     private final String name = "The Name";
     private final String code = "The Code";
