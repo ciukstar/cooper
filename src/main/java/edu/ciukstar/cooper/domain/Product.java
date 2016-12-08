@@ -178,4 +178,8 @@ public class Product implements Persistable<Long> {
     public void addPhoto(Photo photo) {
         this.photos.add(photo);
     }
+    
+    public void removePhoto(Photo photo) {
+        this.photos.remove(photo);
+    }
 }

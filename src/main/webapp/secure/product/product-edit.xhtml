@@ -83,8 +83,12 @@
                             <p:panel id="photoPanel">
                                 <ui:repeat value="#{productCache.entity.photos}" var="photo" >
                                     <h:panelGrid columns="2">
-                                        <p:graphicImage value="#{img.toStreamedContent(photo.raw)}" width="80" height="80" />
-                                        <p:commandButton icon="fa fa-trash" />
+                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}" width="80" height="80">
+                                            <f:param name="photoid" value="#{photo.id}" />
+                                        </p:graphicImage>
+                                        <p:commandButton icon="fa fa-trash" process="@this" update="@form:productTabView:photoPanel">
+                                            <f:actionListener binding="#{productCache.entity.removePhoto(photo)}" />
+                                        </p:commandButton>
                                     </h:panelGrid>
                                 </ui:repeat>
                                 <f:facet name="footer">
@@ -92,7 +96,10 @@
                                         <f:actionListener binding="#{dialog.displayInputForm('photo-chooser')}" />
                                         <p:ajax event="dialogReturn" update="photoPanel" />
                                     </p:commandButton>
-                                    <p:commandButton value="#{label.Remove}" icon="fa fa-trash" />
+                                    <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                        <f:actionListener binding="#{productCache.executeCrudOperation()}" />
+                                        <f:actionListener binding="#{dialog.dispose()}" />
+                                    </p:commandButton>
                                 </f:facet>
                             </p:panel>
                         </p:tab>
