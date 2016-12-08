@@ -35,10 +35,13 @@
                     <h:outputText value="#{p.manufacturer.name}" />
                 </p:column>
                 <p:column headerText="#{label.Photo}">
-                    <p:graphicImage width="40" height="40" 
-                                    value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
-                        <f:param name="photoid" value="#{p.anyPhoto.id}" />
-                    </p:graphicImage>
+                    <p:commandLink>
+                        <f:actionListener binding="#{dialog.displayInputForm('photo-displayer')}" />
+                        <p:graphicImage width="40" height="40" 
+                                        value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
+                            <f:param name="photoid" value="#{p.anyPhoto.id}" />
+                        </p:graphicImage>
+                    </p:commandLink>
                 </p:column>
             </p:dataTable>
         </ui:composition>
