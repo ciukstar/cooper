@@ -176,6 +176,6 @@ public class Product implements Persistable<Long> {
     }
 
     public void addPhoto(Photo photo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.photos.add(photo);
     }
 }

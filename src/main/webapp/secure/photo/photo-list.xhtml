@@ -46,34 +46,12 @@
                             </p:commandButton>
                         </f:facet>
                     </p:toolbar>
-                    <p:dataTable id="photoDataTable" value="#{photoRepo.findAll()}" var="photo" rowKey="#{photo.id}"
-                                 selectionMode="single" selection="#{photoCache.entity}"
-                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
-                        <p:ajax event="rowSelect" disabled="true" update="@none" />
-
-                        <f:facet name="header">
-                            <h:outputText value="#{label.Photos}" />
-                        </f:facet>
-
-                        <p:column headerText="#{label.MIME}">
-                            <h:outputText value="#{photo.mime}" />
-                        </p:column>
-
-                        <p:column headerText="#{label.Extension}">
-                            <h:outputText value="#{photo.ext}" />
-                        </p:column>
-
-                        <p:column headerText="#{label.Description}">
-                            <h:outputText value="#{photo.description}" />
-                        </p:column>
-
-                        <p:column headerText="#{label.Preview}">
-                            <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
-                                <f:param name="photoid" value="#{photo.id}" />
-                            </p:graphicImage>
-                        </p:column>
-
-                    </p:dataTable>
+                    <ui:include src="photo-data-table.xhtml">
+                        <ui:param name="id" value="photoDataTable" />
+                        <ui:param name="data" value="#{photoRepo.findAll()}" />
+                        <ui:param name="selection" value="#{photoCache.entity}" />
+                        <ui:param name="rowSelectDisabled" value="true" />
+                    </ui:include>
                 </h:form>
             </ui:define>
 
