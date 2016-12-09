@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Rule}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="ruleForm">
+                    <p:messages autoUpdate="true" closable="true" />
+                    <p:panelGrid columns="3">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Rule}: #{ruleCache.entity.id}" />
+                        </f:facet>
+
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{ruleCache.entity.name}" size="40" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="icon" value="#{label.Icon}" />
+                        <h:panelGrid columns="3">
+                            <p:graphicImage id="icon" value="#{img.toStreamedContent(ruleCache.entity.icon)}" width="32" height="32" />
+                            <p:spacer width="10" />
+                            <h:panelGroup>
+                                <p:commandButton icon="fa fa-upload" process="@this" update="@none" 
+                                                 onclick="PF('iconUploader').show()" />
+                                <p:commandButton icon="fa fa-trash" process="@this" update="icon">
+                                    <f:actionListener binding="#{ruleCache.entity.setIcon(null)}" />
+                                </p:commandButton>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <p:message for="icon" />
+
+                        <p:outputLabel for="contents" value="#{label.Contents}" />
+                        <p:inputTextarea id="contents" value="#{ruleCache.entity.contents}" cols="50" rows="4" />
+                        <p:message for="contents" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{ruleCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{ruleCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                <p:dialog widgetVar="iconUploader" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload label="#{label.Choose}" uploadLabel="#{label.Upload}" cancelLabel="#{label.Cancel}"
+                                      fileUploadListener="#{ruleCache.uploadRuleIcon }"
+                                      update="ruleForm" oncomplete="PF('iconUploader').hide()" />
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -24,6 +25,10 @@ public class RuleCache extends CrudCache<Rule> implements Serializable {
     private CrudOperation<Rule> op;
     private Rule entity;
 
+    public void uploadRuleIcon(FileUploadEvent e) {
+        entity.setIcon(e.getFile().getContents());
+    }
+    
     void refresh(@Observes List<Rule> source) {
         this.entity = refresher.match(entity, source).orElse(null);
     }
