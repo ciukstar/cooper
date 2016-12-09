@@ -39,7 +39,7 @@
                                 <f:actionListener binding="#{dialog.displayInputForm('rule-edit')}" />
                                 <p:ajax event="dialogReturn" update="ruleDataTable" />
                             </p:commandButton>
-                            <p:commandButton value="#{label.Add}" icon="fa fa-trash" process="@this" update="@none">
+                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
                                 <f:actionListener binding="#{ruleCache.schedule(crud.delete(ruleCache.entity, ruleRepo))}" />
                                 <f:actionListener binding="#{dialog.displayConfirmationDialog('rule-delete')}" />
                                 <p:ajax event="dialogReturn" update="ruleDataTable" />
