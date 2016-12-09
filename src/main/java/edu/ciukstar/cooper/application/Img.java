@@ -1,16 +1,13 @@
 package edu.ciukstar.cooper.application;
 
-import edu.ciukstar.cooper.domain.Manufacturer;
 import edu.ciukstar.cooper.repo.AbstractRepo;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import javax.inject.Named;
 import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 

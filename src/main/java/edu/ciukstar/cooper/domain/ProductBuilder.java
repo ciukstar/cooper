@@ -1,6 +1,5 @@
 package edu.ciukstar.cooper.domain;
 
-import java.math.BigDecimal;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 

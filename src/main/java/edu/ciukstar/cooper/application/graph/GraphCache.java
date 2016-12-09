@@ -1,7 +1,7 @@
 package edu.ciukstar.cooper.application.graph;
 
-import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.application.CrudCache;
+import edu.ciukstar.cooper.application.Refresher;
 import edu.ciukstar.cooper.domain.Graph;
 import edu.ciukstar.cooper.domain.Status;
 import edu.ciukstar.cooper.repo.CrudOperation;

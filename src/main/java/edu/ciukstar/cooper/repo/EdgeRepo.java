@@ -1,10 +1,9 @@
 package edu.ciukstar.cooper.repo;
 
-import edu.ciukstar.cooper.domain.Graph;
 import edu.ciukstar.cooper.domain.Edge;
 import edu.ciukstar.cooper.domain.EdgeType;
 import edu.ciukstar.cooper.domain.Edge_;
-import java.util.List;
+import edu.ciukstar.cooper.domain.Graph;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;

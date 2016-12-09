@@ -1,16 +1,13 @@
 package edu.ciukstar.cooper.domain;
 
 import java.util.Set;
-import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *

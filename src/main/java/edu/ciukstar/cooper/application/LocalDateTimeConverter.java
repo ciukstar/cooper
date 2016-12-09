@@ -3,7 +3,6 @@ package edu.ciukstar.cooper.application;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -11,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.component.calendar.Calendar;
 
 /**
