@@ -1,10 +1,11 @@
 package edu.ciukstar.cooper.repo;
 
-import edu.ciukstar.cooper.domain.PurchaseRule;
+import edu.ciukstar.cooper.domain.Rule;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,21 +13,22 @@ import javax.persistence.PersistenceContext;
  *
  * @author sergiu
  */
+@Named
 @Stateless
-public class PurcahseRuleRepo extends AbstractRepo<PurchaseRule> {
+public class RuleRepo extends AbstractRepo<Rule> {
 
     @PersistenceContext
     private EntityManager em;
     @Inject
-    private Event<List<PurchaseRule>> e;
+    private Event<List<Rule>> e;
 
-    public PurcahseRuleRepo() {
-        super(PurchaseRule.class);
+    public RuleRepo() {
+        super(Rule.class);
     }
 
     @Override
-    public List<PurchaseRule> findAll() {
-        final List<PurchaseRule> res = super.findAll();
+    public List<Rule> findAll() {
+        final List<Rule> res = super.findAll();
         e.fire(res);
         return res;
     }

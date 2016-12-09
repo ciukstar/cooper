@@ -9,10 +9,10 @@ import javax.enterprise.context.Dependent;
  */
 @Named
 @Dependent
-public class PurchaseRuleBuilder {
+public class RuleBuilder {
 
-    public PurchaseRule emptyRule() {
-        return new PurchaseRule();
+    public Rule emptyRule() {
+        return new Rule();
     }
     
 }
