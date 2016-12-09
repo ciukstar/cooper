@@ -21,6 +21,10 @@
                             <h:outputText value="#{label.Photo}: #{photoCache.entity.id}" />
                         </f:facet>
 
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{photoCache.entity.name}" size="30" />
+                        <p:message for="name" />
+                        
                         <p:outputLabel for="raw" value="#{label.Image}" />                        
                         <h:panelGrid columns="3">
                             <p:graphicImage id="raw" value="#{img.toStreamedContent(photoCache.entity.raw)}" />

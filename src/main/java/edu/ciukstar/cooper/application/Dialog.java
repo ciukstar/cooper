@@ -18,8 +18,13 @@ public class Dialog {
     private Integer width = 800;
     private Integer height = 500;
 
+    public void display(final String outcome) {
+        RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
+        
+    }
+    
     public void displayConfirmationDialog(final String outcome) {
-        displayInputForm(outcome);
+        display(outcome);
     }
 
     public void dispose() {
@@ -27,7 +32,7 @@ public class Dialog {
     }
 
     public void displayInputForm(final String outcome) {
-        RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
+        display(outcome);
     }
 
     private final Map<String, Object> options;

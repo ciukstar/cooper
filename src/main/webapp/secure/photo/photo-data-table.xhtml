@@ -22,6 +22,20 @@
                     </f:facet>
                 </c:if>
 
+                <p:column headerText="#{label.The_name}">
+                    <h:outputText value="#{photo.name}" />
+                </p:column>
+
+                <p:column headerText="#{label.Preview}">
+                    <p:commandLink>
+                        <f:actionListener binding="#{dialog.display('photo-displayer')}" />
+                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                        width="32" height="32">
+                            <f:param name="photoid" value="#{photo.id}" />
+                        </p:graphicImage>
+                    </p:commandLink>
+                </p:column>
+                
                 <p:column headerText="#{label.MIME}">
                     <h:outputText value="#{photo.mime}" />
                 </p:column>
@@ -32,12 +46,6 @@
 
                 <p:column headerText="#{label.Description}">
                     <h:outputText value="#{photo.description}" />
-                </p:column>
-
-                <p:column headerText="#{label.Preview}">
-                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
-                        <f:param name="photoid" value="#{photo.id}" />
-                    </p:graphicImage>
                 </p:column>
 
             </p:dataTable>

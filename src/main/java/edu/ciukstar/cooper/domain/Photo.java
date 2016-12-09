@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -23,6 +24,10 @@ public class Photo implements Persistable<Long> {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    @NotBlank(message = "#{The_name_may_not_be_blank}")
+    @Column(name = "NAME", nullable = false)
+    private String name;
+    
     @Lob
     @Column(name = "RAW")
     private byte[] raw;
@@ -64,6 +69,14 @@ public class Photo implements Persistable<Long> {
             return false;
         }
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public byte[] getRaw() {
