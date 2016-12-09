@@ -17,7 +17,7 @@
             <ui:define name="content">
                 <h:form>
                     <p:panel>
-                        
+
                         <ui:include src="../rule/rule-data-table.xhtml">
                             <ui:param name="id" value="ruleDataTable" />
                             <ui:param name="data" value="#{ruleRepo.findAll()}" />
@@ -25,7 +25,7 @@
                             <ui:param name="rowSelectDisabled" value="true" />
                             <ui:param name="tableHeader" value="#{label.Roles}" />
                         </ui:include>
-                        
+
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
                                 <f:actionListener binding="#{purchaseCache.entity.addRule(requestScope.rule)}" />
