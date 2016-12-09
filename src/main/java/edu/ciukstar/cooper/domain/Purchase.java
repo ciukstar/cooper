@@ -3,8 +3,10 @@ package edu.ciukstar.cooper.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -80,10 +82,10 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
             inverseJoinColumns = {
                 @JoinColumn(name = "RULE", nullable = false, referencedColumnName = "ID")},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"PURCHASE", "RULE"})})
-    private List<Rule> rules;
+    private Set<Rule> rules;
 
     public Purchase(Status status) {
-        this.rules = new ArrayList<>();
+        this.rules = new HashSet<>();
         this.dispensers = new ArrayList<>();
         this.articles = new ArrayList<>();
         this.status = status;
@@ -192,6 +194,18 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
         this.organizationCostAsCoefficient = organizationCostAsCoefficient;
     }
 
+    public List<Rule> getRules() {
+        return new ArrayList<>(rules);
+    }
+
+    public void removeRule(Rule rule) {
+        this.rules.remove(rule);
+    }
+    
+    public void addRule(Rule rule) {
+        this.rules.add(rule);
+    }
+    
     @Override
     public boolean isNew() {
         return null == getId();

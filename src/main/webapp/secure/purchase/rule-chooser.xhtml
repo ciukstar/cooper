@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Rule}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel>
+                        
+                        <ui:include src="../rule/rule-data-table.xhtml">
+                            <ui:param name="id" value="ruleDataTable" />
+                            <ui:param name="data" value="#{ruleRepo.findAll()}" />
+                            <ui:param name="selection" value="#{requestScope.rule}" />
+                            <ui:param name="rowSelectDisabled" value="true" />
+                            <ui:param name="tableHeader" value="#{label.Roles}" />
+                        </ui:include>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
+                                <f:actionListener binding="#{purchaseCache.entity.addRule(requestScope.rule)}" />
+                                <f:actionListener binding="#{purchaseCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{purchaseCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -122,6 +122,43 @@
                                         <ui:param name="onRowSelectUpdate" value="@none" />
                                     </ui:include>
                                 </p:tab>
+                                <p:tab title="#{label.Rules}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Rules}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
+                                                <f:actionListener binding="#{dialog.displayInputForm('rule-chooser')}" />
+                                                <p:ajax event="dialogReturn" update="purchaseRuleDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@form" update="@form">
+                                                <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
+                                                <f:actionListener binding="#{purchaseCache.entity.removeRule(requestScope.purchaseRule)}" />
+                                                <f:actionListener binding="#{purchaseCache.executeCrudOperation()}" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <p:dataTable id="purchaseRuleDataTable" value="#{purchaseCache.entity.rules}" var="rule" rowKey="#{rule.id}"
+                                                 selectionMode="single" selection="#{requestScope.purchaseRule}"
+                                                 resizableColumns="true" emptyMessage="#{label.No_records_found}">
+                                        <p:ajax event="rowSelect" />
+
+                                        <p:column headerText="#{label.The_name}">
+                                            <h:outputText value="#{rule.name}" />
+                                        </p:column>
+                                        <p:column headerText="#{label.Icon}">
+                                            <p:graphicImage value="#{img.getContent(param['ruleid'], 'icon', ruleRepo)}"
+                                                            width="24" height="24">
+                                                <f:param name="ruleid" value="#{rule.id}" />
+                                            </p:graphicImage>
+                                        </p:column>
+                                        <p:column headerText="#{label.Contents}">
+                                            <h:outputText value="#{rule.contents}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:tab>
                             </p:tabView>
                         </h:form>
                     </p:layoutUnit>
