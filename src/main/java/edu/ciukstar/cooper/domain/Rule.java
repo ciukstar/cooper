@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "PURCHASE_RULES")
+@Table(name = "RULES")
 public class Rule implements Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
