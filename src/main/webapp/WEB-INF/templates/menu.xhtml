@@ -37,6 +37,11 @@
                         <p:menuitem value="#{label.Schedule}" icon="fa fa-calendar" action="schedule-list" />
                     </p:submenu>
 
+                    <p:submenu label="#{label.Terms_and_conditions}" icon="fa fa-gavel">
+                        <p:menuitem value="#{label.Rules}" icon="fa fa-exclamation-triangle" action="rule-list" />
+                        <p:menuitem value="#{label.Templates}" icon="fa fa-copy" action="rule-template-list" />
+                    </p:submenu>
+                    
                     <f:facet name="options">
                         <p:inputText placeholder="#{label.Search}" />
                         <p:spacer width="5px" />

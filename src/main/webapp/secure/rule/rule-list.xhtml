@@ -26,7 +26,7 @@
                 <h:form>
                     <p:toolbar>
                         <f:facet name="left">
-                            <h:outputText value="#{label.Rule}" />
+                            <h:outputText value="#{label.Rules}" />
                         </f:facet>
                         <f:facet name="right">
                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
@@ -41,7 +41,19 @@
                     <p:dataTable id="ruleDataTable" value="#{ruleRepo.findAll()}" var="rule"
                                  selectionMode="single" selection="#{ruleCache.entity}"
                                  resizableColumns="true" emptyMessage="#{label.No_records_found}">
-                    
+                        
+                        <p:column headerText="#{label.The_name}">
+                            <h:outputText value="#{rule.name}" />
+                        </p:column>
+                        <p:column headerText="#{label.Icon}">
+                            <p:graphicImage value="#{img.getContent(param['ruleid'], 'icon', ruleRepo)}"
+                                            height="20" width="20">
+                                <f:param name="ruleid" value="#{rule.id}" />
+                            </p:graphicImage>
+                        </p:column>
+                        <p:column headerText="#{label.Contents}">
+                            <h:outputText value="#{rule.contents}" title="#{rule.contents}" />
+                        </p:column>
                     </p:dataTable>
 
                 </h:form>

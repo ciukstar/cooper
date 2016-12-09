@@ -6,6 +6,22 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>rule-template-list</from-outcome>
+            <to-view-id>/secure/rule/template/template-list.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>rule-list</from-outcome>
+            <to-view-id>/secure/rule/rule-list.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>photo-list</from-outcome>
             <to-view-id>/secure/photo/photo-list.xhtml</to-view-id>
             <redirect />
