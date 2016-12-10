@@ -29,7 +29,8 @@
                     <h:outputText value="#{m.country.name}" />
                 </p:column>
                 <p:column headerText="#{label.Logo}">
-                    <p:graphicImage value="#{img.getContent(param['mid'], 'logo', manufacturerRepo)}">
+                    <p:graphicImage value="#{img.getContent(param['mid'], 'logo', manufacturerRepo)}"
+                                    width="24" height="24">
                         <f:param name="mid" value="#{m.id}" />
                     </p:graphicImage>
                 </p:column>
