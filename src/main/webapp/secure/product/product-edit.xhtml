@@ -81,7 +81,8 @@
                         </p:tab>
                         <p:tab title="#{label.Photos}">
                             <p:panel id="photoPanel">
-                                <ui:repeat value="#{productCache.entity.photos}" var="photo" >
+                                <p:dataGrid value="#{productCache.entity.photos}" var="photo"
+                                            columns="3" emptyMessage="#{label.No_records_found}">
                                     <h:panelGrid columns="2">
                                         <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}" width="80" height="80">
                                             <f:param name="photoid" value="#{photo.id}" />
@@ -90,7 +91,7 @@
                                             <f:actionListener binding="#{productCache.entity.removePhoto(photo)}" />
                                         </p:commandButton>
                                     </h:panelGrid>
-                                </ui:repeat>
+                                </p:dataGrid>
                                 <f:facet name="footer">
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{dialog.displayInputForm('photo-chooser')}" />
@@ -98,6 +99,10 @@
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
                                         <f:actionListener binding="#{productCache.executeCrudOperation()}" />
+                                        <f:actionListener binding="#{dialog.dispose()}" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                        <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
                                         <f:actionListener binding="#{dialog.dispose()}" />
                                     </p:commandButton>
                                 </f:facet>
