@@ -15,33 +15,20 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="categoryForm">
+                <h:form>
                     <p:panelGrid columns="3">
                         <f:facet name="header">
                             <h:outputText value="#{label.Category}: #{categoryCache.entity.id}" />
                         </f:facet>
-                        
+
                         <p:outputLabel for="name" value="#{label.The_name}" />
                         <p:inputText id="name" value="#{categoryCache.entity.name}" size="30" />
                         <p:message for="name" />
-                        
+
                         <p:outputLabel for="description" value="#{label.Description}" />
-                        <p:inputTextarea id="description" value="#{categoryCache.entity.description}" cols="30" rows="3" />
+                        <p:inputTextarea id="description" value="#{categoryCache.entity.description}" cols="40" rows="3" />
                         <p:message for="description" />
-                        
-                        <p:outputLabel for="image" value="#{label.Image}" />
-                        <h:panelGrid columns="3">
-                            <p:graphicImage id="image" value="#{img.toStreamedContent(categoryCache.entity.image, 'image/png')}" />
-                            <p:spacer width="5" />
-                            <h:panelGroup>
-                                <p:commandButton icon="fa fa-upload" onclick="PF('uploadDialog').show()" />
-                                <p:commandButton icon="fa fa-trash" process="@this" update="image">
-                                    <f:actionListener binding="#{categoryCache.entity.setImage(null)}" />
-                                </p:commandButton>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                        <p:message for="image" />
-                        
+
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
                                 <f:actionListener binding="#{categoryCache.executeCrudOperation()}" />
@@ -54,13 +41,6 @@
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
-                <p:dialog widgetVar="uploadDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
-                    <h:form enctype="multipart/form-data">
-                        <p:fileUpload label="#{label.Choose}" cancelLabel="#{label.Cancel}" uploadLabel="#{label.Upload}"
-                                      fileUploadListener="#{categoryCache.uploadCategoryImage}"
-                                      oncomplete="PF('uploadDialog').hide()" process="@form" update="categoryForm" />
-                    </h:form>
-                </p:dialog>
             </ui:define>
 
         </ui:composition>

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -27,14 +26,10 @@ public class Category implements Persistable<Long> {
     @NotBlank(message = "{The_name_may_not_be_blank}")
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;
-    
+
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Lob
-    @Column(name = "IMAGE")
-    private byte[] image;
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -59,7 +54,7 @@ public class Category implements Persistable<Long> {
         }
         return true;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -76,14 +71,6 @@ public class Category implements Persistable<Long> {
         this.description = description;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-    
     @Override
     public Long getId() {
         return id;
@@ -94,5 +81,4 @@ public class Category implements Persistable<Long> {
         return null == getId();
     }
 
-    
 }

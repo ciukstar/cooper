@@ -10,7 +10,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -25,10 +24,6 @@ public class CategoryCache extends CrudCache<Category> implements Serializable {
     private CrudOperation<Category> op;
     private Category entity;
 
-    public void uploadCategoryImage(FileUploadEvent e) {
-        entity.setImage(e.getFile().getContents());
-    }
-    
     void refresh(@Observes List<Category> source) {
         this.entity = refresher.match(entity, source).orElse(null);
     }

@@ -8,30 +8,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="c" rowKey="#{c.id}"
+            <p:dataTable id="#{id}" value="#{data}" var="cat" rowKey="#{cat.id}"
                          selectionMode="single" selection="#{selection}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect" 
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
                         update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+                
                 <c:if test="#{not empty tableHeader}">
                     <f:facet name="header">
                         <h:outputText value="#{tableHeader}" />
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.The_name}">
-                    <h:outputText value="#{c.name}" />
+                <p:column headerText="#{label.The_name}" filterBy="#{cat.name}" sortBy="#{cat.name}">
+                    <h:outputText value="#{cat.name}" />
                 </p:column>
-                <p:column headerText="#{label.Description}">
-                    <h:outputText value="#{c.description}" />
-                </p:column>
-                <p:column headerText="#{label.Image}">
-                    <p:graphicImage value="#{img.getContent(param['catid'], 'image', categoryRepo)}"
-                                    width="80" height="80">
-                        <f:param name="catid" value="#{c.id}" />
-                    </p:graphicImage>
+                <p:column headerText="#{label.Description}" filterBy="#{cat.description}" sortBy="#{cat.description}">
+                    <h:outputText value="#{cat.description}" />
                 </p:column>
             </p:dataTable>
 
