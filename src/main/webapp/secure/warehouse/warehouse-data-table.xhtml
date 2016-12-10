@@ -25,10 +25,10 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.The_name}">
+                <p:column headerText="#{label.The_name}" filterBy="#{w.name}" sortBy="#{w.name}">
                     <h:outputText value="#{w.name}" />
                 </p:column>
-                <p:column headerText="#{label.Address}">
+                <p:column headerText="#{label.Address}" filterBy="#{w.address}" sortBy="#{w.address}">
                     <h:outputText value="#{w.address}" />
                 </p:column>
             </p:dataTable>

@@ -26,14 +26,14 @@
                 <p:column headerText="#{label.The_name}" filterBy="#{rule.name}" sortBy="#{rule.name}">
                     <h:outputText value="#{rule.name}" />
                 </p:column>
+                <p:column headerText="#{label.Contents}" filterBy="#{rule.contents}" sortBy="#{rule.contents}">
+                    <h:outputText value="#{rule.contents}" title="#{rule.contents}" />
+                </p:column>
                 <p:column headerText="#{label.Icon}">
                     <p:graphicImage value="#{img.getContent(param['ruleid'], 'icon', ruleRepo)}"
                                     height="24" width="24">
                         <f:param name="ruleid" value="#{rule.id}" />
                     </p:graphicImage>
-                </p:column>
-                <p:column headerText="#{label.Contents}" filterBy="#{rule.contents}" sortBy="#{rule.contents}">
-                    <h:outputText value="#{rule.contents}" title="#{rule.contents}" />
                 </p:column>
             </p:dataTable>
         </ui:composition>
