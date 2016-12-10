@@ -4,19 +4,23 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{initParam.edu.ciukstar.APPLICATION_NAME}" />
             </ui:define>
             <ui:define name="west">
-                <p:menu>
-                    <p:submenu label="#{label.Links}" icon="fa fa-link" >
-                    </p:submenu>
-                    <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
-                    </p:submenu>
-                </p:menu>
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="#{label.Categories}" icon="fa fa-link" >
+                            <c:forEach items="#{categoryRepo.findAll()}" var="cat">
+                                <p:menuitem value="#{cat.name}"></p:menuitem>
+                            </c:forEach>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
             </ui:define>
             <ui:define name="center">
                 <p:dataGrid id="purchaseDataGrid" value="#{purchaseRepo.findAll()}" var="purch"
@@ -32,7 +36,8 @@
                         </f:facet>
                         <p:panelGrid columns="2">
                             <h:panelGrid columns="2">
-                                <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}">
+                                <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
+                                                width="32" height="32">
                                     <f:param name="orgid" value="#{purch.organizer.id}" />
                                 </p:graphicImage>
                                 <h:outputText value="#{purch.organizer.fullName}" />
