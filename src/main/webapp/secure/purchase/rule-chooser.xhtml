@@ -32,6 +32,11 @@
                                 <f:actionListener binding="#{purchaseCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
+                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                <f:actionListener binding="#{ruleCache.schedule(crud.create(ruleBuilder.emptyRule(), ruleRepo))}" />
+                                <f:actionListener binding="#{dialog.display('rule-edit')}" />
+                                <p:ajax event="dialogReturn" update="ruleDataTable" />
+                            </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
                                 <f:actionListener binding="#{purchaseCache.cancelCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
