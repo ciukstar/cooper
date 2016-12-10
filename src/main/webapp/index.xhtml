@@ -42,17 +42,25 @@
                                 </p:graphicImage>
                                 <h:outputText value="#{purch.organizer.fullName}" />
                             </h:panelGrid>
-                            <p:dataGrid value="#{articleRepo.findByPurchase(purchaseCache.entity)}" var="art"
-                                        columns="3" layout="grid">
+                            <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
+                                        columns="3" layout="grid" emptyMessage="#{label.No_records_found}">
                                 <p:panel>
                                     <f:facet name="header">
                                         <h:outputText value="#{art.product.name}" />
                                     </f:facet>
-                                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                    height="64" width="64">
-                                        <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                    </p:graphicImage>
+                                    <h:panelGrid columns="3">
+                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                        height="64" width="64">
+                                            <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                        </p:graphicImage>
+                                        <p:spacer width="10" />
+                                        <p:commandLink>
+                                            <h:outputText styleClass="fa fa-search-plus" title="#{label.Description}" />
+                                        </p:commandLink>
+                                    </h:panelGrid>
                                     <f:facet name="footer">
+                                        <h:outputText styleClass="#{art.currency.symbol}" />
+                                        <p:spacer width="5" />
                                         <h:outputText value="#{art.price}" />
                                     </f:facet>
                                 </p:panel>

@@ -40,6 +40,9 @@ public class Photo implements Persistable<Long> {
 
     @Column(name = "DESCRIPTION")
     private String description;
+    
+    @Column(name = "RESERVED_NAME")
+    private String reservedName;
 
     @Override
     public String toString() {
@@ -109,6 +112,14 @@ public class Photo implements Persistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getReservedName() {
+        return reservedName;
+    }
+
+    public void setReservedName(String reservedName) {
+        this.reservedName = reservedName;
     }
 
     @Override

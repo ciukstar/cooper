@@ -27,7 +27,8 @@
                         
                         <p:outputLabel for="raw" value="#{label.Image}" />                        
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="raw" value="#{img.toStreamedContent(photoCache.entity.raw)}" />
+                            <p:graphicImage id="raw" value="#{img.toStreamedContent(photoCache.entity.raw)}"
+                                            width="64" height="64"/>
                             <p:spacer width="10" />
                             <h:panelGroup>
                                 <p:commandButton icon="fa fa-upload" onclick="PF('photoUploadDialog').show()" />
@@ -50,6 +51,9 @@
                         <p:inputTextarea id="description" value="#{photoCache.entity.description}" cols="50" rows="3" />
                         <p:message for="description" />
 
+                        <p:outputLabel for="reservedName" value="#{label.Reserved_name}" />
+                        <p:inputText id="reservedName" value="#{photoCache.entity.reservedName}" size="30" />
+                        <p:message for="reservedName" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
