@@ -43,6 +43,14 @@ public class Product implements Persistable<Long> {
     private String name;
     @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "SIZE")
+    private String size;
+    @Column(name = "COLOR")
+    private String color;
+    @Column(name = "COMPOSITION")
+    private String composition;
+    @Column(name = "SUPPLIER_WEBSITE")
+    private String supplierWebsite;    
     @ManyToOne
     @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")
     private Category category;
@@ -136,6 +144,38 @@ public class Product implements Persistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
+    }
+
+    public String getSupplierWebsite() {
+        return supplierWebsite;
+    }
+
+    public void setSupplierWebsite(String supplierWebsite) {
+        this.supplierWebsite = supplierWebsite;
     }
 
     public List<Photo> getPhotos() {
