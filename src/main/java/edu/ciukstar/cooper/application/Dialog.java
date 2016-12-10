@@ -16,7 +16,7 @@ import org.primefaces.context.RequestContext;
 public class Dialog {
 
     private Integer width = 900;
-    private Integer height = 600;
+    private Integer height = 550;
 
     public void display(final String outcome) {
         RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
