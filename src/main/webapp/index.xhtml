@@ -34,7 +34,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{purch.description}" />
                         </f:facet>
-                        <p:panelGrid columns="2">
+                        <h:panelGrid columns="2">
                             <h:panelGrid columns="2">
                                 <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
                                                 width="32" height="32">
@@ -42,10 +42,22 @@
                                 </p:graphicImage>
                                 <h:outputText value="#{purch.organizer.fullName}" />
                             </h:panelGrid>
-                            <ui:repeat value="#{articleRepo.findByPurchase(purchaseCache.entity)}" var="art">
-                                <h:outputText value="#{art.product.name}" />                                
-                            </ui:repeat>
-                        </p:panelGrid>
+                            <p:dataGrid value="#{articleRepo.findByPurchase(purchaseCache.entity)}" var="art"
+                                        columns="3" layout="grid">
+                                <p:panel>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{art.product.name}" />
+                                    </f:facet>
+                                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                    height="64" width="64">
+                                        <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                    </p:graphicImage>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{art.price}" />
+                                    </f:facet>
+                                </p:panel>
+                            </p:dataGrid>
+                        </h:panelGrid>
                     </p:panel>
                 </p:dataGrid>
             </ui:define>
