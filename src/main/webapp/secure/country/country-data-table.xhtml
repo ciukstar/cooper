@@ -22,7 +22,7 @@
                     </f:facet>
                 </c:if>
                 
-                <p:column headerText="#{label.The_name}">
+                <p:column headerText="#{label.The_name}" filterBy="#{cntr.name}" sortBy="#{cntr.name}">
                     <h:outputText value="#{cntr.name}" />
                 </p:column>
                 <p:column headerText="#{label.Flag}">
