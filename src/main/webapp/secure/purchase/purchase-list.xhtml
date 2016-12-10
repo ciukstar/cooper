@@ -53,7 +53,7 @@
                                 <ui:param name="data" value="#{purchaseRepo.findAll()}" />
                                 <ui:param name="selection" value="#{purchaseCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
-                                <ui:param name="onRowSelectDisabled" value="@none" />
+                                <ui:param name="onRowSelectUpdate" value="purchaseStructureForm" />
                             </ui:include>
                         </h:form>
                     </p:layoutUnit>

@@ -14,7 +14,7 @@
 
                 <p:ajax event="rowSelect"
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
-                        update="#{empty onRowSelectDisabled ? '@none' : onRowSelectDisabled}" />
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
 
                 <c:if test="#{not empty tableHeader}">
                     <f:facet name="header">
