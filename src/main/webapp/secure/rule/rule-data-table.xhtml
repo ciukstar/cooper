@@ -23,7 +23,7 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.The_name}">
+                <p:column headerText="#{label.The_name}" filterBy="#{rule.name}" sortBy="#{rule.name}">
                     <h:outputText value="#{rule.name}" />
                 </p:column>
                 <p:column headerText="#{label.Icon}">
@@ -32,7 +32,7 @@
                         <f:param name="ruleid" value="#{rule.id}" />
                     </p:graphicImage>
                 </p:column>
-                <p:column headerText="#{label.Contents}">
+                <p:column headerText="#{label.Contents}" filterBy="#{rule.contents}" sortBy="#{rule.contents}">
                     <h:outputText value="#{rule.contents}" title="#{rule.contents}" />
                 </p:column>
             </p:dataTable>

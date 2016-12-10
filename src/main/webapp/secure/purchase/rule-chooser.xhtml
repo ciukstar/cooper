@@ -20,7 +20,7 @@
 
                         <ui:include src="../rule/rule-data-table.xhtml">
                             <ui:param name="id" value="ruleDataTable" />
-                            <ui:param name="data" value="#{ruleRepo.findAll()}" />
+                            <ui:param name="data" value="#{ruleRepo.findAll().stream().sorted((a,b) -> b.id - a.id).toList()}" />
                             <ui:param name="selection" value="#{requestScope.rule}" />
                             <ui:param name="rowSelectDisabled" value="true" />
                             <ui:param name="tableHeader" value="#{label.Roles}" />
