@@ -39,22 +39,22 @@
                         </h:panelGroup>
                         <p:message for="country" />
 
-                        <p:outputLabel for="currIcon" value="#{label.Icon}" />
-                        <p:inputText id="currIcon" value="#{currencyCache.entity.symbol}" size="30" />
-                        <p:message for="currIcon" />
-
                         <p:outputLabel for="currSymbol" value="#{label.Symbol}" />
+                        <p:inputText id="currSymbol" value="#{currencyCache.entity.symbol}" size="30" />
+                        <p:message for="currSymbol" />
+
+                        <p:outputLabel for="currIcon" value="#{label.Icon}" />
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="currSymbol" value="#{img.toStreamedContent(currencyCache.entity.icon)}" />
+                            <p:graphicImage id="currIcon" value="#{img.toStreamedContent(currencyCache.entity.icon)}" />
                             <p:spacer width="10" />
                             <h:panelGroup>
-                                <p:commandButton icon="fa fa-upload" onclick="PF('uploadSymbolDialog').show()" />
-                                <p:commandButton icon="fa fa-trash" process="@this" update="currSymbol">
+                                <p:commandButton icon="fa fa-upload" onclick="PF('uploadIconDialog').show()" />
+                                <p:commandButton icon="fa fa-trash" process="@this" update="currIcon">
                                     <f:actionListener binding="#{currencyCache.entity.setIcon(null)}" />
                                 </p:commandButton>
                             </h:panelGroup>
                         </h:panelGrid>
-                        <p:message for="currSymbol" />
+                        <p:message for="currIcon" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
@@ -68,11 +68,11 @@
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
-                <p:dialog widgetVar="uploadSymbolDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
+                <p:dialog widgetVar="uploadIconDialog" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
                     <h:form>
                         <p:fileUpload label="#{label.Choose}" uploadLabel="#{label.Upload}" cancelLabel="#{label.Cancel}"
                                       fileUploadListener="#{currencyCache.uploadCurrencySymbol}"
-                                      process="@form" update="currencyForm" oncomplete="PF('uploadSymbolDialog').hide()" />
+                                      process="@form" update="currencyForm" oncomplete="PF('uploadIconDialog').hide()" />
                     </h:form>
                 </p:dialog>
             </ui:define>
