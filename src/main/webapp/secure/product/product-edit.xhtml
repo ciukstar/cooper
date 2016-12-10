@@ -38,9 +38,25 @@
                                 <p:message for="name" />
 
                                 <p:outputLabel for="description" value="#{label.Description}" />
-                                <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="30" />
+                                <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="40" />
                                 <p:message for="description" />
 
+                                <p:outputLabel for="size" value="#{label.Size}" />
+                                <p:inputText id="size" value="#{productCache.entity.size}" size="30" />
+                                <p:message for="size" />
+                                
+                                <p:outputLabel for="color" value="#{label.Color}" />
+                                <p:inputText id="color" value="#{productCache.entity.color}" size="30" />
+                                <p:message for="color" />
+                                
+                                <p:outputLabel for="composition" value="#{label.Composition}" />
+                                <p:inputText id="composition" value="#{productCache.entity.composition}" size="30" />
+                                <p:message for="composition" />
+                                
+                                <p:outputLabel for="supplierWebsite" value="#{label.Supplier_website}" />
+                                <p:inputTextarea id="supplierWebsite" value="#{productCache.entity.supplierWebsite}" cols="40" rows="2" />
+                                <p:message for="supplierWebsite" />
+                                
                                 <p:outputLabel for="category" value="#{label.Category}" />
                                 <h:panelGroup>
                                     <p:inputText id="category" value="#{productCache.entity.category.name}" size="30" readonly="true" />
