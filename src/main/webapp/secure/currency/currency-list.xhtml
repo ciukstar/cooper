@@ -48,7 +48,8 @@
                         <ui:param name="id" value="currencyDataTable" />
                         <ui:param name="data" value="#{currencyRepo.findAll()}" />
                         <ui:param name="selection" value="#{currencyCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="true" />
+                        <ui:param name="rowSelectDisabled" value="false" />
+                        <ui:param name="onRowSelectUpdate" value="@none" />
                     </ui:include>
                 </h:form>
             </ui:define>

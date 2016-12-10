@@ -22,14 +22,14 @@
                     </f:facet>
                 </c:if>
                 
-                <p:column headerText="#{label.Code}">
+                <p:column headerText="#{label.Code}" filterBy="#{curr.code}" sortBy="#{curr.code}">
                     <h:outputText value="#{curr.code}" />
                 </p:column>
-                <p:column headerText="#{label.The_name}">
+                <p:column headerText="#{label.The_name}" filterBy="#{curr.name}" sortBy="#{curr.name}">
                     <h:outputText value="#{curr.name}" />
                 </p:column>
                 <p:column headerText="#{label.Symbol}">
-                    <span class="#{curr.symbol}"></span>
+                    <h:outputText styleClass="#{curr.symbol}" />
                 </p:column>
                 <p:column headerText="#{label.Icon}">
                     <p:graphicImage value="#{img.getContent(param['currid'], 'icon', currencyRepo)}">
