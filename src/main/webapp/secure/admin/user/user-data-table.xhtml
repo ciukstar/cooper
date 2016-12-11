@@ -23,26 +23,35 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.Username}">
+                <p:column headerText="#{label.Photo}">
+                    <p:graphicImage value="#{img.getContent(param['userid'], 'photo', userRepo)}"
+                                    width="32" height="32">
+                        <f:param name="userid" value="#{u.id}" />
+                    </p:graphicImage>
+                </p:column>
+                <p:column headerText="#{label.Username}" filterBy="#{u.username}" sortBy="#{u.username}">
                     <h:outputText value="#{u.username}" />
                 </p:column>
-                <p:column headerText="#{label.Surname}">
+                <p:column headerText="#{label.Surname}" filterBy="#{u.surname}" sortBy="#{u.surname}">
                     <h:outputText value="#{u.surname}" />
                 </p:column>
-                <p:column headerText="#{label.Name}">
+                <p:column headerText="#{label.Name}" filterBy="#{u.name}" sortBy="#{u.name}">
                     <h:outputText value="#{u.name}" />
                 </p:column>
-                <p:column headerText="#{label.Patronymic}">
+                <p:column headerText="#{label.Patronymic}" filterBy="#{u.patronymic}" sortBy="#{u.patronymic}">
                     <h:outputText value="#{u.patronymic}" />
                 </p:column>
-                <p:column headerText="#{label.State}">
+                <p:column headerText="#{label.State}" filterBy="#{u.status.name}" sortBy="#{u.status.name}">
                     <h:outputText value="#{u.status.name}" />
                 </p:column>
-                <p:column headerText="#{label.Email}">
+                <p:column headerText="#{label.Email}" filterBy="#{u.email}" sortBy="#{u.email}">
                     <h:outputText value="#{u.email}" />
                 </p:column>
-                <p:column headerText="#{label.Phone}">
+                <p:column headerText="#{label.Phone}" filterBy="#{u.phone}" sortBy="#{u.phone}">
                     <h:outputText value="#{u.phone}" />
+                </p:column>
+                <p:column headerText="#{label.Nickname}" filterBy="#{u.nickname}" sortBy="#{u.nickname}">
+                    <h:outputText value="#{u.nickname}" />
                 </p:column>
             </p:dataTable>
         </ui:composition>

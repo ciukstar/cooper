@@ -60,10 +60,14 @@ public class User implements Persistable<Long>, StatusTrackable {
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "phone")
+    @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "NICKNAME")
+    private String nickname;
+    
     @Lob
+    @Column(name = "PHOTO")
     private byte[] photo;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -211,6 +215,14 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public List<Role> getRoles() {
