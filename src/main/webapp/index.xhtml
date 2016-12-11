@@ -32,7 +32,10 @@
 
                     <p:panel>
                         <f:facet name="header">
-                            <h:outputText value="#{purch.description}" />
+                            <p:commandLink action="purchase">
+                                <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
+                                <h:outputText value="#{purch.description}" />
+                            </p:commandLink>
                         </f:facet>
                         <h:panelGrid columns="2">
                             <h:panelGrid columns="2">
