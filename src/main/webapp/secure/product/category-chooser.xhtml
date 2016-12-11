@@ -26,7 +26,8 @@
                         </ui:include>
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@none">
-                                <f:actionListener binding="#{productCache.entity.setCategory(requestScope.category)}" />
+                                <f:actionListener binding="#{productCache.entity.addCategory(requestScope.category)}" />
+                                <f:actionListener binding="#{productCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">

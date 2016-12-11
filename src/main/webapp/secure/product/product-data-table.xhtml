@@ -34,17 +34,14 @@
                 <p:column headerText="#{label.Size}" filterBy="#{p.size}" sortBy="#{p.size}">
                     <h:outputText value="#{p.size}" />
                 </p:column>
+                <p:column headerText="#{label.Color}" filterBy="#{p.color}" sortBy="#{p.color}">
+                    <h:outputText value="#{p.color}" />
+                </p:column>
+                <p:column headerText="#{label.Composition}" filterBy="#{p.composition}" sortBy="#{p.composition}">
+                    <h:outputText value="#{p.composition}" />
+                </p:column>
                 <p:column headerText="#{label.Description}" filterBy="#{p.description}" sortBy="#{p.description}">
                     <h:outputText value="#{p.description}" />
-                </p:column>
-                <p:column headerText="#{label.Photo}">
-                    <p:commandLink>
-                        <f:actionListener binding="#{dialog.displayInputForm('photo-displayer')}" />
-                        <p:graphicImage width="40" height="40" 
-                                        value="#{img.getContent(param['photoid'], 'raw', photoRepo)}">
-                            <f:param name="photoid" value="#{p.anyPhoto.id}" />
-                        </p:graphicImage>
-                    </p:commandLink>
                 </p:column>
             </p:dataTable>
         </ui:composition>

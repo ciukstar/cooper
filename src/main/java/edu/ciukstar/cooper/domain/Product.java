@@ -78,6 +78,14 @@ public class Product implements Persistable<Long> {
         this.photos = new HashSet<>();
     }
 
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+    
+    public void removeCategory(Category category) {
+        categories.remove(category);
+    }
+    
     public Optional<Photo> anyPhoto() {
         return getPhotos().stream().findAny();
     }

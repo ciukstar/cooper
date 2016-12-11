@@ -54,28 +54,65 @@
                                 <ui:param name="data" value="#{productRepo.findAll()}" />
                                 <ui:param name="selection" value="#{productCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
-                                <ui:param name="onRowSelectUpdate" value="@none" />
+                                <ui:param name="onRowSelectUpdate" value="productStructureForm" />
                             </ui:include>
                         </h:form>
 
                     </p:layoutUnit>
-                    <p:layoutUnit position="south" resizable="true" size="30%">
-                        <p:toolbar>
-                            <f:facet name="left">
-                                <h:outputText value="#{label.Categories}" />
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none" />
-                                <p:commandButton value="#{label.Remove}" icon="fa fa-trash" process="@this" update="@none" />
-                            </f:facet>
-                        </p:toolbar>
-                        <ui:include src="../category/category-data-table.xhtml">
-                            <ui:param name="id" value="productCategoryDataTable" />
-                            <ui:param name="data" value="#{productCache.entity.categories}" />
-                            <ui:param name="selection" value="#{requestScope.productCategory}" />
-                            <ui:param name="rowSelectDisabled" value="false" />
-                            <ui:param name="onRowSelectUpdate" value="@none" />
-                        </ui:include>
+                    <p:layoutUnit position="south" resizable="true" size="50%">
+                        <h:form id="productStructureForm">
+                            <p:tabView id="productStructureTabView" dynamic="true">
+                                <p:tab title="#{label.Categories}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Categories}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
+                                                <f:actionListener binding="#{dialog.display('category-chooser')}" />
+                                                <p:ajax event="dialogReturn" update="productCategoryDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Remove}" icon="fa fa-trash" process="@form" update="@form">
+                                                <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
+                                                <f:actionListener binding="#{productCache.entity.removeCategory(requestScope.productCategory)}" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <ui:include src="../category/category-data-table.xhtml">
+                                        <ui:param name="id" value="productCategoryDataTable" />
+                                        <ui:param name="data" value="#{productCache.entity.categories}" />
+                                        <ui:param name="selection" value="#{requestScope.productCategory}" />
+                                        <ui:param name="rowSelectDisabled" value="false" />
+                                    </ui:include>
+                                </p:tab>
+                                <p:tab title="#{label.Images}">
+                                    <p:toolbar>
+                                        <f:facet name="left">
+                                            <h:outputText value="#{label.Images}" />
+                                        </f:facet>
+                                        <f:facet name="right">
+                                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                                <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
+                                                <f:actionListener binding="#{dialog.display('photo-chooser')}" />
+                                                <p:ajax event="dialogReturn" update="productImageDataTable" />
+                                            </p:commandButton>
+                                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@form" update="@form">
+                                                <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
+                                                <f:actionListener binding="#{productCache.entity.removePhoto(requestScope.productPhoto)}" />
+                                                <f:actionListener binding="#{productCache.executeCrudOperation()}" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:toolbar>
+                                    <ui:include src="../photo/photo-data-table.xhtml">
+                                        <ui:param name="id" value="productImageDataTable" />
+                                        <ui:param name="data" value="#{productCache.entity.photos}" />
+                                        <ui:param name="selection" value="#{requestScope.productPhoto}" />
+                                        <ui:param name="rowSelectDisabled" value="false" />
+                                    </ui:include>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
                     </p:layoutUnit>
                 </p:layout>
             </ui:define>
