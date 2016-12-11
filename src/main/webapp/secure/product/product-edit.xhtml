@@ -59,7 +59,7 @@
                                 
                                 <p:outputLabel for="category" value="#{label.Category}" />
                                 <h:panelGroup>
-                                    <p:inputText id="category" value="#{productCache.entity.category.name}" size="30" readonly="true" />
+                                    <p:inputText id="category" value="#{productCache.entity.categories.name}" size="30" readonly="true" />
                                     <p:commandButton icon="fa fa-search" process="@this" update="@none">
                                         <f:actionListener binding="#{dialog.displayInputForm('category-chooser')}" />
                                         <p:ajax event="dialogReturn" update="category" />

@@ -23,37 +23,61 @@
             </ui:define>
 
             <ui:define name="center">
-                <h:form>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <h:outputText value="#{label.Goods}" />
-                        </f:facet>
-                        <f:facet name="right">
-                            <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                <f:actionListener binding="#{productCache.schedule(crud.create(productBuilder.emptyProduct(), productRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('product-edit')}" />
-                                <p:ajax event="dialogReturn" update="productDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
-                                <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('product-edit')}" />
-                                <p:ajax event="dialogReturn" update="productDataTable" />
-                            </p:commandButton>
-                            <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                <f:actionListener binding="#{productCache.schedule(crud.delete(productCache.entity, productRepo))}" />
-                                <f:actionListener binding="#{dialog.displayInputForm('product-delete')}" />
-                                <p:ajax event="dialogReturn" update="productDataTable" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:toolbar>
-                    <ui:include src="product-data-table.xhtml">
-                        <ui:param name="id" value="productDataTable" />
-                        <ui:param name="data" value="#{productRepo.findAll()}" />
-                        <ui:param name="selection" value="#{productCache.entity}" />
-                        <ui:param name="rowSelectDisabled" value="false" />
-                        <ui:param name="onRowSelectUpdate" value="@none" />
-                    </ui:include>
-                </h:form>
+                <p:layout fullPage="false" style="height: 100%; width: 100%"
+                          resizeTitle="#{label.Resize}">
+                    <p:layoutUnit position="center" resizable="true">
+                        <h:form id="productForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText value="#{label.Goods}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{productCache.schedule(crud.create(productBuilder.emptyProduct(), productRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('product-edit')}" />
+                                        <p:ajax event="dialogReturn" update="productDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{productCache.schedule(crud.update(productCache.entity, productRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('product-edit')}" />
+                                        <p:ajax event="dialogReturn" update="productDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{productCache.schedule(crud.delete(productCache.entity, productRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('product-delete')}" />
+                                        <p:ajax event="dialogReturn" update="productDataTable" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="product-data-table.xhtml">
+                                <ui:param name="id" value="productDataTable" />
+                                <ui:param name="data" value="#{productRepo.findAll()}" />
+                                <ui:param name="selection" value="#{productCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectUpdate" value="@none" />
+                            </ui:include>
+                        </h:form>
+
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" resizable="true" size="30%">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <h:outputText value="#{label.Categories}" />
+                            </f:facet>
+                            <f:facet name="right">
+                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none" />
+                                <p:commandButton value="#{label.Remove}" icon="fa fa-trash" process="@this" update="@none" />
+                            </f:facet>
+                        </p:toolbar>
+                        <ui:include src="../category/category-data-table.xhtml">
+                            <ui:param name="id" value="productCategoryDataTable" />
+                            <ui:param name="data" value="#{productCache.entity.categories}" />
+                            <ui:param name="selection" value="#{requestScope.productCategory}" />
+                            <ui:param name="rowSelectDisabled" value="false" />
+                            <ui:param name="onRowSelectUpdate" value="@none" />
+                        </ui:include>
+                    </p:layoutUnit>
+                </p:layout>
             </ui:define>
 
         </ui:composition>

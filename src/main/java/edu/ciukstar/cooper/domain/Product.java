@@ -52,14 +52,17 @@ public class Product implements Persistable<Long> {
     @Column(name = "SUPPLIER_WEBSITE")
     private String supplierWebsite;    
     @ManyToOne
-    @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")
-    private Category category;
-    @ManyToOne
     @JoinColumn(name = "MANUFACTURER", referencedColumnName = "ID")
     private Manufacturer manufacturer;
     @ManyToOne
     @JoinColumn(name = "COUNTRY", referencedColumnName = "ID")
     private Country country;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "PRODUCT_CATEGORIES", 
+            joinColumns = {@JoinColumn(name = "PRODUCT", nullable = false, referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")},
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"PRODUCT", "CATEGORY"})})
+    private Set<Category> categories;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "PRODUCT_PHOTOS", uniqueConstraints = {
@@ -71,6 +74,7 @@ public class Product implements Persistable<Long> {
     private Set<Photo> photos;
 
     public Product() {
+        this.categories = new HashSet<>();
         this.photos = new HashSet<>();
     }
 
@@ -198,12 +202,8 @@ public class Product implements Persistable<Long> {
         this.manufacturer = manufacturer;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public List<Category> getCategories() {
+        return new ArrayList<>(categories);
     }
 
     @Override

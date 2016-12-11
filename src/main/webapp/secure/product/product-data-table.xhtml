@@ -28,11 +28,14 @@
                 <p:column headerText="#{label.The_name}" filterBy="#{p.name}" sortBy="#{p.name}">
                     <h:outputText value="#{p.name}" />
                 </p:column>
-                <p:column headerText="#{label.Category}" filterBy="#{p.category.name}" sortBy="#{p.category.name}">
-                    <h:outputText value="#{p.category.name}" />
-                </p:column>
                 <p:column headerText="#{label.Manufacturer}" filterBy="#{p.manufacturer.name}" sortBy="#{p.manufacturer.name}">
                     <h:outputText value="#{p.manufacturer.name}" />
+                </p:column>                
+                <p:column headerText="#{label.Size}" filterBy="#{p.size}" sortBy="#{p.size}">
+                    <h:outputText value="#{p.size}" />
+                </p:column>
+                <p:column headerText="#{label.Description}" filterBy="#{p.description}" sortBy="#{p.description}">
+                    <h:outputText value="#{p.description}" />
                 </p:column>
                 <p:column headerText="#{label.Photo}">
                     <p:commandLink>
