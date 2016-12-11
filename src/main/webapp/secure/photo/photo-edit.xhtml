@@ -22,9 +22,14 @@
                         </f:facet>
 
                         <p:outputLabel for="name" value="#{label.The_name}" />
-                        <p:inputText id="name" value="#{photoCache.entity.name}" size="30" />
+                        <h:panelGroup>
+                            <p:inputText id="name" value="#{photoCache.entity.name}" size="30" />
+                            <p:commandButton icon="fa fa-cogs" process="@this" update="name">
+                                <f:actionListener binding="#{photoCache.entity.setName(codeGen.value)}" />
+                            </p:commandButton>
+                        </h:panelGroup>
                         <p:message for="name" />
-                        
+
                         <p:outputLabel for="raw" value="#{label.Image}" />                        
                         <h:panelGrid columns="3">
                             <p:graphicImage id="raw" value="#{img.toStreamedContent(photoCache.entity.raw)}"
