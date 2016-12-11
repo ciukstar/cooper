@@ -17,119 +17,76 @@
             <ui:define name="content">
                 <p:messages autoUpdate="true" closable="true" />
                 <h:form id="productForm">
-                    <p:tabView id="productTabView" dynamic="true">
-                        <p:tab title="#{label.Product}">
-                            <p:panelGrid columns="3">
-                                <f:facet name="header">
-                                    <h:outputText value="#{label.Product}: #{productCache.entity.id}" />
-                                </f:facet>
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            <h:outputText value="#{label.Product}: #{productCache.entity.id}" />
+                        </f:facet>
 
-                                <p:outputLabel for="code" value="#{label.Number}" />
-                                <h:panelGroup>
-                                    <p:inputText id="code" value="#{productCache.entity.code}" size="30" />
-                                    <p:commandButton icon="fa fa-cogs" process="@this" update="code">
-                                        <f:actionListener binding="#{productCache.entity.setCode(codeGen.value)}" />
-                                    </p:commandButton>
-                                </h:panelGroup>
-                                <p:message for="code" />
+                        <p:outputLabel for="code" value="#{label.Number}" />
+                        <h:panelGroup>
+                            <p:inputText id="code" value="#{productCache.entity.code}" size="30" />
+                            <p:commandButton icon="fa fa-cogs" process="@this" update="code">
+                                <f:actionListener binding="#{productCache.entity.setCode(codeGen.value)}" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="code" />
 
-                                <p:outputLabel for="name" value="#{label.The_name}" />
-                                <p:inputText id="name" value="#{productCache.entity.name}" size="30" />
-                                <p:message for="name" />
+                        <p:outputLabel for="name" value="#{label.The_name}" />
+                        <p:inputText id="name" value="#{productCache.entity.name}" size="30" />
+                        <p:message for="name" />
 
-                                <p:outputLabel for="description" value="#{label.Description}" />
-                                <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="40" />
-                                <p:message for="description" />
+                        <p:outputLabel for="description" value="#{label.Description}" />
+                        <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="40" />
+                        <p:message for="description" />
 
-                                <p:outputLabel for="size" value="#{label.Size}" />
-                                <p:inputText id="size" value="#{productCache.entity.size}" size="30" />
-                                <p:message for="size" />
-                                
-                                <p:outputLabel for="color" value="#{label.Color}" />
-                                <p:inputText id="color" value="#{productCache.entity.color}" size="30" />
-                                <p:message for="color" />
-                                
-                                <p:outputLabel for="composition" value="#{label.Composition}" />
-                                <p:inputText id="composition" value="#{productCache.entity.composition}" size="30" />
-                                <p:message for="composition" />
-                                
-                                <p:outputLabel for="supplierWebsite" value="#{label.Supplier_website}" />
-                                <p:inputTextarea id="supplierWebsite" value="#{productCache.entity.supplierWebsite}" cols="40" rows="2" />
-                                <p:message for="supplierWebsite" />
-                                
-                                <p:outputLabel for="category" value="#{label.Category}" />
-                                <h:panelGroup>
-                                    <p:inputText id="category" value="#{productCache.entity.categories.name}" size="30" readonly="true" />
-                                    <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                        <f:actionListener binding="#{dialog.displayInputForm('category-chooser')}" />
-                                        <p:ajax event="dialogReturn" update="category" />
-                                    </p:commandButton>
-                                </h:panelGroup>
-                                <p:message for="category" />
+                        <p:outputLabel for="size" value="#{label.Size}" />
+                        <p:inputText id="size" value="#{productCache.entity.size}" size="30" />
+                        <p:message for="size" />
 
-                                <p:outputLabel for="manufacturer" value="#{label.Manufacturer}" />
-                                <h:panelGroup>
-                                    <p:inputText id="manufacturer" value="#{productCache.entity.manufacturer.name}" size="30" readonly="true" />
-                                    <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                        <f:actionListener binding="#{dialog.displayInputForm('manufacturer-chooser')}" />
-                                        <p:ajax event="dialogReturn" update="manufacturer" />
-                                    </p:commandButton>
-                                </h:panelGroup>
-                                <p:message for="manufacturer" />
+                        <p:outputLabel for="color" value="#{label.Color}" />
+                        <p:inputText id="color" value="#{productCache.entity.color}" size="30" />
+                        <p:message for="color" />
 
-                                <p:outputLabel for="country" value="#{label.Country}" />
-                                <h:panelGroup>
-                                    <p:inputText id="country" value="#{productCache.entity.country.name}"
-                                                 readonly="true" size="30" />
-                                    <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                        <f:actionListener binding="#{dialog.displayInputForm('country-chooser')}" />
-                                        <p:ajax event="dialogReturn" update="country" />
-                                    </p:commandButton>
-                                </h:panelGroup>
-                                <p:message for="country" />
+                        <p:outputLabel for="composition" value="#{label.Composition}" />
+                        <p:inputText id="composition" value="#{productCache.entity.composition}" size="30" />
+                        <p:message for="composition" />
 
-                                <f:facet name="footer">
-                                    <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
-                                        <f:actionListener binding="#{productCache.executeCrudOperation()}" />
-                                        <f:actionListener binding="#{dialog.dispose()}" />
-                                    </p:commandButton>
-                                    <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
-                                        <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
-                                        <f:actionListener binding="#{dialog.dispose()}" />
-                                    </p:commandButton>
-                                </f:facet>
-                            </p:panelGrid>
-                        </p:tab>
-                        <p:tab title="#{label.Photos}">
-                            <p:panel id="photoPanel">
-                                <p:dataGrid value="#{productCache.entity.photos}" var="photo"
-                                            columns="3" emptyMessage="#{label.No_records_found}">
-                                    <h:panelGrid columns="2">
-                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}" width="80" height="80">
-                                            <f:param name="photoid" value="#{photo.id}" />
-                                        </p:graphicImage>
-                                        <p:commandButton icon="fa fa-trash" process="@this" update="@form:productTabView:photoPanel">
-                                            <f:actionListener binding="#{productCache.entity.removePhoto(photo)}" />
-                                        </p:commandButton>
-                                    </h:panelGrid>
-                                </p:dataGrid>
-                                <f:facet name="footer">
-                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                        <f:actionListener binding="#{dialog.displayInputForm('photo-chooser')}" />
-                                        <p:ajax event="dialogReturn" update="photoPanel" />
-                                    </p:commandButton>
-                                    <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
-                                        <f:actionListener binding="#{productCache.executeCrudOperation()}" />
-                                        <f:actionListener binding="#{dialog.dispose()}" />
-                                    </p:commandButton>
-                                    <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
-                                        <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
-                                        <f:actionListener binding="#{dialog.dispose()}" />
-                                    </p:commandButton>
-                                </f:facet>
-                            </p:panel>
-                        </p:tab>
-                    </p:tabView>
+                        <p:outputLabel for="supplierWebsite" value="#{label.Supplier_website}" />
+                        <p:inputTextarea id="supplierWebsite" value="#{productCache.entity.supplierWebsite}" cols="40" rows="2" />
+                        <p:message for="supplierWebsite" />
+
+                        <p:outputLabel for="manufacturer" value="#{label.Manufacturer}" />
+                        <h:panelGroup>
+                            <p:inputText id="manufacturer" value="#{productCache.entity.manufacturer.name}" size="30" readonly="true" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('manufacturer-chooser')}" />
+                                <p:ajax event="dialogReturn" update="manufacturer" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="manufacturer" />
+
+                        <p:outputLabel for="country" value="#{label.Country}" />
+                        <h:panelGroup>
+                            <p:inputText id="country" value="#{productCache.entity.country.name}"
+                                         readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.displayInputForm('country-chooser')}" />
+                                <p:ajax event="dialogReturn" update="country" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="country" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                <f:actionListener binding="#{productCache.executeCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
                 </h:form>
 
             </ui:define>
