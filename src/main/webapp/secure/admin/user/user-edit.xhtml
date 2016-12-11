@@ -57,9 +57,9 @@
                         </h:panelGroup>
                         <p:message for="statusGraph" />
 
-                        <p:outputLabel for="userPhoto" value="#{label.Image}" />
+                        <p:outputLabel for="userPhoto" value="#{label.Photo}" />
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="userPhoto" width="80" height="80"
+                            <p:graphicImage id="userPhoto" width="64" height="64"
                                             value="#{img.toStreamedContent(userCache.entity.photo)}" />
                             <p:spacer width="20" />
                             <h:panelGroup>
