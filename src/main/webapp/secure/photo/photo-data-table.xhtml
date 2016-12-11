@@ -22,7 +22,7 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.The_name}">
+                <p:column headerText="#{label.The_name}" filterBy="#{photo.name}" sortBy="#{photo.name}">
                     <h:outputText value="#{photo.name}" />
                 </p:column>
 
@@ -36,19 +36,19 @@
                     </p:commandLink>
                 </p:column>
                 
-                <p:column headerText="#{label.MIME}">
+                <p:column headerText="#{label.MIME}" filterBy="#{photo.mime}" sortBy="#{photo.mime}">
                     <h:outputText value="#{photo.mime}" />
                 </p:column>
 
-                <p:column headerText="#{label.Extension}">
+                <p:column headerText="#{label.Extension}" filterBy="#{photo.ext}" sortBy="#{photo.ext}">
                     <h:outputText value="#{photo.ext}" />
                 </p:column>
 
-                <p:column headerText="#{label.Description}">
+                <p:column headerText="#{label.Description}" filterBy="#{photo.description}" sortBy="#{photo.description}">
                     <h:outputText value="#{photo.description}" />
                 </p:column>
                 
-                <p:column headerText="#{label.Reserved_name}">
+                <p:column headerText="#{label.Reserved_name}" filterBy="#{photo.reservedName}" sortBy="#{photo.reservedName}">
                     <h:outputText value="#{photo.reservedName}" />
                 </p:column>
 
