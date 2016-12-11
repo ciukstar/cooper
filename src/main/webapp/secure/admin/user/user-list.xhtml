@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -17,19 +18,11 @@
             <ui:define name="west">
                 <h:form>
                     <p:menu>
-                        <p:submenu label="#{label.Links}" icon="fa fa-link">
-                            <p:menuitem value="#{label.Roles}" icon="fa fa-tags" />
-                            <p:menuitem value="#{label.States}" icon="fa fa-paw"  action="status-list"/>
-                            <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" action="graph-list" />
-                        </p:submenu>
-                        <p:submenu label="#{label.Actions}" icon="fa fa-bolt">
-                            <p:menuitem value="#{label.Add}" icon="fa fa-plus"
-                                        actionListener="#{userCache.schedule(crud.create(userBuilder.newUser(graphRepo.findByCode('UserGraph').orElse(null)), userRepo))}"
-                                        action="#{dialog.displayInputForm('user')}" />
-                            <p:menuitem value="#{label.Edit}" icon="fa fa-edit"
-                                        action="#{dialog.displayInputForm('user')}" />
-                            <p:menuitem value="#{label.Delete}" icon="fa fa-trash"
-                                        action="#{dialog.displayConfirmationDialog('user-delete')}" />
+                        <p:submenu label="#{label.Roles}" icon="fa fa-tags">
+                            <p:menuitem value="#{label.All}" icon="fa fa-filter" />
+                            <c:forEach var="role" items="#{roleRepo.findAll()}">
+                                <p:menuitem value="#{role.name}" icon="fa fa-filter" />
+                            </c:forEach>
                         </p:submenu>
                     </p:menu>
                 </h:form>
@@ -42,6 +35,8 @@
                         <h:form id="userDataTableForm">
                             <p:toolbar id="userAccountToolbar">
                                 <f:facet name="left">
+                                    <h:outputText styleClass="fa fa-users" />
+                                    <p:spacer width="5" />
                                     <h:outputText value="#{label.Users}" />
                                 </f:facet>
                                 <f:facet name="right">
