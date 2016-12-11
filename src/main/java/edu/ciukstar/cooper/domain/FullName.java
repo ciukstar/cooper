@@ -18,7 +18,7 @@ public class FullName implements Serializable {
     public static FullNameBuilder.Surname from() {
         return FullNameBuilder.from();
     }
-    
+
     public static FullName from(String surname, String name, String patronymic) {
         return new FullName(surname, name, patronymic);
     }
@@ -26,6 +26,16 @@ public class FullName implements Serializable {
     static FullName empty() {
         return FullName.from(null, null, null);
     }
+
+    @Column(name = "SURNAME")
+    private String surname;
+
+    @NotBlank(message = "{Name_may_not_be_blank}")
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "PATRONYMIC")
+    private String patronymic;
 
     private FullName(String surname, String name, String patronymic) {
         this.surname = surname;
@@ -99,13 +109,4 @@ public class FullName implements Serializable {
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
     }
-    
-    @NotBlank(message = "{Surname_may_not_be_blank}")
-    @Column(name = "SURNAME")
-    private String surname;    
-    @NotBlank(message = "{Name_may_not_be_blank}")
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "PATRONYMIC")
-    private String patronymic;
 }
