@@ -23,7 +23,12 @@
                         </f:facet>
 
                         <p:outputLabel for="number" value="#{label.Number}" />
-                        <p:inputText id="number" value="#{articleCache.entity.number}" size="30" />
+                        <h:panelGroup>
+                            <p:inputText id="number" value="#{articleCache.entity.number}" size="30" />
+                            <p:commandButton icon="fa fa-cogs" process="@this" update="number">
+                                <f:actionListener binding="#{articleCache.entity.setNumber(codeGen.value)}" />
+                            </p:commandButton>
+                        </h:panelGroup>
                         <p:message for="number" />
 
                         <p:outputLabel for="product" value="#{label.Product}" />
