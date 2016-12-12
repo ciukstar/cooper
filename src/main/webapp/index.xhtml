@@ -26,11 +26,12 @@
                 <p:dataGrid id="purchaseDataGrid" value="#{purchaseRepo.findAll()}" var="purch"
                             columns="1" layout="grid" rows="12"
                             emptyMessage="#{label.No_records_found}">
+                    
                     <f:facet name="header">
                         <h:outputText value="#{label.Purchases}" />
                     </f:facet>
 
-                    <p:panel>
+                    <p:panel toggleable="true">
                         <f:facet name="header">
                             <h:outputText styleClass="fa fa-cube" />
                             <p:spacer width="5" />
@@ -39,33 +40,34 @@
                                 <h:outputText value="#{purch.description}" />
                             </p:commandLink>
                         </f:facet>
-                        <h:panelGrid columns="2">
-                            <h:panelGrid columns="2">
-                                <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
-                                                width="32" height="32">
-                                    <f:param name="orgid" value="#{purch.organizer.id}" />
-                                </p:graphicImage>
-                                <h:outputText value="#{purch.organizer.fullName}" />
-                            </h:panelGrid>
-                            <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
-                                        columns="3" layout="grid" emptyMessage="#{label.No_records_found}">
 
-                                <p:panel>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
-                                    </f:facet>
-                                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                    height="64" width="64">
-                                        <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                    </p:graphicImage>
-                                    <f:facet name="footer">
-                                        <h:outputText styleClass="#{art.currency.symbol}" />
-                                        <p:spacer width="5" />
-                                        <h:outputText value="#{art.price}" />
-                                    </f:facet>
-                                </p:panel>
-                            </p:dataGrid>
+                        <h:panelGrid columns="2">
+                            <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
+                                            width="32" height="32">
+                                <f:param name="orgid" value="#{purch.organizer.id}" />
+                            </p:graphicImage>
+                            <h:outputText value="#{purch.organizer.fullName}" />
                         </h:panelGrid>
+
+                        <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
+                                    columns="4" layout="grid" emptyMessage="#{label.No_records_found}">
+
+                            <p:panel>
+                                <f:facet name="header">
+                                    <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
+                                </f:facet>
+                                <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                height="64" width="64">
+                                    <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                </p:graphicImage>
+                                <f:facet name="footer">
+                                    <h:outputText styleClass="#{art.currency.symbol}" />
+                                    <p:spacer width="5" />
+                                    <h:outputText value="#{art.price}" />
+                                </f:facet>
+                            </p:panel>
+                        </p:dataGrid>
+
                     </p:panel>
                 </p:dataGrid>
             </ui:define>
