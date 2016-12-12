@@ -26,7 +26,7 @@
                 <p:dataGrid id="purchaseDataGrid" value="#{purchaseRepo.findAll()}" var="purch"
                             columns="1" layout="grid" rows="12"
                             emptyMessage="#{label.No_records_found}">
-                    
+
                     <f:facet name="header">
                         <h:outputText value="#{label.Purchases}" />
                     </f:facet>
@@ -47,12 +47,17 @@
                                 <f:param name="orgid" value="#{purch.organizer.id}" />
                             </p:graphicImage>
                             <h:outputText value="#{purch.organizer.fullName}" />
+                            
+                            <h:outputText value="#{purch.organizer.confidence}" title="#{label.Confidence}">
+                                <f:convertNumber type="percent" />
+                            </h:outputText>
+                            <h:outputText styleClass="fa fa-certificate" />
                         </h:panelGrid>
 
                         <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
                                     columns="4" layout="grid" styleClass=""
                                     emptyMessage="#{label.No_records_found}">
-                            
+
                             <p:panel>
                                 <f:facet name="header">
                                     <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
