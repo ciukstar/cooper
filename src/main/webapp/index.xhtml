@@ -32,6 +32,8 @@
 
                     <p:panel>
                         <f:facet name="header">
+                            <h:outputText styleClass="fa fa-cube" />
+                            <p:spacer width="5" />
                             <p:commandLink action="purchase">
                                 <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
                                 <h:outputText value="#{purch.description}" />
@@ -47,7 +49,7 @@
                             </h:panelGrid>
                             <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
                                         columns="3" layout="grid" emptyMessage="#{label.No_records_found}">
-                                <p:panel>
+                                <p:panel style="min-width: 200px">
                                     <f:facet name="header">
                                         <h:outputText value="#{art.product.name}" />
                                     </f:facet>
@@ -57,12 +59,7 @@
                                             <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
                                         </p:graphicImage>
                                         <p:spacer width="10" />
-                                        <p:commandLink>
-                                            <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                            width="32" height="32">
-                                                <f:param name="photoid" value="#{photoRepo.getByReservedName('cart').id}" />
-                                            </p:graphicImage>
-                                        </p:commandLink>
+                                        
                                     </h:panelGrid>
                                     <f:facet name="footer">
                                         <h:outputText styleClass="#{art.currency.symbol}" />
