@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,6 +66,9 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     @Column(name = "NICKNAME")
     private String nickname;
+    
+    @Column(name = "CONFIDENCE")
+    private BigDecimal confidence;
     
     @Lob
     @Column(name = "PHOTO")
@@ -223,6 +227,14 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public BigDecimal getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(BigDecimal confidence) {
+        this.confidence = confidence;
     }
 
     public List<Role> getRoles() {

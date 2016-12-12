@@ -53,6 +53,11 @@
                 <p:column headerText="#{label.Nickname}" filterBy="#{u.nickname}" sortBy="#{u.nickname}">
                     <h:outputText value="#{u.nickname}" />
                 </p:column>
+                <p:column headerText="#{label.Confidence}" filterBy="#{u.confidence}" sortBy="#{u.confidence}">
+                    <h:outputText value="#{u.confidence}">
+                        <f:convertNumber type="percent" />
+                    </h:outputText>
+                </p:column>
             </p:dataTable>
         </ui:composition>
     </h:body>

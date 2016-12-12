@@ -13,80 +13,95 @@
             <ui:define name="content">
                 <h:form id="userForm">
                     <p:messages autoUpdate="true" closable="true" showDetail="true" />
-                    <p:panelGrid columns="3">
-                        <f:facet name="header">
-                            <h:outputText value="#{label.User}: #{userCache.entity.id}" />
-                        </f:facet>
-
-                        <p:outputLabel for="username" value="#{label.Username}" />
-                        <p:inputText id="username" value="#{userCache.entity.username}" size="30" />
-                        <p:message for="username" />
-
-                        <p:outputLabel for="password" value="#{label.Password}" />
-                        <p:password id="password" value="#{userCache.entity.password}" size="30" />
-                        <p:message for="password" />
-
-                        <p:outputLabel for="surname" value="#{label.Surname}" />
-                        <p:inputText id="surname" value="#{userCache.entity.surname}" size="30" />
-                        <p:message for="surname" />
-
-                        <p:outputLabel for="name" value="#{label.Name}" />
-                        <p:inputText id="name" value="#{userCache.entity.name}" size="30" />
-                        <p:message for="name" />
-
-                        <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
-                        <p:inputText id="patronymic" value="#{userCache.entity.patronymic}" size="30" />
-                        <p:message for="patronymic" />
-
-                        <p:outputLabel for="email" value="#{label.Email}" />
-                        <p:inputText id="email" value="#{userCache.entity.email}" size="30" />
-                        <p:message for="email" />
-
-                        <p:outputLabel for="phone" value="#{label.Phone}" />
-                        <p:inputText id="phone" value="#{userCache.entity.phone}" size="30" />
-                        <p:message for="phone" />
-
-                        <p:outputLabel for="statusGraph" value="#{label.Status_graph}" />
-                        <h:panelGroup>
-                            <p:inputText id="statusGraph" value="#{userCache.entity.statusGraph.name}"  size="30" readonly="true" />
-                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                <f:actionListener binding="#{dialog.displayInputForm('graph-chooser')}" />
-                                <p:ajax event="dialogReturn" update="statusGraph"
-                                        listener="#{userCache.entity.initStatusIf(userCache.entity.isNew())}" />
-                            </p:commandButton>
-                        </h:panelGroup>
-                        <p:message for="statusGraph" />
-
-                        <p:outputLabel for="userPhoto" value="#{label.Photo}" />
-                        <h:panelGrid columns="3">
-                            <p:graphicImage id="userPhoto" width="32" height="32"
+                    <h:panelGrid columns="4">
+                        <p:spacer width="50" />
+                        <p:panel>
+                            <f:facet name="header">
+                                <h:outputText styleClass="fa fa-image" />
+                                <p:spacer width="5" />
+                                <p:outputLabel for="userPhoto" value="#{label.Photo}" />
+                            </f:facet>
+                            <p:graphicImage id="userPhoto" width="64" height="64"
                                             value="#{img.toStreamedContent(userCache.entity.photo)}" />
-                            <p:spacer width="20" />
-                            <h:panelGroup>
+                            <f:facet name="footer">
                                 <p:commandButton icon="fa fa-upload" onclick="PF('userPhotoUploader').show()" process="@none" update="@none" />
                                 <p:commandButton icon="fa fa-trash" process="@this" update="userPhoto">
                                     <f:actionListener binding="#{userCache.entity.setPhoto(null)}" />
                                 </p:commandButton>
+                            </f:facet>
+                        </p:panel>
+                        <p:spacer width="50" />
+                        <p:panelGrid columns="3">
+                            <f:facet name="header">
+                                <h:outputText value="#{label.User}: #{userCache.entity.id}" />
+                            </f:facet>
+
+                            <p:outputLabel for="username" value="#{label.Username}" />
+                            <p:inputText id="username" value="#{userCache.entity.username}" size="30" />
+                            <p:message for="username" />
+
+                            <p:outputLabel for="password" value="#{label.Password}" />
+                            <p:password id="password" value="#{userCache.entity.password}" size="30" />
+                            <p:message for="password" />
+
+                            <p:outputLabel for="surname" value="#{label.Surname}" />
+                            <p:inputText id="surname" value="#{userCache.entity.surname}" size="30" />
+                            <p:message for="surname" />
+
+                            <p:outputLabel for="name" value="#{label.Name}" />
+                            <p:inputText id="name" value="#{userCache.entity.name}" size="30" />
+                            <p:message for="name" />
+
+                            <p:outputLabel for="patronymic" value="#{label.Patronymic}" />
+                            <p:inputText id="patronymic" value="#{userCache.entity.patronymic}" size="30" />
+                            <p:message for="patronymic" />
+
+                            <p:outputLabel for="email" value="#{label.Email}" />
+                            <p:inputText id="email" value="#{userCache.entity.email}" size="30" />
+                            <p:message for="email" />
+
+                            <p:outputLabel for="phone" value="#{label.Phone}" />
+                            <p:inputText id="phone" value="#{userCache.entity.phone}" size="30" />
+                            <p:message for="phone" />
+
+                            <p:outputLabel for="statusGraph" value="#{label.Status_graph}" />
+                            <h:panelGroup>
+                                <p:inputText id="statusGraph" value="#{userCache.entity.statusGraph.name}"  size="30" readonly="true" />
+                                <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                    <f:actionListener binding="#{dialog.displayInputForm('graph-chooser')}" />
+                                    <p:ajax event="dialogReturn" update="statusGraph"
+                                            listener="#{userCache.entity.initStatusIf(userCache.entity.isNew())}" />
+                                </p:commandButton>
                             </h:panelGroup>
-                        </h:panelGrid>
-                        <p:message for="userPhoto" />
+                            <p:message for="statusGraph" />
 
-                        <p:outputLabel for="nickname" value="#{label.Nickname}" />
-                        <p:inputText id="nickname" value="#{userCache.entity.nickname}" size="30" />
-                        <p:message for="nickname" />
-                        
-                        <f:facet name="footer">
-                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
-                                <f:actionListener binding="#{userCache.executeCrudOperation()}" />
-                                <f:actionListener binding="#{dialog.dispose()}" />
-                            </p:commandButton>
 
-                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
-                                <f:actionListener binding="#{userCache.cancelCrudOperation()}" />
-                                <f:actionListener binding="#{dialog.dispose()}" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:panelGrid>
+                            <p:outputLabel for="nickname" value="#{label.Nickname}" />
+                            <p:inputText id="nickname" value="#{userCache.entity.nickname}" size="30" />
+                            <p:message for="nickname" />
+
+                            <p:outputLabel for="confidence" value="#{label.Confidence}" />
+                            <p:inputText id="confidence" value="#{userCache.entity.confidence}" size="30">
+                                <f:convertNumber type="percent" />
+                            </p:inputText>
+                            <p:message for="confidence" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
+                                    <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                    <f:actionListener binding="#{dialog.dispose()}" />
+                                </p:commandButton>
+
+                                <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                    <f:actionListener binding="#{userCache.cancelCrudOperation()}" />
+                                    <f:actionListener binding="#{dialog.dispose()}" />
+                                </p:commandButton>
+                            </f:facet>
+                        </p:panelGrid>
+
+
+                    </h:panelGrid>
+
                 </h:form>
                 <p:dialog widgetVar="userPhotoUploader" width="#{dialog.width * .8}" height="#{dialog.height * .5}">
                     <h:form>
