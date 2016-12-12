@@ -10,6 +10,7 @@
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="p" rowKey="#{p.id}"
                          selectionMode="single" selection="#{selection}"
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
@@ -22,23 +23,47 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.Code}">
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column headerText="#{label.Code}" rowspan="2"
+                                  filterBy="#{p.code}" sortBy="#{p.code}" />
+                        <p:column headerText="#{label.Description}" rowspan="2"
+                                  filterBy="#{p.description}" sortBy="#{p.description}" />
+                        <p:column headerText="#{label.Minimum_price}" rowspan="2"
+                                  filterBy="#{p.minimumPrice}" sortBy="#{p.minimumPrice}" />
+                        <p:column headerText="#{label.Organizer}" colspan="3" />
+                        <p:column headerText="#{label.Status}" rowspan="2" filterBy="#{p.status.name}" />
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="#{label.Surname}" filterBy="#{p.organizer.fullName.surname}" sortBy="#{p.organizer.fullName.surname}" />
+                        <p:column headerText="#{label.Name}" filterBy="#{p.organizer.fullName.name}" sortBy="#{p.organizer.fullName.name}" />
+                        <p:column headerText="#{label.Patronymic}" filterBy="#{p.organizer.fullName.patronymic}" sortBy="#{p.organizer.fullName.patronymic}" />
+                    </p:row>
+                </p:columnGroup>
+                
+                <p:column>
                     <h:outputText value="#{p.code}" />
                 </p:column>
 
-                <p:column headerText="#{label.Description}">
+                <p:column>
                     <h:outputText value="#{p.description}" />
                 </p:column>
 
-                <p:column headerText="#{label.Minimum_price}">
+                <p:column>
                     <h:outputText value="#{p.minimumPrice}" />
                 </p:column>
-
-                <p:column headerText="#{label.Organizer}">
-                    <h:outputText value="#{p.organizer.fullName}" />
+                
+                <p:column>
+                    <h:outputText value="#{p.organizer.fullName.surname}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{p.organizer.fullName.name}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{p.organizer.fullName.patronymic}" />
                 </p:column>
 
-                <p:column headerText="#{label.Status}">
+                <p:column>
                     <h:outputText value="#{p.status.name}" />
                 </p:column>
 
