@@ -50,8 +50,9 @@
                         </h:panelGrid>
 
                         <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
-                                    columns="4" layout="grid" emptyMessage="#{label.No_records_found}">
-
+                                    columns="4" layout="grid" styleClass=""
+                                    emptyMessage="#{label.No_records_found}">
+                            
                             <p:panel>
                                 <f:facet name="header">
                                     <h:outputText value="#{art.product.name}" style="white-space: nowrap" />

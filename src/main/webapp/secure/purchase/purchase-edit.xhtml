@@ -26,7 +26,12 @@
                         </f:facet>
 
                         <p:outputLabel for="code" value="#{label.Code}" />
-                        <p:inputText id="code" value="#{purchaseCache.entity.code}" size="30" />
+                        <h:panelGroup>
+                            <p:inputText id="code" value="#{purchaseCache.entity.code}" size="30" />
+                            <p:commandButton icon="fa fa-cogs" process="@this" update="code">
+                                <f:actionListener binding="#{purchaseCache.entity.setCode(codeGen.value)}" />
+                            </p:commandButton>
+                        </h:panelGroup>
                         <p:message for="code" />
 
                         <p:outputLabel for="description" value="#{label.Description}" />
