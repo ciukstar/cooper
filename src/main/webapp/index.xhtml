@@ -49,18 +49,15 @@
                             </h:panelGrid>
                             <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
                                         columns="3" layout="grid" emptyMessage="#{label.No_records_found}">
-                                <p:panel style="min-width: 200px">
+
+                                <p:panel>
                                     <f:facet name="header">
-                                        <h:outputText value="#{art.product.name}" />
+                                        <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
                                     </f:facet>
-                                    <h:panelGrid columns="3">
-                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                        height="64" width="64">
-                                            <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                        </p:graphicImage>
-                                        <p:spacer width="10" />
-                                        
-                                    </h:panelGrid>
+                                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                    height="64" width="64">
+                                        <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                    </p:graphicImage>
                                     <f:facet name="footer">
                                         <h:outputText styleClass="#{art.currency.symbol}" />
                                         <p:spacer width="5" />
