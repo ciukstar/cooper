@@ -30,9 +30,11 @@
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
                                 <f:actionListener binding="#{productCache.entity.addPhoto(requestScope.photo)}" />
+                                <f:actionListener binding="#{productCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{productCache.cancelCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                         </f:facet>
