@@ -36,7 +36,8 @@
                         <p:message for="name" />
 
                         <p:outputLabel for="description" value="#{label.Description}" />
-                        <p:inputTextarea id="description" value="#{productCache.entity.description}" cols="40" />
+                        <p:inputTextarea id="description" value="#{productCache.entity.description}" 
+                                         cols="80" rows="5" autoResize="false" />
                         <p:message for="description" />
 
                         <p:outputLabel for="size" value="#{label.Size}" />
@@ -52,7 +53,7 @@
                         <p:message for="composition" />
 
                         <p:outputLabel for="supplierWebsite" value="#{label.Supplier_website}" />
-                        <p:inputTextarea id="supplierWebsite" value="#{productCache.entity.supplierWebsite}" cols="40" rows="2" />
+                        <p:inputTextarea id="supplierWebsite" value="#{productCache.entity.supplierWebsite}" cols="80" rows="1" />
                         <p:message for="supplierWebsite" />
 
                         <p:outputLabel for="manufacturer" value="#{label.Manufacturer}" />
