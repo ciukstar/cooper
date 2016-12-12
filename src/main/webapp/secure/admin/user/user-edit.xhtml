@@ -59,7 +59,7 @@
 
                         <p:outputLabel for="userPhoto" value="#{label.Photo}" />
                         <h:panelGrid columns="3">
-                            <p:graphicImage id="userPhoto" width="64" height="64"
+                            <p:graphicImage id="userPhoto" width="32" height="32"
                                             value="#{img.toStreamedContent(userCache.entity.photo)}" />
                             <p:spacer width="20" />
                             <h:panelGroup>
@@ -71,6 +71,10 @@
                         </h:panelGrid>
                         <p:message for="userPhoto" />
 
+                        <p:outputLabel for="nickname" value="#{label.Nickname}" />
+                        <p:inputText id="nickname" value="#{userCache.entity.nickname}" size="30" />
+                        <p:message for="nickname" />
+                        
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
                                 <f:actionListener binding="#{userCache.executeCrudOperation()}" />
