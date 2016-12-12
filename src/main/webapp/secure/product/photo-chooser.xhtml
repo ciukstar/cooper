@@ -23,6 +23,7 @@
                             <ui:param name="data" value="#{photoRepo.findAll()}" />
                             <ui:param name="selection" value="#{requestScope.photo}" />
                             <ui:param name="rowSelectDisabled" value="true" />
+                            <ui:param name="scrollHeight" value="#{dialog.height - 200}" />
                             <ui:param name="tableHeader" value="#{label.Photos}" />
                         </ui:include>
                         

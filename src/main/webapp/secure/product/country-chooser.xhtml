@@ -21,6 +21,7 @@
                             <ui:param name="id" value="countryDataTable" />
                             <ui:param name="data" value="#{countryRepo.findAll()}" />
                             <ui:param name="selection" value="#{requestScope.country}" />
+                            <ui:param name="scrollHeight" value="#{dialog.height - 200}" />
                             <ui:param name="tableHeader" value="#{label.Countries}" />
                         </ui:include>
                         <f:facet name="footer">
