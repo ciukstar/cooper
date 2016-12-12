@@ -42,7 +42,8 @@
                         <p:message for="icon" />
 
                         <p:outputLabel for="contents" value="#{label.Contents}" />
-                        <p:inputTextarea id="contents" value="#{ruleCache.entity.contents}" cols="50" rows="4" />
+                        <p:inputTextarea id="contents" value="#{ruleCache.entity.contents}"
+                                         autoResize="false" cols="80" rows="15" />
                         <p:message for="contents" />
 
                         <f:facet name="footer">
