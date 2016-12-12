@@ -43,9 +43,16 @@
                     </p:submenu>
 
                     <f:facet name="options">
-                        <p:inputText placeholder="#{label.Search}" />
-                        <p:spacer width="5px" />
-                        <p:commandButton type="button" value="#{label.Logout}" icon="fa fa-sign-out" />
+                        <h:panelGrid columns="5">
+                            <p:inputText placeholder="#{label.Search}" />
+                            <p:spacer width="5px" />
+                            <p:themeSwitcher>
+                                <f:selectItems value="#{themes.choises}" var="theme"
+                                               itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                            </p:themeSwitcher>
+                            <p:spacer width="5px" />
+                            <p:commandButton type="button" value="#{label.Logout}" icon="fa fa-sign-out" />
+                        </h:panelGrid>
                     </f:facet>
                 </p:menubar>
             </h:form>
