@@ -71,10 +71,10 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "id", nullable = false)
     private Status status;
 
-    @OneToMany(mappedBy = "PURCHASE")
+    @OneToMany(mappedBy = "purchase")
     private List<Article> articles;
 
-    @OneToMany(mappedBy = "PURCHASE")
+    @OneToMany(mappedBy = "purchase")
     private List<Dispenser> dispensers;
 
     @ManyToMany(fetch = FetchType.EAGER)
