@@ -16,17 +16,42 @@
 
             <ui:define name="content">
                 <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
                     <p:panelGrid columns="3">
                         <f:facet name="header">
                             <h:outputText value="#{label.Dispenser}: #{dispenserCache.entity.id}" />
                         </f:facet>
-                        
-                        <p:inputText value="#{dispenserCache.entity.purchase}" readonly="true" size="30" />
-                        
-                        <p:inputText value="#{dispenserCache.entity.warehouse}" readonly="true" size="30" />
-                        
-                        <p:calendar value="#{dispenserCache.entity.schedule}" />
-                        
+
+                        <p:outputLabel for="purchase" value="#{label.Purchase}" />
+                        <h:panelGroup>
+                            <p:inputText id="purchase" value="#{dispenserCache.entity.purchase.code}" readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.display('purchase-chooser')}" />
+                                <p:ajax event="dialogReturn" update="purchase" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="purchase" />
+
+                        <p:outputLabel for="warehouse" value="#{label.Warehouse}" />
+                        <h:panelGroup>
+                            <p:inputText id="warehouse" value="#{dispenserCache.entity.warehouse.name}" readonly="true" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.display('warehouse-chooser')}" />
+                                <p:ajax event="dialogReturn" update="warehouse" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="warehouse" />
+
+                        <p:outputLabel for="schedule" value="#{label.Schedule}" />
+                        <h:panelGroup>
+                        <p:calendar id="schedule" value="#{dispenserCache.entity.schedule.name}" readonly="true" size="30" />
+                        <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                            <f:actionListener binding="#{dialog.display('schedule-chooser')}" />
+                            <p:ajax event="dialogReturn" update="schedule" />
+                        </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="schedule" />
+
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
                                 <f:actionListener binding="#{dispenserCache.executeCrudOperation()}" />
