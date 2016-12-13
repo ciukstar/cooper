@@ -61,6 +61,8 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @Column(name = "MIN_PRICE", nullable = false)
     private BigDecimal minimumPrice;
 
+    @NotNull(message = "{Organization_cost_may_not_be_null}")
+    @Min(value = 0, message = "{Organization_cost_must_be_greater_than_value}")
     @Column(name = "ORGANIZATION_COST_AS_COEFF")
     private BigDecimal organizationCostAsCoefficient;
 
