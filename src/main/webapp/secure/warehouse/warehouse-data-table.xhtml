@@ -13,6 +13,7 @@
 
             <p:dataTable id="#{id}" value="#{data}" var="w" rowKey="#{w.id}"
                          selectionMode="single" selection="#{selection}"
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"

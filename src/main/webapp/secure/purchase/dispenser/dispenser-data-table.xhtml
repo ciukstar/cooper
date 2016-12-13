@@ -40,10 +40,14 @@
                     <h:outputText value="#{disp.warehouse.address}" />
                 </p:column>
                 <p:column>
-                    <h:outputText value="#{disp.schedule.start}" />
+                    <h:outputText value="#{disp.schedule.start}">
+                        <f:converter binding="#{localDateTimeConverter}" />
+                    </h:outputText>
                 </p:column>
                 <p:column>
-                    <h:outputText value="#{disp.schedule.end}" />
+                    <h:outputText value="#{disp.schedule.end}">
+                        <f:converter binding="#{localDateTimeConverter}" />
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
         </ui:composition>
