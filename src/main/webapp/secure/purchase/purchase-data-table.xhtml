@@ -31,6 +31,8 @@
                                   filterBy="#{p.description}" sortBy="#{p.description}" />
                         <p:column headerText="#{label.Minimum_price}" rowspan="2"
                                   filterBy="#{p.minimumPrice}" sortBy="#{p.minimumPrice}" />
+                        <p:column headerText="#{label.Organization_cost}" rowspan="2" 
+                                  filterBy="#{p.organizationCostAsCoefficient}" sortBy="#{p.organizationCostAsCoefficient}"/>
                         <p:column headerText="#{label.Organizer}" colspan="3" />
                         <p:column headerText="#{label.Status}" rowspan="2" filterBy="#{p.status.name}" />
                     </p:row>
@@ -51,6 +53,11 @@
 
                 <p:column>
                     <h:outputText value="#{p.minimumPrice}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{p.organizationCostAsCoefficient}">
+                        <f:convertNumber type="percent" minFractionDigits="2" />
+                    </h:outputText>
                 </p:column>
                 
                 <p:column>

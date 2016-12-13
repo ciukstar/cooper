@@ -66,7 +66,7 @@
 
                         <p:outputLabel for="organizationCostAsCoefficient" value="#{label.Organization_cost}" />
                         <p:inputText id="organizationCostAsCoefficient" value="#{purchaseCache.entity.organizationCostAsCoefficient}">
-                            <f:convertNumber type="percent" />
+                            <f:convertNumber type="percent" minFractionDigits="2" />
                         </p:inputText>
                         <p:message for="organizationCostAsCoefficient" />
 
