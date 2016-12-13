@@ -62,6 +62,7 @@
                     </p:layoutUnit>
                     <p:layoutUnit position="south" resizable="true" size="50%">
                         <h:form id="purchaseStructureForm">
+                            <p:messages autoUpdate="true" closable="true" />
                             <p:tabView id="purchaseStructureTabView" dynamic="true">
                                 <p:tab title="#{label.Articles}">
                                     <p:toolbar>
@@ -106,17 +107,17 @@
                                         <f:facet name="right">
                                             <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                                 <f:actionListener binding="#{dispenserCache.schedule(crud.create(dispenserBuilder.forPurchase(purchaseCache.entity), dispenserRepo))}" />
-                                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-edit')}" />
+                                                <f:actionListener binding="#{dialog.display('dispenser-edit')}" />
                                                 <p:ajax event="dialogReturn" update="dispenserDataTable" />
                                             </p:commandButton>
                                             <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
                                                 <f:actionListener binding="#{dispenserCache.schedule(crud.update(dispenserCache.entity, dispenserRepo))}" />
-                                                <f:actionListener binding="#{dialog.displayInputForm('dispenser-edit')}" />
+                                                <f:actionListener binding="#{dialog.display('dispenser-edit')}" />
                                                 <p:ajax event="dialogReturn" update="dispenserDataTable" />
                                             </p:commandButton>
                                             <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
                                                 <f:actionListener binding="#{dispenserCache.schedule(crud.delete(dispenserCache.entity, dispenserRepo))}" />
-                                                <f:actionListener binding="#{dialog.displayConfirmationDialog('dispenser-delete')}" />
+                                                <f:actionListener binding="#{dialog.display('dispenser-delete')}" />
                                                 <p:ajax event="dialogReturn" update="dispenserDataTable" />
                                             </p:commandButton>
                                         </f:facet>
