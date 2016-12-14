@@ -23,6 +23,9 @@
                             </f:facet>
                             <p:graphicImage id="userPhoto" width="64" height="64"
                                             value="#{img.toStreamedContent(userCache.entity.photo)}" />
+                            <p:spacer height="2" />
+                            <p:rating value="#{userCache.entity.rating}" stars="5" />
+                            <p:spacer height="2" />
                             <f:facet name="footer">
                                 <p:commandButton icon="fa fa-upload" onclick="PF('userPhotoUploader').show()" process="@none" update="@none" />
                                 <p:commandButton icon="fa fa-trash" process="@this" update="userPhoto">

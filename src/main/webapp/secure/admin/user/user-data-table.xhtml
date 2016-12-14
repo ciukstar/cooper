@@ -10,8 +10,8 @@
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="u" rowKey="#{u.id}"
                          selectionMode="single" selection="#{selection}"
-                         resizableColumns="true"
-                         emptyMessage="#{label.No_records_found}">
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
@@ -24,10 +24,13 @@
                 </c:if>
 
                 <p:column headerText="#{label.Photo}">
-                    <p:graphicImage value="#{img.getContent(param['userid'], 'photo', userRepo)}"
-                                    width="32" height="32">
-                        <f:param name="userid" value="#{u.id}" />
-                    </p:graphicImage>
+                    <h:panelGroup>
+                        <p:graphicImage value="#{img.getContent(param['userid'], 'photo', userRepo)}"
+                                        width="32" height="32">
+                            <f:param name="userid" value="#{u.id}" />
+                        </p:graphicImage>
+                        <p:rating value="#{u.rating}" stars="5" readonly="true" />
+                    </h:panelGroup>
                 </p:column>
                 <p:column headerText="#{label.Username}" filterBy="#{u.username}" sortBy="#{u.username}">
                     <h:outputText value="#{u.username}" />

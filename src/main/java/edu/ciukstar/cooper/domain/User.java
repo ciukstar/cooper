@@ -70,6 +70,9 @@ public class User implements Persistable<Long>, StatusTrackable {
     @Column(name = "CONFIDENCE")
     private BigDecimal confidence;
     
+    @Column(name = "RATING")
+    private Integer rating;
+    
     @Lob
     @Column(name = "PHOTO")
     private byte[] photo;
@@ -235,6 +238,14 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     public void setConfidence(BigDecimal confidence) {
         this.confidence = confidence;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public List<Role> getRoles() {
