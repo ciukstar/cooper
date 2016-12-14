@@ -35,24 +35,46 @@
                         <f:facet name="header">
                             <h:outputText styleClass="fa fa-cube" />
                             <p:spacer width="5" />
-                            <p:commandLink action="purchase">
+                            <p:commandLink action="purchase" style="text-decoration: none">
                                 <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
                                 <h:outputText value="#{purch.description}" />
                             </p:commandLink>
                         </f:facet>
 
-                        <h:panelGrid columns="2">
-                            <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
-                                            width="32" height="32">
-                                <f:param name="orgid" value="#{purch.organizer.id}" />
-                            </p:graphicImage>
-                            <h:outputText value="#{purch.organizer.fullName}" />
-                            
-                            <h:outputText value="#{purch.organizer.confidence}" title="#{label.Confidence}">
-                                <f:convertNumber type="percent" />
-                            </h:outputText>
-                            <h:outputText styleClass="fa fa-certificate" />
-                        </h:panelGrid>
+                        <div class="ui-g">
+                            <div class="ui-g-1">
+                                <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
+                                                width="48" height="48" alt="#{label.Organizer}" >
+                                    <f:param name="orgid" value="#{purch.organizer.id}" />
+                                </p:graphicImage>
+                            </div>
+                            <div class="ui-g-2">
+                                <div class="ui-g-12">
+                                    <h:outputText value="#{purch.organizer.fullName}" />
+                                </div>
+                                <div class="ui-g-3">
+                                    <h:outputText value="#{purch.organizer.confidence}" title="#{label.Confidence}">
+                                        <f:convertNumber type="percent" />
+                                    </h:outputText>
+                                </div>
+                                <div class="ui-g-9">
+                                    <p:rating value="#{purch.organizer.rating}" stars="5" readonly="true" />
+                                </div>
+                            </div>
+                            <div class="ui-g-9">
+                                <div class="ui-g-12">
+                                    <p:commandLink style="text-decoration: none; font-size: 1.3em; font-style: italic" 
+                                                   onmouseover="$(this).css('text-decoration', 'underline')"
+                                                   onmouseout="$(this).css('text-decoration', 'none')">
+                                        <h:outputText value="#{purch.description}" />
+                                    </p:commandLink>
+                                </div>
+                                <div class="ui-g-12">
+                                    <h:outputText value="#{label.Status}: #{purch.status}"
+                                                  style="font-size: .8em"/>
+                                </div>
+                            </div>
+                        </div>
 
                         <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
                                     columns="4" layout="grid" styleClass=""
