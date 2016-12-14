@@ -36,7 +36,7 @@
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(graphRepo.findByCode('Граф состояния закупки').get().getStartNode()), purchaseRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />
-                                        <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                                        <p:ajax event="dialogReturn" update="purchaseDataTable purchaseStructureForm" />
                                     </p:commandButton>
                                     <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
                                         <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
@@ -46,7 +46,7 @@
                                     <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
                                         <f:actionListener binding="#{purchaseCache.schedule(crud.delete(purchaseCache.entity, purchaseRepo))}" />
                                         <f:actionListener binding="#{dialog.displayConfirmationDialog('purchase-delete')}" />
-                                        <p:ajax event="dialogReturn" update="purchaseDataTable" />
+                                        <p:ajax event="dialogReturn" update="purchaseDataTable purchaseDataTable" />
                                     </p:commandButton>
                                 </f:facet>
                             </p:toolbar>
@@ -91,7 +91,7 @@
                                     </p:toolbar>
                                     <ui:include src="article/article-data-table.xhtml">
                                         <ui:param name="id" value="articleDataTable" />
-                                        <ui:param name="data" value="#{articleRepo.findByPurchase(purchaseCache.entity)}" />
+                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : articleRepo.findByPurchase(purchaseCache.entity)}" />
                                         <ui:param name="selection" value="#{articleCache.entity}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />
@@ -124,7 +124,7 @@
                                     </p:toolbar>
                                     <ui:include src="dispenser/dispenser-data-table.xhtml">
                                         <ui:param name="id" value="dispenserDataTable" />
-                                        <ui:param name="data" value="#{dispenserRepo.findByPurchase(purchaseCache.entity)}" />
+                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : dispenserRepo.findByPurchase(purchaseCache.entity)}" />
                                         <ui:param name="selection" value="#{dispenserCache.entity}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />

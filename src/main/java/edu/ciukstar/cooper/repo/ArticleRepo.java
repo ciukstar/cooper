@@ -3,6 +3,7 @@ package edu.ciukstar.cooper.repo;
 import edu.ciukstar.cooper.domain.Article;
 import edu.ciukstar.cooper.domain.Article_;
 import edu.ciukstar.cooper.domain.Purchase;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -28,6 +29,7 @@ public class ArticleRepo extends AbstractRepo<Article> {
     private Event<List<Article>> e;
 
     public List<Article> findByPurchase(Purchase purchase) {
+        
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Article> cq = cb.createQuery(Article.class);
         Root<Article> article = cq.from(Article.class);

@@ -3,6 +3,7 @@ package edu.ciukstar.cooper.repo;
 import edu.ciukstar.cooper.domain.Dispenser;
 import edu.ciukstar.cooper.domain.Dispenser_;
 import edu.ciukstar.cooper.domain.Purchase;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;

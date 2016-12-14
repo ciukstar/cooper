@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,11 +72,11 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "id", nullable = false)
     private Status status;
 
-    @OneToMany(mappedBy = "purchase")
-    private List<Article> articles;
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Article> articles;
 
-    @OneToMany(mappedBy = "purchase")
-    private List<Dispenser> dispensers;
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Dispenser> dispensers;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "PURCHASE_RULES",
@@ -88,8 +89,8 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
 
     public Purchase(Status status) {
         this.rules = new HashSet<>();
-        this.dispensers = new ArrayList<>();
-        this.articles = new ArrayList<>();
+        this.dispensers = new HashSet<>();
+        this.articles = new HashSet<>();
         this.status = status;
     }
 
@@ -131,7 +132,7 @@ public class Purchase implements Persistable<Long>, StatusTrackable {
     public Long getId() {
         return id;
     }
-
+    
     public User getOrganizer() {
         return organizer;
     }
