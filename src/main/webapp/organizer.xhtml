@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -17,7 +18,35 @@
             </ui:define>
 
             <ui:define name="center">
-                center
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="#{label.Home}" action="home" />
+                        <p:menuitem value="#{label.Organizer}" action="organizer" />
+                    </p:breadCrumb>
+                    <hr />
+                    <div class="ui-g">
+                        <div class="ui-g-2">
+                            <p:graphicImage value="#{img.toStreamedContent(organizerCache.organizer.photo)}"
+                                            width="64" height="64" />
+                        </div>
+                        <div class="ui-g-8" style="display: flex; justify-content: center; align-items: center; font-size: 2em">
+                            <h:outputText value="#{organizerCache.organizer.fullName}" />
+                        </div>
+                        <div class="ui-g-2">
+                            something else
+                        </div>
+                    </div>
+                    <p:tabView orientation="top">
+                        <p:tab title="#{label.About_me}" />
+                        <p:tab title="#{label.Friends}" />
+                        <p:tab title="#{label.Purchases}">
+                            <ui:repeat value="#{purchaseRepo.findByOrganizer(organizerCache.organizer)}" var="purch">
+                                <h:outputText value="#{purch.description}" /><br/>
+                            </ui:repeat>
+                        </p:tab>
+                        <p:tab title="#{label.Reviews}" />
+                    </p:tabView>
+                </h:form>
             </ui:define>
 
         </ui:composition>

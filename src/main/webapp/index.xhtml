@@ -52,6 +52,7 @@
                             <div class="ui-g-2">
                                 <div class="ui-g-12">
                                     <p:commandLink action="organizer">
+                                        <f:actionListener binding="#{organizerCache.setOrganizer(purch.organizer)}" />
                                         <h:outputText value="#{purch.organizer.fullName}" />
                                     </p:commandLink>
                                 </div>
