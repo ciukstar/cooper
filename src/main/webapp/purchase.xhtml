@@ -40,11 +40,17 @@
                             </div>
                             <div class="ui-g-3">
                                 <div class="ui-g-6">
-                                    <p:graphicImage value="#{img.toStreamedContent(purchaseCache.entity.organizer.photo)}"
-                                                    height="48" width="48"/>
+                                    <p:commandLink>
+                                        <p:graphicImage value="#{img.toStreamedContent(purchaseCache.entity.organizer.photo)}"
+                                                        height="48" width="48" alt="#{label.Organizer}"
+                                                        title="#{purchaseCache.entity.organizer.fullName}"/>
+                                    </p:commandLink>
                                 </div>
                                 <div class="ui-g-6">
-                                    <h:outputText value="#{purchaseCache.entity.organizer.fullName}"/>
+                                    <p:commandLink>
+                                        <h:outputText value="#{purchaseCache.entity.organizer.fullName}"
+                                                      title="#{label.Organizer}"/>
+                                    </p:commandLink>
                                 </div>
                                 <div class="ui-g-6">
                                     <p:rating value="#{purchaseCache.entity.organizer.rating}" readonly="true" />
@@ -73,11 +79,14 @@
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="#{label.Description}" />
                                         <h:outputText value="#{art.product.description}" />
-                                        
+
                                         <h:outputText value="#{label.Price}" />
                                         <h:outputText value="#{art.price} #{art.currency.code}" />
-                                        
-                                        <h:outputText value="#{label.Color}" /> 
+                                        <h:outputText value="#{label.Manufacturer}" />
+                                        <h:outputText value="#{art.product.manufacturer.name}" />
+                                        <h:outputText value="#{label.Country}" />
+                                        <h:outputText value="#{art.product.country.name}" />
+                                        <h:outputText value="#{label.Color}" />
                                         <h:outputText value="#{art.product.color}" />
                                         <h:outputText value="#{label.Composition}" /> 
                                         <h:outputText value="#{art.product.composition}" />                                        
