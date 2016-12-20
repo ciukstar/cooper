@@ -29,13 +29,41 @@
                             <h:outputText value="#{purchaseCache.entity.description}" />
                         </f:facet>
                         <div class="ui-g">
-                            <div class="ui-g-9">
+                            <div class="ui-g-6">
                                 <div class="ui-g-12">
                                     <h:outputText value="#{purchaseCache.entity.description}"
                                                   style="font-size: 1.4em; font-style: italic"/>
                                 </div>
                                 <div class="ui-g-12">
                                     <h:outputText value="#{label.Purchase}: #{purchaseCache.entity.articles.stream().map(a -> a.getProduct().getCountry().getName()).toList()}" />
+                                </div>
+                            </div>
+                            <div class="ui-g-3">
+                                <div class="ui-g-12">
+                                    <h:outputText value="#{purchaseCache.entity.status}" />
+                                </div>
+                                <div class="ui-g-12">
+                                    <p:progressBar value="80" labelTemplate="{value}%" />
+                                </div>
+                                <div class="ui-g-12">
+                                    <div class="ui-g-4">
+                                        <h:outputText value="80%" />
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <h:outputText value="9" />
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <h:outputText value="5 days" />
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <h:outputText value="#{label.Collected}" />
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <h:outputText value="#{label.Participants}" />
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <h:outputText value="#{label.Remaining}" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="ui-g-3">
