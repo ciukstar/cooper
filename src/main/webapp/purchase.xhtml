@@ -28,6 +28,64 @@
                         <f:facet name="header">
                             <h:outputText value="#{purchaseCache.entity.description}" />
                         </f:facet>
+                        <div class="ui-g">
+                            <div class="ui-g-9">
+                                <div class="ui-g-12">
+                                    <h:outputText value="#{purchaseCache.entity.description}"
+                                                  style="font-size: 1.4em; font-style: italic"/>
+                                </div>
+                                <div class="ui-g-12">
+                                    <h:outputText value="#{label.Purchase}: #{purchaseCache.entity.articles.stream().map(a -> a.getProduct().getCountry().getName()).toList()}" />
+                                </div>
+                            </div>
+                            <div class="ui-g-3">
+                                <div class="ui-g-6">
+                                    <p:graphicImage value="#{img.toStreamedContent(purchaseCache.entity.organizer.photo)}"
+                                                    height="48" width="48"/>
+                                </div>
+                                <div class="ui-g-6">
+                                    <h:outputText value="#{purchaseCache.entity.organizer.fullName}"/>
+                                </div>
+                                <div class="ui-g-6">
+                                    <p:rating value="#{purchaseCache.entity.organizer.rating}" readonly="true" />
+                                </div>
+                                <div class="ui-g-6">
+                                    <h:outputText value="#{purchaseCache.entity.organizer.confidence}">
+                                        <f:convertNumber type="percent" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                        </div>
+                        <p:fieldset collapsed="true" toggleable="true" legend="#{label.Rules} &amp; #{label.Conditions}">
+                            <ui:repeat value="#{purchaseCache.entity.rules}" var="rule">
+                                <h:outputText value="#{rule.contents}" />
+                                <hr />
+                            </ui:repeat>
+                        </p:fieldset>
+                        <p:spacer height="5" />
+                        <ui:repeat value="#{purchaseCache.entity.articles}" var="art">
+                            <h:panelGrid columns="2">
+                                <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                height="64" width="64">
+                                    <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                </p:graphicImage>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="#{label.Description}" />
+                                        <h:outputText value="#{art.product.description}" />
+                                        
+                                        <h:outputText value="#{label.Price}" />
+                                        <h:outputText value="#{art.price} #{art.currency.code}" />
+                                        
+                                        <h:outputText value="#{label.Color}" /> 
+                                        <h:outputText value="#{art.product.color}" />
+                                        <h:outputText value="#{label.Composition}" /> 
+                                        <h:outputText value="#{art.product.composition}" />                                        
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <hr/>
+                        </ui:repeat>
                     </p:panel>
                 </h:form>
             </ui:define>
