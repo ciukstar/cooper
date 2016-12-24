@@ -22,7 +22,10 @@
                         </f:facet>
 
                         <p:outputLabel for="orderNumber" value="#{label.Number}" />
-                        <p:inputText id="orderNumber" value="#{orderCache.entity.number}" size="30" />
+                        <h:panelGroup>
+                            <p:inputText id="orderNumber" value="#{orderCache.entity.number}" size="30" />
+                            <p:commandButton icon="fa fa-cogs" />
+                        </h:panelGroup>
                         <p:message for="orderNumber" />
 
                         <p:outputLabel for="customer" value="#{label.Customer}" />
