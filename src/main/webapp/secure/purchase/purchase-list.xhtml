@@ -35,9 +35,9 @@
                                 <f:facet name="right">
                                     <ui:repeat value="#{purchaseCache.entity.organizer.purchaseStatusGraph.getOutEdges(purchaseCache.entity).toArray()}" var="e">
                                         <p:commandButton value="#{e.transitionName}" icon="#{e.icon}" process="@this" update="@form">
-                                            <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
-                                            <f:actionListener binding="#{userCache.entity.transition(e)}" />
-                                            <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                            <f:actionListener binding="#{purchaseCache.schedule(crud.update(purchaseCache.entity, purchaseRepo))}" />
+                                            <f:actionListener binding="#{purchaseCache.entity.organizer.purchaseStatusGraph.transition(purchaseCache.entity, e)}" />
+                                            <f:actionListener binding="#{purchaseCache.executeCrudOperation()}" />
                                         </p:commandButton>
                                     </ui:repeat>
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
