@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -19,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "ORDERS")
-public class Order implements Persistable<Long> {
+public class Order implements Persistable<Long>, StatusTrackable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,10 +42,9 @@ public class Order implements Persistable<Long> {
     @Column(name = "ORDER_DATE", nullable = false)
     private LocalDateTime orderDate;
 
-    @NotNull(message = "{Quantity_may_not_be_null}")
-    @Min(value = 1, message = "{Quantity_greater_or_equal_to_value}")
-    @Column(name = "QUANTITY", nullable = false)
-    private Integer quantity;
+    @ManyToOne
+    @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
+    private Status status;
 
     public User getCustomer() {
         return customer;
@@ -72,14 +70,6 @@ public class Order implements Persistable<Long> {
         this.orderDate = orderDate;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public String getNumber() {
         return number;
     }
@@ -96,6 +86,16 @@ public class Order implements Persistable<Long> {
     @Override
     public boolean isNew() {
         return null == getId();
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }

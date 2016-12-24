@@ -8,11 +8,10 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{empty id ? 'statusDataTable' : id}"
-                         value="#{data}" var="s" rowKey="#{s.id}"
+            <p:dataTable id="#{id}" value="#{data}" var="s" rowKey="#{s.id}"
                          selectionMode="single" selection="#{selection}"
-                         resizableColumns="true"
-                         emptyMessage="#{label.No_records_found}">
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled }"

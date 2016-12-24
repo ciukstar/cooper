@@ -9,7 +9,9 @@
     <body>
 
         <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
-
+            <ui:define name="js">
+                <h:outputScript library="js" name="calendar-ru.js" />
+            </ui:define>
             <ui:define name="title">
                 <h:outputText value="#{label.Order}" />
             </ui:define>
@@ -49,14 +51,20 @@
                         <p:message for="purchase" />
 
                         <p:outputLabel for="orderDate" value="#{label.Order_date}" />
-                        <p:calendar id="orderDate" value="#{orderCache.entity.orderDate}" />
+                        <p:calendar id="orderDate" value="#{orderCache.entity.orderDate}"
+                                    showOn="button" pattern="dd.MM.yyyy" showButtonPanel="true"
+                                    navigator="true"/>
                         <p:message for="orderDate" />
 
-                        <p:outputLabel for="quantity" value="#{label.Quantity}" />
-                        <p:inputText id="quantity" value="#{orderCache.entity.quantity}">
-                            <f:convertNumber maxFractionDigits="0" groupingUsed="true" />
-                        </p:inputText>
-                        <p:message for="quantity" />
+                        <p:outputLabel for="status" value="#{label.State}" />
+                        <h:panelGroup>
+                            <p:inputText id="status" value="#{orderCache.entity.status.name}" size="30" />
+                            <p:commandButton icon="fa fa-search" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.display('status-chooser')}" />
+                                <p:ajax event="dialogReturn" update="status" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <p:message for="status" />
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">

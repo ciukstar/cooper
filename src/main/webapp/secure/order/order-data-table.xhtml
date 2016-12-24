@@ -34,8 +34,8 @@
                 <p:column headerText="#{label.Customer}">
                     <h:outputText value="#{o.customer}" />
                 </p:column>
-                <p:column headerText="#{label.Quantity}">
-                    <h:outputText value="#{o.quantity}" />
+                <p:column headerText="#{label.State}">
+                    <h:outputText value="#{o.status.name}" />
                 </p:column>
             </p:dataTable>
         </ui:composition>

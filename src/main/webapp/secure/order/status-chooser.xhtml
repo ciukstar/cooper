@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.States}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel>
+                        <pe:layout fullPage="false" resizerTip="#{label.Resize}"
+                                   style="width: #{dialog.width * .9}px;height: #{dialog.height * .7}px">
+                            <pe:layoutPane position="north" resizable="true">
+                                <ui:include src="../graph/graph-data-table.xhtml">
+                                    <ui:param name="id" value="graphDataTable" />
+                                    <ui:param name="data" value="#{graphRepo.findAll()}" />
+                                    <ui:param name="selection" value="#{requestScope.graph}" />
+                                    <ui:param name="rowSelectDisabled" value="false" />
+                                    <ui:param name="onRowSelectUpdate" value="@form:statusDataTable" />
+                                    <ui:param name="tableHeader" value="#{label.Graphs}" />
+                                </ui:include>
+                            </pe:layoutPane>
+                            <pe:layoutPane position="center" size="#{dialog.height * .5}" resizable="true">
+
+                                <ui:include src="../status/status-data-table.xhtml">
+                                    <ui:param name="id" value="statusDataTable" />
+                                    <ui:param name="data" value="#{requestScope.graph.nodes}" />
+                                    <ui:param name="selection" value="#{requestScope.status}" />
+                                    <ui:param name="rowSelectDisabled" value="true" />
+                                    <ui:param name="scrollHeight" value="100" />
+                                    <ui:param name="tableHeader" value="#{label.States}" />
+                                </ui:include>
+                            </pe:layoutPane>
+                        </pe:layout>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
+                                <f:actionListener binding="#{orderCache.entity.setStatus(requestScope.status)}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
