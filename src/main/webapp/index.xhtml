@@ -81,25 +81,30 @@
                             </div>
                         </div>
 
-                        <p:dataGrid value="#{articleRepo.findByPurchase(purch)}" var="art"
-                                    columns="4" layout="grid" styleClass=""
-                                    emptyMessage="#{label.No_records_found}">
+
+                        <p:carousel value="#{articleRepo.findByPurchase(purch)}" var="art"
+                                    headerText="#{label.Articles}" circular="true">
 
                             <p:panel>
-                                <f:facet name="header">
-                                    <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
-                                </f:facet>
-                                <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                height="64" width="64">
-                                    <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                </p:graphicImage>
+                                <div class="ui-g">
+                                    <div class="ui-g-4">
+                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                        height="64" width="64">
+                                            <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                        </p:graphicImage>
+                                    </div>
+                                    <div class="ui-g-8">
+                                        <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
+                                    </div>
+                                </div>
+
                                 <f:facet name="footer">
                                     <h:outputText styleClass="#{art.currency.symbol}" />
                                     <p:spacer width="5" />
                                     <h:outputText value="#{art.price}" />
                                 </f:facet>
                             </p:panel>
-                        </p:dataGrid>
+                        </p:carousel>
 
                     </p:panel>
                 </p:dataGrid>
