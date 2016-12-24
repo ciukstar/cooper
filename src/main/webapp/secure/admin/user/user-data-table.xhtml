@@ -23,15 +23,17 @@
                     </f:facet>
                 </c:if>
 
-                <p:column headerText="#{label.Photo}">
-                    <h:panelGroup>
-                        <p:graphicImage value="#{img.getContent(param['userid'], 'photo', userRepo)}"
-                                        width="32" height="32">
-                            <f:param name="userid" value="#{u.id}" />
-                        </p:graphicImage>
-                        <p:rating value="#{u.rating}" stars="5" readonly="true" />
-                    </h:panelGroup>
-                </p:column>
+                <c:if test="#{empty renderPhoto ? true : renderPhoto}">
+                    <p:column headerText="#{label.Photo}">
+                        <h:panelGroup>
+                            <p:graphicImage value="#{img.getContent(param['userid'], 'photo', userRepo)}"
+                                            width="32" height="32">
+                                <f:param name="userid" value="#{u.id}" />
+                            </p:graphicImage>
+                            <p:rating value="#{u.rating}" stars="5" readonly="true" />
+                        </h:panelGroup>
+                    </p:column>
+                </c:if>
                 <p:column headerText="#{label.Username}" filterBy="#{u.username}" sortBy="#{u.username}">
                     <h:outputText value="#{u.username}" />
                 </p:column>
