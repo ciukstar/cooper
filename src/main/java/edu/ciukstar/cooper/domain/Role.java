@@ -45,9 +45,21 @@ public class Role implements Persistable<Long> {
     @JoinColumn(name = "RESOURCE_STATUS_GRAPH", nullable = false, referencedColumnName = "ID")
     private Graph resourceStatusGraph;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_STATUS_GRAPH", referencedColumnName = "ID")
+    private Graph userStatusGraph;
+
+    @ManyToOne
+    @JoinColumn(name = "PURCHASE_STATUS_GRAPH", referencedColumnName = "ID")
+    private Graph purchaseStatusGraph;
+
+    @ManyToOne
+    @JoinColumn(name = "ORDER_STATUS_GRAPH", referencedColumnName = "ID")
+    private Graph orderStatusGraph;
+    
     @Column(name = "DESCRIPTION")
     private String description;
-
+    
     @Lob
     private byte[] image;
 
@@ -86,6 +98,30 @@ public class Role implements Persistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Graph getUserStatusGraph() {
+        return userStatusGraph;
+    }
+
+    public void setUserStatusGraph(Graph userStatusGraph) {
+        this.userStatusGraph = userStatusGraph;
+    }
+
+    public Graph getPurchaseStatusGraph() {
+        return purchaseStatusGraph;
+    }
+
+    public void setPurchaseStatusGraph(Graph purchaseStatusGraph) {
+        this.purchaseStatusGraph = purchaseStatusGraph;
+    }
+
+    public Graph getOrderStatusGraph() {
+        return orderStatusGraph;
+    }
+
+    public void setOrderStatusGraph(Graph orderStatusGraph) {
+        this.orderStatusGraph = orderStatusGraph;
     }
 
     public byte[] getImage() {

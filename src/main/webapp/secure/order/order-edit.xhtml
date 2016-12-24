@@ -18,6 +18,7 @@
 
             <ui:define name="content">
                 <h:form>
+                    <p:messages autoUpdate="true" closable="true" />
                     <p:panelGrid columns="3">
                         <f:facet name="header">
                             <h:outputText value="#{label.Order}: #{orderCache.entity.id}" />
@@ -34,7 +35,7 @@
 
                         <p:outputLabel for="customer" value="#{label.Customer}" />
                         <h:panelGroup>
-                            <p:inputText id="customer" value="#{orderCache.entity.customer.fullName}" readonly="true" size="30" />
+                            <p:inputText id="customer" value="#{orderCache.entity.customer.fullName}" readonly="true" size="50" />
                             <p:commandButton icon="fa fa-search" process="@this" update="@none">
                                 <f:actionListener binding="#{dialog.displayInputForm('customer-chooser')}" />
                                 <p:ajax event="dialogReturn" update="customer" />
@@ -44,7 +45,7 @@
 
                         <p:outputLabel for="purchase" value="#{label.Purchase}" />
                         <h:panelGroup>
-                            <p:inputText id="purchase" value="#{orderCache.entity.purchase.code}" readonly="true" size="30" />
+                            <p:inputText id="purchase" value="#{orderCache.entity.purchase.description}" readonly="true" size="50" />
                             <p:commandButton icon="fa fa-search" process="@this" update="@none">
                                 <f:actionListener binding="#{dialog.displayInputForm('purchase-chooser')}" />
                                 <p:ajax event="dialogReturn" update="purchase" />
