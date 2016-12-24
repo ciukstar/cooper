@@ -88,6 +88,16 @@
                                 <f:convertNumber type="percent" />
                             </p:inputText>
                             <p:message for="confidence" />
+                            
+                            <p:outputLabel for="aboutMe" value="#{label.About_me}" />
+                            <h:panelGroup>
+                            <p:inputText id="aboutMe" value="#{userCache.entity.aboutMe}" size="30" />
+                            <p:commandButton icon="fa fa-edit" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.display('about-me')}" />
+                                <p:ajax event="dialogReturn" update="aboutMe" />
+                            </p:commandButton>
+                            </h:panelGroup>
+                            <p:message for="aboutMe" />
 
                             <f:facet name="footer">
                                 <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@form" update="@form">
