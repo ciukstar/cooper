@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.domain;
 
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -100,6 +101,10 @@ public class Role implements Persistable<Long> {
         this.description = description;
     }
 
+    public Optional<Graph> userStatusGraph() {
+        return Optional.ofNullable(userStatusGraph);
+    }
+    
     public Graph getUserStatusGraph() {
         return userStatusGraph;
     }
@@ -108,6 +113,10 @@ public class Role implements Persistable<Long> {
         this.userStatusGraph = userStatusGraph;
     }
 
+    public Optional<Graph> purchaseStatusGraph() {
+        return Optional.ofNullable(purchaseStatusGraph);
+    }
+    
     public Graph getPurchaseStatusGraph() {
         return purchaseStatusGraph;
     }
@@ -116,6 +125,10 @@ public class Role implements Persistable<Long> {
         this.purchaseStatusGraph = purchaseStatusGraph;
     }
 
+    public Optional<Graph> orderStatusGraph() {
+        return Optional.ofNullable(orderStatusGraph);
+    }
+    
     public Graph getOrderStatusGraph() {
         return orderStatusGraph;
     }
