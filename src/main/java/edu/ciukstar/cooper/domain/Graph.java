@@ -25,8 +25,8 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author sergiu
  */
 @Entity
-@Table(name = "graphs", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"code"})})
+@Table(name = "GRAPHS", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"CODE"})})
 public class Graph implements Persistable<Long>, Serializable {
 
     public static GraphBuilder.NameStep code(String code) {

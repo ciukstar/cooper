@@ -33,6 +33,13 @@
                                     <h:outputText value="#{label.Purchases}" />
                                 </f:facet>
                                 <f:facet name="right">
+                                    <ui:repeat value="#{purchaseCache.entity.organizer.purchaseStatusGraph.getOutEdges(purchaseCache.entity).toArray()}" var="e">
+                                        <p:commandButton value="#{e.transitionName}" icon="#{e.icon}" process="@this" update="@form">
+                                            <f:actionListener binding="#{userCache.schedule(crud.update(userCache.entity, userRepo))}" />
+                                            <f:actionListener binding="#{userCache.entity.transition(e)}" />
+                                            <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                        </p:commandButton>
+                                    </ui:repeat>
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{purchaseCache.schedule(crud.create(purchaseBuilder.emptyPurchase(graphRepo.findByCode('Граф состояния закупки').get().getStartNode()), purchaseRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('purchase-edit')}" />

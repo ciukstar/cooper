@@ -40,6 +40,14 @@
                                     <h:outputText value="#{label.Users}" />
                                 </f:facet>
                                 <f:facet name="right">
+                                    <ui:repeat value="#{userCache.entity.outEdges.toArray()}" var="e">
+                                        <p:commandButton value="#{e.transitionName}" icon="#{e.icon}"
+                                                         actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
+                                                         process="@this" update="@form">
+                                            <f:actionListener binding="#{userCache.entity.transition(e)}" />
+                                            <f:actionListener binding="#{userCache.executeCrudOperation()}" />
+                                        </p:commandButton>
+                                    </ui:repeat>
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
                                         <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newEmptyUser(), userRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
@@ -55,14 +63,6 @@
                                         <f:actionListener binding="#{dialog.displayConfirmationDialog('user-delete')}" />
                                         <p:ajax event="dialogReturn" update="userDataTable" />
                                     </p:commandButton>
-                                    <ui:repeat value="#{userCache.entity.outEdges.toArray()}" var="e">
-                                        <p:commandButton value="#{e.transitionName}" icon="#{e.icon}"
-                                                         actionListener="#{userCache.schedule(crud.update(userCache.entity, userRepo))}"
-                                                         process="@this" update="@form">
-                                            <f:actionListener binding="#{userCache.entity.transition(e)}" />
-                                            <f:actionListener binding="#{userCache.executeCrudOperation()}" />
-                                        </p:commandButton>
-                                    </ui:repeat>
                                 </f:facet>
                             </p:toolbar>
                             <ui:include src="user-data-table.xhtml">

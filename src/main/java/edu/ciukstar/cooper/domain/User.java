@@ -50,12 +50,16 @@ public class User implements Persistable<Long>, StatusTrackable {
     private FullName fullName;
 
     @ManyToOne
-    @JoinColumn(name = "STATUS", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "STATUS_GRAPH", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "STATUS_GRAPH", referencedColumnName = "ID", nullable = false)
     private Graph statusGraph;
+    
+    @ManyToOne
+    @JoinColumn(name = "PURCHASE_STATUS_GRAPH", referencedColumnName = "ID")
+    private Graph purchaseStatusGraph;
 
     @Email(message = "{Invalid_email_address}")
     @Column(name = "EMAIL")
@@ -201,6 +205,14 @@ public class User implements Persistable<Long>, StatusTrackable {
     @Override
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Graph getPurchaseStatusGraph() {
+        return purchaseStatusGraph;
+    }
+
+    public void setPurchaseStatusGraph(Graph purchaseStatusGraph) {
+        this.purchaseStatusGraph = purchaseStatusGraph;
     }
 
     public Graph getStatusGraph() {
