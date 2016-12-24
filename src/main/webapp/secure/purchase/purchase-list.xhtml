@@ -26,7 +26,7 @@
                 <p:layout fullPage="false" resizeTitle="#{label.Resize}">
                     <p:layoutUnit position="center" resizable="true">
                         <h:form id="purchaseForm">
-                            <p:toolbar>
+                            <p:toolbar id="purchaseActionToolbar">
                                 <f:facet name="left">
                                     <h:outputText styleClass="fa fa-slideshare" />
                                     <p:spacer width="10" />
@@ -62,7 +62,7 @@
                                 <ui:param name="data" value="#{purchaseRepo.findAll()}" />
                                 <ui:param name="selection" value="#{purchaseCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
-                                <ui:param name="onRowSelectUpdate" value="@form purchaseStructureForm" />
+                                <ui:param name="onRowSelectUpdate" value="@form:purchaseActionToolbar purchaseStructureForm" />
                                 <ui:param name="scrollHeight" value="150" />
                             </ui:include>
                         </h:form>
