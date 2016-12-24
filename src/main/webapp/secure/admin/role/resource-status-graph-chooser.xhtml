@@ -20,12 +20,12 @@
                         <ui:include src="../../graph/graph-data-table.xhtml">
                             <ui:param name="id" value="graphDataTable" />
                             <ui:param name="data" value="#{graphRepo.findAll()}" />
-                            <ui:param name="selection" value="#{requestScope.resourceStatusGraph}" />
+                            <ui:param name="selection" value="#{requestScope.graph}" />
                             <ui:param name="tableHeader" value="#{label.Graphs}" />
                         </ui:include>
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@form">
-                                <f:actionListener binding="#{roleCache.entity.setResourceStatusGraph(requestScope.resourceStatusGraph)}" />
+                            <p:commandButton value="#{label.Select}" icon="fa fa-check" process="@form" update="@none">
+                                <f:actionListener binding="#{roleCache.entity.setResourceStatusGraph(requestScope.graph)}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa ban" process="@this" update="@none">
