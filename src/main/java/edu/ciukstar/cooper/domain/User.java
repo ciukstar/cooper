@@ -2,8 +2,10 @@ package edu.ciukstar.cooper.domain;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -53,14 +55,6 @@ public class User implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "STATUS_GRAPH", referencedColumnName = "ID", nullable = false)
-    private Graph statusGraph;
-    
-    @ManyToOne
-    @JoinColumn(name = "PURCHASE_STATUS_GRAPH", referencedColumnName = "ID")
-    private Graph purchaseStatusGraph;
-
     @Email(message = "{Invalid_email_address}")
     @Column(name = "EMAIL")
     private String email;
@@ -70,16 +64,16 @@ public class User implements Persistable<Long>, StatusTrackable {
 
     @Column(name = "NICKNAME")
     private String nickname;
-    
+
     @Column(name = "CONFIDENCE")
     private BigDecimal confidence;
-    
+
     @Column(name = "RATING")
     private Integer rating;
-    
+
     @Column(name = "ABOUT_ME")
     private String aboutMe;
-    
+
     @Lob
     @Column(name = "PHOTO")
     private byte[] photo;
@@ -97,18 +91,30 @@ public class User implements Persistable<Long>, StatusTrackable {
         this.fullName = FullName.empty();
     }
 
+    public Optional<Graph> userStatusGraph() {
+        return getRoles().stream().map(Role::getUserStatusGraph).findAny();
+    }
+
+    public Optional<Graph> purchaseStatusGraph() {
+        return getRoles().stream().map(Role::getPurchaseStatusGraph).findAny();
+    }
+
+    public Optional<Graph> orderStatusGraph() {
+        return getRoles().stream().map(Role::getOrderStatusGraph).findAny();
+    }
+
     public void initStatusIf(Boolean predicate) {
         if (predicate) {
-            setStatus(statusGraph.getStartNode());
+            setStatus(userStatusGraph().map(Graph::getStartNode).orElse(null));
         }
     }
 
     public Set<Edge> getOutEdges() {
-        return statusGraph.getOutEdges(this);
+        return userStatusGraph().map(g -> g.getOutEdges(this)).orElse(Collections.EMPTY_SET);
     }
 
     public void transition(Edge edge) {
-        statusGraph.transition(this, edge);
+        userStatusGraph().ifPresent(g -> g.transition(this, edge));
     }
 
     @Override
@@ -207,22 +213,6 @@ public class User implements Persistable<Long>, StatusTrackable {
         this.status = status;
     }
 
-    public Graph getPurchaseStatusGraph() {
-        return purchaseStatusGraph;
-    }
-
-    public void setPurchaseStatusGraph(Graph purchaseStatusGraph) {
-        this.purchaseStatusGraph = purchaseStatusGraph;
-    }
-
-    public Graph getStatusGraph() {
-        return statusGraph;
-    }
-
-    public void setStatusGraph(Graph statusGraph) {
-        this.statusGraph = statusGraph;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -282,7 +272,7 @@ public class User implements Persistable<Long>, StatusTrackable {
     public void removeRole(Role role) {
         this.roles.remove(role);
     }
-    
+
     @Override
     public boolean isNew() {
         return null == getId();

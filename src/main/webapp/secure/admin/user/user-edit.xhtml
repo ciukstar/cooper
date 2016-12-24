@@ -67,27 +67,6 @@
                             <p:inputText id="phone" value="#{userCache.entity.phone}" size="30" />
                             <p:message for="phone" />
 
-                            <p:outputLabel for="statusGraph" value="#{label.Status_graph}" />
-                            <h:panelGroup>
-                                <p:inputText id="statusGraph" value="#{userCache.entity.statusGraph.name}"  size="30" readonly="true" />
-                                <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                    <f:actionListener binding="#{dialog.displayInputForm('graph-chooser')}" />
-                                    <p:ajax event="dialogReturn" update="statusGraph"
-                                            listener="#{userCache.entity.initStatusIf(userCache.entity.isNew())}" />
-                                </p:commandButton>
-                            </h:panelGroup>
-                            <p:message for="statusGraph" />
-                            
-                            <p:outputLabel for="purchaseStatusGraph" value="#{label.Purchase_status_graph}" />
-                            <h:panelGroup>
-                                <p:inputText id="purchaseStatusGraph" value="#{userCache.entity.purchaseStatusGraph.name}"  size="30" readonly="true" />
-                                <p:commandButton icon="fa fa-search" process="@this" update="@none">
-                                    <f:actionListener binding="#{dialog.displayInputForm('purchase-status-graph-chooser')}" />
-                                    <p:ajax event="dialogReturn" update="purchaseStatusGraph" />
-                                </p:commandButton>
-                            </h:panelGroup>
-                            <p:message for="purchaseStatusGraph" />
-
                             <p:outputLabel for="nickname" value="#{label.Nickname}" />
                             <p:inputText id="nickname" value="#{userCache.entity.nickname}" size="30" />
                             <p:message for="nickname" />
