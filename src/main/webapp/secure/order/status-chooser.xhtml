@@ -19,8 +19,8 @@
                 <h:form>
                     <p:panel>
                         <pe:layout fullPage="false" resizerTip="#{label.Resize}"
-                                   style="width: #{dialog.width * .9}px;height: #{dialog.height * .7}px">
-                            <pe:layoutPane position="north" resizable="true">
+                                   style="width: #{dialog.width * .95}px;height: #{dialog.height * .8}px">
+                            <pe:layoutPane position="center" resizable="true">
                                 <ui:include src="../graph/graph-data-table.xhtml">
                                     <ui:param name="id" value="graphDataTable" />
                                     <ui:param name="data" value="#{graphRepo.findAll()}" />
@@ -28,20 +28,22 @@
                                     <ui:param name="rowSelectDisabled" value="false" />
                                     <ui:param name="onRowSelectUpdate" value="@form:statusDataTable" />
                                     <ui:param name="tableHeader" value="#{label.Graphs}" />
+                                    <ui:param name="scrollHeight" value="120" />
                                 </ui:include>
                             </pe:layoutPane>
-                            <pe:layoutPane position="center" size="#{dialog.height * .5}" resizable="true">
+                            <pe:layoutPane position="south" size="50%" resizable="true">
 
                                 <ui:include src="../status/status-data-table.xhtml">
                                     <ui:param name="id" value="statusDataTable" />
                                     <ui:param name="data" value="#{requestScope.graph.nodes}" />
                                     <ui:param name="selection" value="#{requestScope.status}" />
                                     <ui:param name="rowSelectDisabled" value="true" />
-                                    <ui:param name="scrollHeight" value="100" />
+                                    <ui:param name="scrollHeight2" value="150" />
                                     <ui:param name="tableHeader" value="#{label.States}" />
                                 </ui:include>
                             </pe:layoutPane>
                         </pe:layout>
+
 
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
