@@ -26,37 +26,39 @@
 
                 <p:layout fullPage="false" resizeTitle="#{label.Resize}">
                     <p:layoutUnit position="center" resizable="true">
-                        <p:toolbar>
-                            <f:facet name="left">
-                                <h:outputText styleClass="fa fa-paperclip" />
-                                <p:spacer width="5" />
-                                <h:outputText value="#{label.Orders}" />
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                    <f:actionListener binding="#{orderCache.schedule(crud.create(orderBuilder.emptyOrder(), orderRepo))}" />
-                                    <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
-                                    <p:ajax event="dialogReturn" update="orderDataTable" />
-                                </p:commandButton>
-                                <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
-                                    <f:actionListener binding="#{orderCache.schedule(crud.update(orderCache.entity, orderRepo))}" />
-                                    <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
-                                    <p:ajax event="dialogReturn" update="orderDataTable" />
-                                </p:commandButton>
-                                <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                    <f:actionListener binding="#{orderCache.schedule(crud.delete(orderCache.entity, orderRepo))}" />
-                                    <f:actionListener binding="#{dialog.displayConfirmationDialog('order-delete')}" />
-                                    <p:ajax event="dialogReturn" update="orderDataTable" />
-                                </p:commandButton>
-                            </f:facet>
-                        </p:toolbar>
-                        <ui:include src="order-data-table.xhtml">
-                            <ui:param name="id" value="orderDataTable" />
-                            <ui:param name="data" value="#{orderRepo.findAll()}" />
-                            <ui:param name="selection" value="#{orderCache.entity}" />
-                            <ui:param name="rowSelectDisabled" value="false" />
-                            <ui:param name="onRowSelectUpdate" value="orderStructureForm" />
-                        </ui:include>
+                        <h:form id="orderForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText styleClass="fa fa-paperclip" />
+                                    <p:spacer width="5" />
+                                    <h:outputText value="#{label.Orders}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{orderCache.schedule(crud.create(orderBuilder.emptyOrder(), orderRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
+                                        <p:ajax event="dialogReturn" update="orderDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" process="@this" update="@none">
+                                        <f:actionListener binding="#{orderCache.schedule(crud.update(orderCache.entity, orderRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayInputForm('order-edit')}" />
+                                        <p:ajax event="dialogReturn" update="orderDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
+                                        <f:actionListener binding="#{orderCache.schedule(crud.delete(orderCache.entity, orderRepo))}" />
+                                        <f:actionListener binding="#{dialog.displayConfirmationDialog('order-delete')}" />
+                                        <p:ajax event="dialogReturn" update="orderDataTable" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="order-data-table.xhtml">
+                                <ui:param name="id" value="orderDataTable" />
+                                <ui:param name="data" value="#{orderRepo.findAll()}" />
+                                <ui:param name="selection" value="#{orderCache.entity}" />
+                                <ui:param name="rowSelectDisabled" value="false" />
+                                <ui:param name="onRowSelectUpdate" value="orderStructureForm" />
+                            </ui:include>
+                        </h:form>
                     </p:layoutUnit>
                     <p:layoutUnit position="south" resizable="true" size="40%">
                         <h:form id="orderStructureForm">
