@@ -55,8 +55,8 @@
 
                         <p:outputLabel for="orderDate" value="#{label.Order_date}" />
                         <p:calendar id="orderDate" value="#{orderCache.entity.orderDate}"
-                                    showOn="button" pattern="dd.MM.yyyy" showButtonPanel="true"
-                                    navigator="true"/>
+                                    showOn="button" pattern="dd.MM.yyyy HH:mm:ss" showButtonPanel="true"
+                                    navigator="true" converter="#{localDateTimeConverter}"/>
                         <p:message for="orderDate" />
 
                         <p:outputLabel for="status" value="#{label.State}" />

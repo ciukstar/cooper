@@ -22,19 +22,21 @@
                     </f:facet>
                 </c:if>
                 
-                <p:column headerText="#{label.Number}">
+                <p:column headerText="#{label.Number}" filterBy="#{o.number}" sortBy="#{o.number}">
                     <h:outputText value="#{o.number}" />
                 </p:column>
-                <p:column headerText="#{label.Issue_date}">
-                    <h:outputText value="#{o.issuedAt}" />
+                <p:column headerText="#{label.Issue_date}" filterBy="#{o.orderDate}" sortBy="#{o.orderDate}">
+                    <h:outputText value="#{o.orderDate}">
+                        <f:converter binding="#{localDateTimeConverter}" />
+                    </h:outputText>
                 </p:column>
-                <p:column headerText="#{label.Purchase}">
-                    <h:outputText value="#{o.purchase}" />
+                <p:column headerText="#{label.Purchase}" filterBy="#{o.purchase.description}" sortBy="#{o.purchase.description}">
+                    <h:outputText value="#{o.purchase.description}" title="#{o.purchase.code}" />
                 </p:column>
-                <p:column headerText="#{label.Customer}">
-                    <h:outputText value="#{o.customer}" />
+                <p:column headerText="#{label.Customer}" filterBy="#{o.customer.fullName}" sortBy="#{o.customer.fullName}">
+                    <h:outputText value="#{o.customer.fullName}" />
                 </p:column>
-                <p:column headerText="#{label.State}">
+                <p:column headerText="#{label.State}" filterBy="#{o.status.name}" sortBy="#{o.status.name}">
                     <h:outputText value="#{o.status.name}" />
                 </p:column>
             </p:dataTable>
