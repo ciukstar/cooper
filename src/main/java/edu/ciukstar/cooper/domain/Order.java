@@ -46,6 +46,14 @@ public class Order implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
+    public Order(Status status) {
+        this.status = status;
+    }
+
+    public Order() {
+        this(null);
+    }
+
     public User getCustomer() {
         return customer;
     }

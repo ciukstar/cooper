@@ -11,6 +11,10 @@ import javax.inject.Named;
 @Dependent
 public class OrderBuilder {
 
+    public Order emptyOrderWithStatus(Status status) {
+        return new Order(status);
+    }
+    
     public Order emptyOrder() {
         return new Order();
     }
