@@ -1,19 +1,16 @@
 package edu.ciukstar.cooper.repo;
 
 import edu.ciukstar.cooper.domain.Article;
-import edu.ciukstar.cooper.domain.Article_;
+import edu.ciukstar.cooper.domain.Order;
 import edu.ciukstar.cooper.domain.Purchase;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
@@ -28,13 +25,14 @@ public class ArticleRepo extends AbstractRepo<Article> {
     @Inject
     private Event<List<Article>> e;
 
+    public List<Article> findByOrder(Order order) {
+        return findAll().stream()
+                .filter(a -> order.equals(a.getOrder())).collect(Collectors.toList());
+    }
+
     public List<Article> findByPurchase(Purchase purchase) {
-        
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Article> cq = cb.createQuery(Article.class);
-        Root<Article> article = cq.from(Article.class);
-        cq.select(article).where(cb.equal(article.get(Article_.purchase), purchase));
-        final List<Article> res = getEntityManager().createQuery(cq).getResultList();
+        List<Article> res = findAll().stream()
+                .filter(a -> purchase.equals(a.getPurchase())).collect(Collectors.toList());
         e.fire(res);
         return res;
     }

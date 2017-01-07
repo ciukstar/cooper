@@ -80,8 +80,8 @@
                             </p:toolbar>
                             <ui:include src="../purchase/article/article-data-table.xhtml">
                                 <ui:param name="id" value="articleDataTable" />
-                                <ui:param name="data" value="#{orderCache.entity.articles}" />
-                                <ui:param name="selection" value="#{requestScope.orderArticles}" />                                                                
+                                <ui:param name="data" value="#{articleRepo.findByOrder(orderCache.entity)}" />
+                                <ui:param name="selection" value="#{requestScope.orderArticles}" />
                             </ui:include>
                         </h:form>
                     </p:layoutUnit>

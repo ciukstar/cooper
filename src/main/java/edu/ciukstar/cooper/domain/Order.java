@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -60,7 +59,7 @@ public class Order implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Article> articles;
 
     public Order(Status status) {
@@ -151,14 +150,16 @@ public class Order implements Persistable<Long>, StatusTrackable {
 
     public void addArticle(Article article) {
         this.articles.add(article);
+        article.setOrder(this);
     }
-    
+
     public List<Article> getArticles() {
         return new ArrayList<>(articles);
     }
 
     public void removeArticle(Article article) {
         this.articles.remove(article);
+        article.setOrder(null);
     }
 
 }
