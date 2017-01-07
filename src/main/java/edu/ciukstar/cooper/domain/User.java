@@ -91,14 +91,24 @@ public class User implements Persistable<Long>, StatusTrackable {
         this.fullName = FullName.empty();
     }
 
+    public Graph getUserStatusGraph() {
+        return userStatusGraph().orElse(null);
+    }
     public Optional<Graph> userStatusGraph() {
         return getRoles().stream().map(Role::getUserStatusGraph).findAny();
     }
 
+    public Graph getPurchaseStatusGraph() {
+        return purchaseStatusGraph().orElse(null);
+    }
+    
     public Optional<Graph> purchaseStatusGraph() {
         return getRoles().stream().map(Role::getPurchaseStatusGraph).findAny();
     }
 
+    public Graph getOrderStatusGraph() {
+        return orderStatusGraph().orElse(null);
+    }
     public Optional<Graph> orderStatusGraph() {
         return getRoles().stream().map(Role::getOrderStatusGraph).findAny();
     }

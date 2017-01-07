@@ -66,11 +66,17 @@
                                 <h:outputText value="#{label.Articles}" />
                             </f:facet>
                             <f:facet name="right">
-                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
+                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                    <f:actionListener binding="#{dialog.display('article-chooser')}" />
+                                    <p:ajax event="dialogReturn" update="articleDataTable" />
+                                </p:commandButton>
                                 <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
                                 <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
                             </f:facet>
                         </p:toolbar>
+                        <ui:include src="../purchase/article/article-data-table.xhtml">
+                            <ui:param name="id" value="articleDataTable" />
+                        </ui:include>
                     </p:layoutUnit>
                 </p:layout>
             </ui:define>
