@@ -19,4 +19,9 @@
         </locale-config>
         
     </application>
+    <factory>
+        <exception-handler-factory>
+            edu.ciukstar.cooper.application.CooperExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
 </faces-config>
