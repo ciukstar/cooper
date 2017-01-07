@@ -8,36 +8,37 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="o" rowKey="#{o.id}"
+            <p:dataTable id="#{id}" value="#{data}" var="ord" rowKey="#{ord.id}"
                          selectionMode="single" selection="#{selection}"
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
-                <p:ajax event="rowSelect" 
-                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 
+                <p:ajax event="rowSelect"
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"
                         update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
-                
+
                 <c:if test="#{not empty tableHeader}">
                     <f:facet name="header">
                         <h:outputText value="#{tableHeader}" />
                     </f:facet>
                 </c:if>
-                
-                <p:column headerText="#{label.Number}" filterBy="#{o.number}" sortBy="#{o.number}">
-                    <h:outputText value="#{o.number}" />
+
+                <p:column headerText="#{label.Number}" filterBy="#{ord.number}" sortBy="#{ord.number}">
+                    <h:outputText value="#{ord.number}" />
                 </p:column>
-                <p:column headerText="#{label.Issue_date}" filterBy="#{o.orderDate}" sortBy="#{o.orderDate}">
-                    <h:outputText value="#{o.orderDate}">
+                <p:column headerText="#{label.Issue_date}" filterBy="#{ord.orderDate}" sortBy="#{ord.orderDate}">
+                    <h:outputText value="#{ord.orderDate}">
                         <f:converter binding="#{localDateTimeConverter}" />
                     </h:outputText>
                 </p:column>
-                <p:column headerText="#{label.Purchase}" filterBy="#{o.purchase.description}" sortBy="#{o.purchase.description}">
-                    <h:outputText value="#{o.purchase.description}" title="#{o.purchase.code}" />
+                <p:column headerText="#{label.Purchase}" filterBy="#{ord.purchase.description}" sortBy="#{ord.purchase.description}">
+                    <h:outputText value="#{ord.purchase.description}" title="#{ord.purchase.code}" />
                 </p:column>
-                <p:column headerText="#{label.Customer}" filterBy="#{o.customer.fullName}" sortBy="#{o.customer.fullName}">
-                    <h:outputText value="#{o.customer.fullName}" />
+                <p:column headerText="#{label.Customer}" filterBy="#{ord.customer.fullName}" sortBy="#{ord.customer.fullName}">
+                    <h:outputText value="#{ord.customer.fullName}" />
                 </p:column>
-                <p:column headerText="#{label.State}" filterBy="#{o.status.name}" sortBy="#{o.status.name}">
-                    <h:outputText value="#{o.status.name}" />
+                <p:column headerText="#{label.State}" filterBy="#{ord.status.name}" sortBy="#{ord.status.name}">
+                    <h:outputText value="#{ord.status.name}" />
                 </p:column>
             </p:dataTable>
         </ui:composition>

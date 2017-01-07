@@ -39,8 +39,8 @@ public class OrderCache extends CrudCache<Order> implements Serializable {
     }
 
     @Override
-    public void setEntity(Order entity) {
-        this.entity = entity;
+    public void setEntity(Order order) {
+        this.entity = order;
     }
 
     @Override

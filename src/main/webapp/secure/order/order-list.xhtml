@@ -44,7 +44,7 @@
                                     <p:ajax event="dialogReturn" update="orderDataTable" />
                                 </p:commandButton>
                                 <p:commandButton value="#{label.Delete}" icon="fa fa-trash" process="@this" update="@none">
-                                    <f:actionListener binding="#{orderCache.schedule(crud.delete(orderCache.entity, orderCache))}" />
+                                    <f:actionListener binding="#{orderCache.schedule(crud.delete(orderCache.entity, orderRepo))}" />
                                     <f:actionListener binding="#{dialog.displayConfirmationDialog('order-delete')}" />
                                     <p:ajax event="dialogReturn" update="orderDataTable" />
                                 </p:commandButton>
@@ -55,28 +55,30 @@
                             <ui:param name="data" value="#{orderRepo.findAll()}" />
                             <ui:param name="selection" value="#{orderCache.entity}" />
                             <ui:param name="rowSelectDisabled" value="false" />
-                            <ui:param name="onRowSelectUpdate" value="@none" />
+                            <ui:param name="onRowSelectUpdate" value="orderStructureForm" />
                         </ui:include>
                     </p:layoutUnit>
                     <p:layoutUnit position="south" resizable="true" size="40%">
-                        <p:toolbar>
-                            <f:facet name="left">
-                                <h:outputText styleClass="fa fa-tags" />
-                                <p:spacer width="5" />
-                                <h:outputText value="#{label.Articles}" />
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                    <f:actionListener binding="#{dialog.display('article-chooser')}" />
-                                    <p:ajax event="dialogReturn" update="articleDataTable" />
-                                </p:commandButton>
-                                <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
-                                <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
-                            </f:facet>
-                        </p:toolbar>
-                        <ui:include src="../purchase/article/article-data-table.xhtml">
-                            <ui:param name="id" value="articleDataTable" />
-                        </ui:include>
+                        <h:form id="orderStructureForm">
+                            <p:toolbar>
+                                <f:facet name="left">
+                                    <h:outputText styleClass="fa fa-tags" />
+                                    <p:spacer width="5" />
+                                    <h:outputText value="#{label.Articles}" />
+                                </f:facet>
+                                <f:facet name="right">
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{dialog.display('article-chooser')}" />
+                                        <p:ajax event="dialogReturn" update="articleDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Edit}" icon="fa fa-edit" />
+                                    <p:commandButton value="#{label.Delete}" icon="fa fa-trash" />
+                                </f:facet>
+                            </p:toolbar>
+                            <ui:include src="../purchase/article/article-data-table.xhtml">
+                                <ui:param name="id" value="articleDataTable" />
+                            </ui:include>
+                        </h:form>
                     </p:layoutUnit>
                 </p:layout>
             </ui:define>
