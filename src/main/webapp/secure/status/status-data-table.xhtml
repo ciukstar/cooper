@@ -10,7 +10,7 @@
         <ui:composition>
             <p:dataTable id="#{id}" value="#{data}" var="s" rowKey="#{s.id}"
                          selectionMode="single" selection="#{selection}"
-                         scrollable="true" scrollHeight="#{empty scrollHeight2 ? 100 : scrollHeight2}"
+                         scrollable="true" scrollHeight="#{empty scrollHeight ? 100 : scrollHeight}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
