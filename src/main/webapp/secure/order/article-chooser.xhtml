@@ -19,7 +19,7 @@
                     <p:panel>
                         <ui:include src="../purchase/article/article-data-table.xhtml">
                             <ui:param name="id" value="articleDataTable" />
-                            <ui:param name="data" value="#{articleRepo.findByPurchase(orderCache.entity.purchase)}" />
+                            <ui:param name="data" value="#{articleRepo.findByPurchase(orderCache.entity.purchase).stream().filter(a -> not orderCache.entity.articles.contains(a)).toList()}" />
                             <ui:param name="selection" value="#{requestScope.article}" />
                             <ui:param name="tableHeader" value="#{label.Articles}" />
                             <ui:param name="scrollHeight" value="#{dialog.height * .7}" />
