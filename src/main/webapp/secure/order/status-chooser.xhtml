@@ -24,7 +24,7 @@
                                 <ui:include src="../graph/graph-data-table.xhtml">
                                     <ui:param name="id" value="graphDataTable" />
                                     <ui:param name="data" value="#{graphRepo.findAll()}" />
-                                    <ui:param name="selection" value="#{requestScope.graph}" />
+                                    <ui:param name="selection" value="#{sessionScope.graph}" />
                                     <ui:param name="rowSelectDisabled" value="false" />
                                     <ui:param name="onRowSelectUpdate" value="@form:statusDataTable" />
                                     <ui:param name="tableHeader" value="#{label.Graphs}" />
@@ -32,11 +32,10 @@
                                 </ui:include>
                             </pe:layoutPane>
                             <pe:layoutPane position="south" size="50%" resizable="true">
-
                                 <ui:include src="../status/status-data-table.xhtml">
                                     <ui:param name="id" value="statusDataTable" />
-                                    <ui:param name="data" value="#{requestScope.graph.nodes}" />
-                                    <ui:param name="selection" value="#{requestScope.status}" />
+                                    <ui:param name="data" value="#{sessionScope.graph.nodes}" />
+                                    <ui:param name="selection" value="#{requestScope.orderStatus}" />
                                     <ui:param name="rowSelectDisabled" value="true" />
                                     <ui:param name="scrollHeight" value="150" />
                                     <ui:param name="tableHeader" value="#{label.States}" />
@@ -44,10 +43,9 @@
                             </pe:layoutPane>
                         </pe:layout>
 
-
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
-                                <f:actionListener binding="#{orderCache.entity.setStatus(requestScope.status)}" />
+                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@this @form:statusDataTable" update="@none">
+                                <f:actionListener binding="#{orderCache.entity.setStatus(requestScope.orderStatus)}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
