@@ -60,14 +60,7 @@ public class Order implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "ORDER_ARTICLES",
-            uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"ORDER_ID", "ARTICLE_ID"})},
-            joinColumns = {
-                @JoinColumn(name = "ORDER_ID", nullable = false, referencedColumnName = "ID")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "ARTICLE_ID", nullable = false, referencedColumnName = "ID")})
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private Set<Article> articles;
 
     public Order(Status status) {

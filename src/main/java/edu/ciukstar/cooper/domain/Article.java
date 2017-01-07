@@ -48,6 +48,10 @@ public class Article implements Persistable<Long> {
     @JoinColumn(name = "CURRENCY", nullable = false, referencedColumnName = "ID")
     private Currency currency;
 
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID", nullable = true, referencedColumnName = "ID")
+    private Order order;
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -111,6 +115,14 @@ public class Article implements Persistable<Long> {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
     
     @Override
