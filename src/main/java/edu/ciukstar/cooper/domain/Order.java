@@ -95,7 +95,6 @@ public class Order implements Persistable<Long>, StatusTrackable {
 
     @Override
     public void setStatus(Status status) {
-        System.out.format("Status name: %s%n", status);
         this.status = status;
     }
 
