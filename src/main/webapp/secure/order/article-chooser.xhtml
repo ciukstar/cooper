@@ -25,10 +25,12 @@
                             <ui:param name="scrollHeight" value="#{dialog.height * .7}" />
                         </ui:include>
                         <f:facet name="footer">
-                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@none">
+                            <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@form">
+                                <f:actionListener binding="#{orderCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                             <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{orderCache.cancelCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
                         </f:facet>

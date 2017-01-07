@@ -1,14 +1,22 @@
 package edu.ciukstar.cooper.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -52,7 +60,18 @@ public class Order implements Persistable<Long>, StatusTrackable {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "ORDER_ARTICLES",
+            uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"ORDER", "ARTICLE"})},
+            joinColumns = {
+                @JoinColumn(name = "ORDER", nullable = false, referencedColumnName = "ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ARTICLE", nullable = false, referencedColumnName = "ID")})
+    private Set<Article> articles;
+
     public Order(Status status) {
+        this.articles = new HashSet<>();
         this.status = status;
     }
 
@@ -135,6 +154,20 @@ public class Order implements Persistable<Long>, StatusTrackable {
     @Override
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Order addArticle(Article article) {
+        this.articles.add(article);
+        return this;
+    }
+    
+    public List<Article> getArticles() {
+        return new ArrayList<>(articles);
+    }
+
+    public Order removeArticle(Article article) {
+        this.articles.remove(article);
+        return this;
     }
 
 }

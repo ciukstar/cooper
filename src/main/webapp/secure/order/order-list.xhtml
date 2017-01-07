@@ -70,6 +70,7 @@
                                 </f:facet>
                                 <f:facet name="right">
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{orderCache.schedule(crud.update(orderCache.entity, orderRepo))}" />
                                         <f:actionListener binding="#{dialog.display('article-chooser')}" />
                                         <p:ajax event="dialogReturn" update="articleDataTable" />
                                     </p:commandButton>
