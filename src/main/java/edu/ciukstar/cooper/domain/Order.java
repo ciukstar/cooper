@@ -156,18 +156,16 @@ public class Order implements Persistable<Long>, StatusTrackable {
         this.status = status;
     }
 
-    public Order addArticle(Article article) {
+    public void addArticle(Article article) {
         this.articles.add(article);
-        return this;
     }
     
     public List<Article> getArticles() {
         return new ArrayList<>(articles);
     }
 
-    public Order removeArticle(Article article) {
+    public void removeArticle(Article article) {
         this.articles.remove(article);
-        return this;
     }
 
 }

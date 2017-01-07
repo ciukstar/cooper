@@ -26,6 +26,7 @@
                         </ui:include>
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Choose}" icon="fa fa-check" process="@form" update="@form">
+                                <f:actionListener binding="#{orderCache.entity.addArticle(requestScope.article)}" />
                                 <f:actionListener binding="#{orderCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
                             </p:commandButton>
