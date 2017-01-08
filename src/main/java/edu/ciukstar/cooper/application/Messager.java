@@ -13,12 +13,14 @@ import javax.faces.context.FacesContext;
 @Named
 @RequestScoped
 public class Messager {
+
+    public Option<String> unwrapMessage(Exception ex) {
+        return Option.option(ex.getMessage());
+    }
     
-    public void displayError(Option<String> message) {
-        message.map(m -> new FacesMessage(FacesMessage.SEVERITY_ERROR, m, null))
-                .forEach(fm -> {
-                    FacesContext.getCurrentInstance().addMessage(null, fm);
-                });
+    public void displayErrorMessage(String message) {
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
     }
 
 }

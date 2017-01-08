@@ -33,7 +33,8 @@ public class Dialog {
 
     public void dispose(Option<Exception> ex) {
         if (ex.isDefined()) {
-            ex.map(e -> e.toString()).forEach(m -> messager.displayError(Option.some(m)));
+            ex.flatMap(e -> messager.unwrapMessage(e))
+                    .forEach(m -> messager.displayErrorMessage(m));            
         } else {
             dispose();
         }
