@@ -1,5 +1,6 @@
 package edu.ciukstar.cooper.application.admin;
 
+import edu.ciukstar.cooper.application.MessageBundle;
 import edu.ciukstar.cooper.domain.User;
 import edu.ciukstar.cooper.repo.AuthenticationException;
 import io.atlassian.fugue.Either;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,7 +19,8 @@ import javax.faces.context.FacesContext;
 @Named
 @ApplicationScoped
 public class Janitor {
-    
+    @Inject
+    private MessageBundle msg;
     private final List<UserSession> userSessions;
 
     public Janitor() {
@@ -36,9 +39,9 @@ public class Janitor {
         return user.map(u -> { s.setupUserSession(u); return s; });
     }
     
-    public Option<String> registerUserSession(Either<AuthenticationException, UserSession> s) {
+    public Option<Exception> registerUserSession(Either<AuthenticationException, UserSession> s) {
         return s.map(us -> { this.userSessions.add(us); return us; })
-                .fold(ex -> Option.some(ex.getMessage()), us -> Option.none(String.class));
+                .fold(ex -> Option.some(new AuthenticationException(msg.getString("Invalid_username_or_password"))), us -> Option.none(Exception.class));
     }
     
     public List<UserSession> getUserSessions() {

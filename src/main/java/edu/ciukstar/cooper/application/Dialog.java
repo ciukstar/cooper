@@ -1,9 +1,11 @@
 package edu.ciukstar.cooper.application;
 
+import io.atlassian.fugue.Option;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
@@ -17,6 +19,8 @@ public class Dialog {
 
     private Integer width = 1000;
     private Integer height = 600;
+    @Inject
+    private Messager messager;
     
     public void display(final String outcome) {
         RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
@@ -27,6 +31,14 @@ public class Dialog {
         display(outcome);
     }
 
+    public void dispose(Option<Exception> ex) {
+        if (ex.isDefined()) {
+            ex.map(e -> e.toString()).forEach(m -> messager.displayError(Option.some(m)));
+        } else {
+            dispose();
+        }
+    }
+    
     public void dispose() {
         RequestContext.getCurrentInstance().closeDialog(null);
     }
