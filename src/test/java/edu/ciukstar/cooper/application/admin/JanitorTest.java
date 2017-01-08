@@ -28,6 +28,26 @@ public class JanitorTest {
     private Janitor janitor;
     
     @Test
+    public void shouldCheckIfAUserSessionIsUnregistered() {
+        final UserSession s = mock(UserSession.class);
+        janitor.registerUserSession(s);
+        
+        janitor.isRegistered(s);
+        
+        assertTrue(janitor.isRegistered(s));
+    }
+    
+    @Test
+    public void shouldCheckIfAUserSessionIsRegistered() {
+        final UserSession s = mock(UserSession.class);
+        janitor.unregisterUserSession(s);
+        
+        janitor.isRegistered(s);
+        
+        assertFalse(janitor.isRegistered(s));
+    }
+    
+    @Test
     public void shouldUnregisterAUserSession() {
         final UserSession s = mock(UserSession.class);
         janitor.registerUserSession(s);

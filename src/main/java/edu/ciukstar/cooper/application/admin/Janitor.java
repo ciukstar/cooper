@@ -18,6 +18,10 @@ public class Janitor {
     public Janitor() {
         this.userSessions = new ArrayList<>();
     }
+
+    public boolean isRegistered(UserSession session) {
+        return getUserSessions().stream().anyMatch(s -> s.equals(session));
+    }
     
     public void registerUserSession(UserSession s) {
         this.userSessions.add(s);

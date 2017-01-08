@@ -51,7 +51,8 @@
                                                itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
                             </p:themeSwitcher>
                             <p:spacer width="5px" />
-                            <p:commandButton type="button" value="#{label.Logout}" icon="fa fa-sign-out" />
+                            <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" value="#{label.Login}" icon="fa fa-sign-in" />
+                            <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out" />
                         </h:panelGrid>
                     </f:facet>
                 </p:menubar>
