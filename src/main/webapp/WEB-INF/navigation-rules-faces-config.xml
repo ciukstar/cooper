@@ -7,6 +7,13 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>credentials-gatherer</from-outcome>
+            <to-view-id>/auth/credentials-gatherer.xhtml</to-view-id>            
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>organizer</from-outcome>
             <to-view-id>/organizer.xhtml</to-view-id>
             <redirect />

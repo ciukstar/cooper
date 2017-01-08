@@ -51,7 +51,10 @@
                                                itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
                             </p:themeSwitcher>
                             <p:spacer width="5px" />
-                            <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" value="#{label.Login}" icon="fa fa-sign-in" />
+                            <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" value="#{label.Login}" icon="fa fa-sign-in">
+                                <f:actionListener binding="#{dialog.display('credentials-gatherer')}" />
+                                <p:ajax event="dialogReturn" update="@form" />
+                            </p:commandButton>
                             <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out" />
                         </h:panelGrid>
                     </f:facet>

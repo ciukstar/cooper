@@ -15,6 +15,7 @@ import javax.faces.event.ExceptionQueuedEvent;
  * @author sergiu
  */
 public class CooperExceptionHanler extends ExceptionHandlerWrapper {
+    private static final Logger LOGGER = Logger.getLogger(CooperExceptionHanler.class.getName());
     private final ExceptionHandler handler;
 
     public CooperExceptionHanler(ExceptionHandler handler) {
@@ -29,6 +30,7 @@ public class CooperExceptionHanler extends ExceptionHandlerWrapper {
             final FacesContext fctx = e.getContext().getContext();
             fctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
             fctx.renderResponse();
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             q.remove();
         }
     }
