@@ -16,6 +16,11 @@
     
     <dependencies>
         <dependency>
+            <groupId>io.atlassian.fugue</groupId>
+            <artifactId>fugue</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>

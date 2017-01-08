@@ -1,9 +1,14 @@
 package edu.ciukstar.cooper.application.admin;
 
+import edu.ciukstar.cooper.domain.User;
+import edu.ciukstar.cooper.repo.AuthenticationException;
+import io.atlassian.fugue.Either;
+import io.atlassian.fugue.Option;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -18,21 +23,34 @@ public class Janitor {
     public Janitor() {
         this.userSessions = new ArrayList<>();
     }
-
+    
+    public User validateCredentials(Credentials c) {
+        throw new UnsupportedOperationException();
+    }
+    
     public boolean isRegistered(UserSession session) {
         return getUserSessions().stream().anyMatch(s -> s.equals(session));
     }
     
-    public void registerUserSession(UserSession s) {
-        this.userSessions.add(s);
+    public Either<AuthenticationException, UserSession> validateCredentials(UserSession s, Either<AuthenticationException, User> user) {
+        return user.map(u -> { s.setupUserSession(u); return s; });
+    }
+    
+    public Option<String> registerUserSession(Either<AuthenticationException, UserSession> s) {
+        return s.map(us -> { this.userSessions.add(us); return us; })
+                .fold(ex -> Option.some(ex.getMessage()), us -> Option.none(String.class));
     }
     
     public List<UserSession> getUserSessions() {
         return new ArrayList<>(this.userSessions);
     }
 
+    public void destroyCurrentUserSession() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+    
     public void unregisterUserSession(UserSession s) {
-        this.userSessions.remove(s);
+        this.userSessions.remove(s);        
     }
     
 }

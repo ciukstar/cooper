@@ -57,7 +57,10 @@
                                 <p:ajax event="dialogReturn" update="@form" />
                             </p:commandButton>
                             <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out"
-                                              process="@this" update="@none" />
+                                             process="@this" update="@form">
+                                <f:actionListener binding="#{janitor.unregisterUserSession(userSession)}" />
+                                <f:actionListener binding="#{janitor.destroyCurrentUserSession()}" />
+                            </p:commandButton>
                         </h:panelGrid>
                     </f:facet>
                 </p:menubar>

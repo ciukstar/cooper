@@ -17,7 +17,7 @@ public class Dialog {
 
     private Integer width = 1000;
     private Integer height = 600;
-
+    
     public void display(final String outcome) {
         RequestContext.getCurrentInstance().openDialog(outcome, options, Collections.EMPTY_MAP);
         

@@ -1,15 +1,13 @@
 package edu.ciukstar.cooper.application.admin;
 
-import org.hamcrest.Matchers;
+import io.atlassian.fugue.Either;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -30,7 +28,7 @@ public class JanitorTest {
     @Test
     public void shouldCheckIfAUserSessionIsUnregistered() {
         final UserSession s = mock(UserSession.class);
-        janitor.registerUserSession(s);
+        janitor.registerUserSession(Either.right(s));
         
         janitor.isRegistered(s);
         
@@ -50,7 +48,7 @@ public class JanitorTest {
     @Test
     public void shouldUnregisterAUserSession() {
         final UserSession s = mock(UserSession.class);
-        janitor.registerUserSession(s);
+        janitor.registerUserSession(Either.right(s));
         
         janitor.unregisterUserSession(s);
         
@@ -60,7 +58,7 @@ public class JanitorTest {
     @Test
     public void shouldRegisterAUserSession() {
         final UserSession s = mock(UserSession.class);
-        janitor.registerUserSession(s);
+        janitor.registerUserSession(Either.right(s));
         
         assertThat(janitor.getUserSessions(), hasItem(s));
     }
