@@ -14,32 +14,32 @@
                 <p:menubar>
                     <p:menuitem icon="fa fa-home"  action="home"/>
                     <p:submenu label="#{label.Admin}" icon="fa fa-wrench">
-                        <p:menuitem value="#{label.Users}" icon="fa fa-users" action="user-list"/>
-                        <p:menuitem value="#{label.Roles}" icon="fa fa-tags" action="role-list" />
-                        <p:menuitem value="#{label.Status}" icon="fa fa-paw" action="status-list" />
-                        <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" action="graph-list" />
+                        <p:menuitem value="#{label.Users}" icon="fa fa-users" action="user-list" process="@this" update="@none"/>
+                        <p:menuitem value="#{label.Roles}" icon="fa fa-tags" action="role-list" process="@this" update="@none"/>
+                        <p:menuitem value="#{label.Status}" icon="fa fa-paw" action="status-list" process="@this" update="@none"/>
+                        <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" action="graph-list" process="@this" update="@none"/>
                     </p:submenu>
                     <p:submenu label="#{label.Purchases}" icon="fa fa-cube">
-                        <p:menuitem value="#{label.Purchases}" icon="fa fa-cubes" action="purchase-list" />
-                        <p:menuitem value="#{label.Orders}" icon="fa fa-paperclip" action="order-list" />
+                        <p:menuitem value="#{label.Purchases}" icon="fa fa-cubes" action="purchase-list" process="@this" update="@none"/>
+                        <p:menuitem value="#{label.Orders}" icon="fa fa-paperclip" action="order-list" process="@this" update="@none" />
                     </p:submenu>
                     <p:submenu label="#{label.Goods}" icon="fa fa-pagelines">
-                        <p:menuitem value="#{label.Goods}" icon="fa fa-leaf" action="product-list" />
-                        <p:menuitem value="#{label.Categories}" icon="fa fa-yelp" action="category-list" />
-                        <p:menuitem value="#{label.Manufacturers}" icon="fa fa-steam" action="manufacturer-list" />
-                        <p:menuitem value="#{label.Currencies}" icon="fa fa-rub" action="currency-list" />
-                        <p:menuitem value="#{label.Countries}" icon="fa fa-flag" action="country-list" />
-                        <p:menuitem value="#{label.Photos}" icon="fa fa-image" action="photo-list" />
+                        <p:menuitem value="#{label.Goods}" icon="fa fa-leaf" action="product-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Categories}" icon="fa fa-yelp" action="category-list" process="@this" update="@none"/>
+                        <p:menuitem value="#{label.Manufacturers}" icon="fa fa-steam" action="manufacturer-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Currencies}" icon="fa fa-rub" action="currency-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Countries}" icon="fa fa-flag" action="country-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Photos}" icon="fa fa-image" action="photo-list" process="@this" update="@none" />
                     </p:submenu>
 
                     <p:submenu label="#{label.Warehouse}" icon="fa fa-dropbox">
-                        <p:menuitem value="#{label.Warehouses}" icon="fa fa-dropbox" action="warehouse-list" />
-                        <p:menuitem value="#{label.Schedule}" icon="fa fa-calendar" action="schedule-list" />
+                        <p:menuitem value="#{label.Warehouses}" icon="fa fa-dropbox" action="warehouse-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Schedule}" icon="fa fa-calendar" action="schedule-list" process="@this" update="@none" />
                     </p:submenu>
 
                     <p:submenu label="#{label.Conditions}" icon="fa fa-gavel">
-                        <p:menuitem value="#{label.Rules}" icon="fa fa-exclamation-triangle" action="rule-list" />
-                        <p:menuitem value="#{label.Templates}" icon="fa fa-copy" action="rule-template-list" />
+                        <p:menuitem value="#{label.Rules}" icon="fa fa-exclamation-triangle" action="rule-list" process="@this" update="@none" />
+                        <p:menuitem value="#{label.Templates}" icon="fa fa-copy" action="rule-template-list" process="@this" update="@none" />
                     </p:submenu>
 
                     <f:facet name="options">
@@ -56,7 +56,8 @@
                                 <f:actionListener binding="#{dialog.display('credentials-gatherer')}" />
                                 <p:ajax event="dialogReturn" update="@form" />
                             </p:commandButton>
-                            <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out" />
+                            <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out"
+                                              process="@this" update="@none" />
                         </h:panelGrid>
                     </f:facet>
                 </p:menubar>
