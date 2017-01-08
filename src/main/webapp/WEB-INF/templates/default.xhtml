@@ -18,20 +18,20 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" resizable="true" 
+                <p:layoutUnit id="northLayoutUnit" position="north" resizable="true" 
                               closable="true" collapsible="true">
                     <ui:insert name="north">
                         <ui:include src="menu.xhtml" />
                     </ui:insert>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="200" collapsible="true">
+                <p:layoutUnit id="westLayoutUnit" position="west" size="200" collapsible="true">
                     <ui:insert name="west">
                         The west
                     </ui:insert>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
+                <p:layoutUnit id="centerLayoutUnit" position="center">
                     <ui:insert name="center">
                         Main content goes here
                     </ui:insert>
