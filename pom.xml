@@ -13,7 +13,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>io.atlassian.fugue</groupId>
@@ -47,13 +47,13 @@
             <version>2.6.4</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.3.1.Final</version>
             <scope>provided</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -68,6 +68,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <hibernate.show_sql>true</hibernate.show_sql>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
@@ -185,6 +188,7 @@
             <id>openshift</id>
             <properties>
                 <maven.test.skip>true</maven.test.skip>
+                <hibernate.show_sql>false</hibernate.show_sql>
             </properties>
             <build>
                 <plugins>
@@ -233,12 +237,32 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>maven-replacer-plugin</artifactId>
+                        <version>1.4.1</version>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <file>target/classes/META-INF/persistence.xml</file>
+                            <replacements>
+                                <replacement>
+                                    <token><![CDATA[<property name="hibernate.show_sql" value="true" />]]></token>
+                                    <value><![CDATA[<property name="hibernate.show_sql" value="false" />]]></value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    
     <repositories>
         <repository>
             <url>http://repository.primefaces.org/</url>

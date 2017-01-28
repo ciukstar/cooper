@@ -5,11 +5,9 @@
         <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name = "hibernate.show_sql" value = "true" />
+            <property name="hibernate.show_sql" value="true" />
             <property name="org.hibernate.SQL.level" value="FINEST"/>
             <property name="org.hibernate.type.level" value="FINEST"/>
-            <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>
