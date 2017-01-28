@@ -88,6 +88,7 @@ public class User implements Persistable<Long>, StatusTrackable {
     private List<Role> roles;
 
     public User() {
+        this.roles = new ArrayList<>();
         this.fullName = FullName.empty();
     }
 

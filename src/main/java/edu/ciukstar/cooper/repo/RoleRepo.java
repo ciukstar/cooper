@@ -3,6 +3,7 @@ package edu.ciukstar.cooper.repo;
 import edu.ciukstar.cooper.domain.Role;
 import edu.ciukstar.cooper.domain.RoleType;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -41,6 +42,10 @@ public class RoleRepo extends AbstractRepo<Role> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public Optional<Role> findByType(RoleType roleType) {
+        return findAll().stream().filter(r -> r.getType() == roleType).findAny();
     }
 
 }

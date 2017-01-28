@@ -241,12 +241,13 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/secure/admin/user-list.xhtml</from-view-id>
+        <from-view-id>/auth/credentials-gatherer.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>user-edit</from-outcome>
-            <to-view-id>/secure/admin/user-edit.xhtml</to-view-id>
+            <to-view-id>/secure/admin/user/user-edit.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
