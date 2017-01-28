@@ -17,6 +17,7 @@ import org.primefaces.model.LazyDataModel;
 public class RequestCache {
 
     private List<?> data;
+    private List<?> data2;
     private LazyDataModel<?> lazyData;
 
     public LazyDataModel<?> getLazy(LambdaExpression ex) {
@@ -33,6 +34,14 @@ public class RequestCache {
             data = (List<?>) ex.invoke(ctx, new Object[]{});
         }
         return data;
+    }
+
+    public List<?> get2(LambdaExpression ex) {
+        if (data2 == null) {
+            ELContext ctx = FacesContext.getCurrentInstance().getELContext();
+            data2 = (List<?>) ex.invoke(ctx, new Object[]{});
+        }
+        return data2;
     }
 
 }
