@@ -8,10 +8,10 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="v" rowKey="#{v.id}"
+            <p:dataTable id="#{id}" value="#{requestCache.get(id, () -> data)}" 
+                         var="v" rowKey="#{v.id}"
                          selectionMode="single" selection="#{selection}"
-                         resizableColumns="true"
-                         emptyMessage="#{label.No_records_found}">
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
                 <p:ajax event="rowSelect"
                         disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}"

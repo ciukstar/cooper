@@ -8,7 +8,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="g" rowKey="#{g.id}"
+            <p:dataTable id="#{id}" value="#{requestCache.get(id, () -> data)}" var="g" rowKey="#{g.id}"
                          selectionMode="single" selection="#{selection}"
                          scrollable="true" scrollHeight="#{empty scrollHeight ? 300 : scrollHeight}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">

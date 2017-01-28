@@ -8,7 +8,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="curr" rowKey="#{curr.id}"
+            <p:dataTable id="#{id}" value="#{requestCache.get(id, () -> data)}" 
+                         var="curr" rowKey="#{curr.id}"
                          selectionMode="single" selection="#{selection}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
