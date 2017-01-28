@@ -51,7 +51,7 @@
                             </p:toolbar>
                             <ui:include src="product-data-table.xhtml">
                                 <ui:param name="id" value="productDataTable" />
-                                <ui:param name="data" value="#{productRepo.findAll()}" />
+                                <ui:param name="data" value="#{requestCache.get(() -> productRepo.findAll())}" />
                                 <ui:param name="selection" value="#{productCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
                                 <ui:param name="onRowSelectUpdate" value="productStructureForm" />
