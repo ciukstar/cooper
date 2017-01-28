@@ -24,7 +24,7 @@
             </ui:define>
             <ui:define name="center">
 
-                <p:dataGrid id="purchaseDataGrid" value="#{purchaseRepo.findAll()}" var="purch"
+                <p:dataGrid id="purchaseDataGrid" value="#{requestCache.get(() -> purchaseRepo.findAll())}" var="purch"
                             columns="1" layout="grid" rows="12"
                             emptyMessage="#{label.No_records_found}">
 
@@ -82,7 +82,7 @@
                         </div>
 
 
-                        <p:carousel value="#{articleRepo.findByPurchase(purch)}" var="art"
+                        <p:carousel value="#{requestCache.get(() -> articleRepo.findByPurchase(purch))}" var="art"
                                     headerText="#{label.Articles}" circular="true">
 
                             <p:panel>
