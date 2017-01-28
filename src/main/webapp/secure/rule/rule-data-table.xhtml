@@ -9,7 +9,8 @@
     <h:body>
         <ui:composition>
 
-            <p:dataTable id="#{id}" value="#{data}" var="rule" rowKey="#{rule.id}"
+            <p:dataTable id="#{id}" value="#{requestCache.get(id, () -> data)}" 
+                         var="rule" rowKey="#{rule.id}"
                          selectionMode="single" selection="#{selection}"
                          resizableColumns="true" emptyMessage="#{label.No_records_found}">
 

@@ -8,27 +8,27 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
-            <p:dataTable id="#{id}" value="#{data}" var="r" rowKey="#{r.id}"
-                             selectionMode="single" selection="#{selection}"
-                             resizableColumns="true" emptyMessage="#{label.No_records_found}">
+            <p:dataTable id="#{id}" value="#{requestCache.get(id,() -> data)}" var="r" rowKey="#{r.id}"
+                         selectionMode="single" selection="#{selection}"
+                         resizableColumns="true" emptyMessage="#{label.No_records_found}">
 
-                    <p:ajax event="rowSelect" 
-                            disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 
-                            update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
+                <p:ajax event="rowSelect" 
+                        disabled="#{empty rowSelectDisabled ? true : rowSelectDisabled}" 
+                        update="#{empty onRowSelectUpdate ? '@none' : onRowSelectUpdate}" />
 
-                    <c:if test="#{not empty tableHeader}">
-                        <f:facet name="header">
-                            <h:outputText value="#{label.Roles}" />
-                        </f:facet>
-                    </c:if>
+                <c:if test="#{not empty tableHeader}">
+                    <f:facet name="header">
+                        <h:outputText value="#{label.Roles}" />
+                    </f:facet>
+                </c:if>
 
-                    <p:column headerText="#{label.The_name}">
-                        <h:outputText value="#{r.name}" />
-                    </p:column>
-                    <p:column headerText="#{label.Type}">
-                        <h:outputText value="#{label.getString(r.type)}" />
-                    </p:column>
-                </p:dataTable>
+                <p:column headerText="#{label.The_name}">
+                    <h:outputText value="#{r.name}" />
+                </p:column>
+                <p:column headerText="#{label.Type}">
+                    <h:outputText value="#{label.getString(r.type)}" />
+                </p:column>
+            </p:dataTable>
         </ui:composition>
     </h:body>
 </html>

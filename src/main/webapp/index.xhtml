@@ -25,8 +25,8 @@
             <ui:define name="center">
 
                 <p:dataGrid id="purchaseDataGrid" 
-                            value="#{requestCache.get(() -> purchaseRepo.findAll())}" var="purch"
-                            columns="1" layout="grid" rows="12"
+                            value="#{requestCache.get('purchaseDataGrid', () -> purchaseRepo.findAll())}" 
+                            var="purch" columns="1" layout="grid" rows="12"
                             emptyMessage="#{label.No_records_found}">
 
                     <f:facet name="header">
@@ -83,9 +83,8 @@
                         </div>
 
 
-                        <p:carousel value="#{requestCache.get2(() -> articleRepo.findByPurchase(purch))}" var="art"
-                                    headerText="#{label.Articles}" circular="true">
-
+                        <p:carousel id="articleCarousel" value="#{requestCache.get('articleCarousel', () -> articleRepo.findByPurchase(purch))}" 
+                                    var="art" headerText="#{label.Articles}" circular="true">
                             <p:panel>
                                 <div class="ui-g">
                                     <div class="ui-g-4">

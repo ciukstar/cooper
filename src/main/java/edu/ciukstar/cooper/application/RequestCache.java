@@ -1,6 +1,8 @@
 package edu.ciukstar.cooper.application;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.el.ELContext;
 import javax.el.LambdaExpression;
 import javax.inject.Named;
@@ -16,11 +18,15 @@ import org.primefaces.model.LazyDataModel;
 @RequestScoped
 public class RequestCache {
 
-    private List<?> data;
-    private List<?> data2;
+    private final Map<String, List<?>> cahe;
     private LazyDataModel<?> lazyData;
 
+    public RequestCache() {
+        this.cahe = new HashMap<>();
+    }
+
     public LazyDataModel<?> getLazy(LambdaExpression ex) {
+
         if (lazyData == null) {
             ELContext ctx = FacesContext.getCurrentInstance().getELContext();
             lazyData = (LazyDataModel<?>) ex.invoke(ctx, new Object[]{});
@@ -28,20 +34,11 @@ public class RequestCache {
         return lazyData;
     }
 
-    public List<?> get(LambdaExpression ex) {
-        if (data == null) {
+    public List<?> get(String key, LambdaExpression ex) {
+        return cahe.computeIfAbsent(key, k -> {
             ELContext ctx = FacesContext.getCurrentInstance().getELContext();
-            data = (List<?>) ex.invoke(ctx, new Object[]{});
-        }
-        return data;
-    }
-
-    public List<?> get2(LambdaExpression ex) {
-        if (data2 == null) {
-            ELContext ctx = FacesContext.getCurrentInstance().getELContext();
-            data2 = (List<?>) ex.invoke(ctx, new Object[]{});
-        }
-        return data2;
+            return (List<?>) ex.invoke(ctx, new Object[]{});
+        });
     }
 
 }

@@ -59,7 +59,7 @@
                             </p:toolbar>
                             <ui:include src="purchase-data-table.xhtml">
                                 <ui:param name="id" value="purchaseDataTable" />
-                                <ui:param name="data" value="#{requestCache.get(() -> purchaseRepo.findAll())}" />
+                                <ui:param name="data" value="#{purchaseRepo.findAll()}" />
                                 <ui:param name="selection" value="#{purchaseCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
                                 <ui:param name="onRowSelectUpdate" value="@form:purchaseActionToolbar purchaseStructureForm" />
@@ -98,7 +98,7 @@
                                     </p:toolbar>
                                     <ui:include src="article/article-data-table.xhtml">
                                         <ui:param name="id" value="articleDataTable" />
-                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : requestCache.get2(() -> articleRepo.findByPurchase(purchaseCache.entity))}" />
+                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : articleRepo.findByPurchase(purchaseCache.entity)}" />
                                         <ui:param name="selection" value="#{articleCache.entity}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />
@@ -131,7 +131,7 @@
                                     </p:toolbar>
                                     <ui:include src="dispenser/dispenser-data-table.xhtml">
                                         <ui:param name="id" value="dispenserDataTable" />
-                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : requestCache.get2(() -> dispenserRepo.findByPurchase(purchaseCache.entity))}" />
+                                        <ui:param name="data" value="#{purchaseCache.entity.new ? null : dispenserRepo.findByPurchase(purchaseCache.entity)}" />
                                         <ui:param name="selection" value="#{dispenserCache.entity}" />
                                         <ui:param name="rowSelectDisabled" value="false" />
                                         <ui:param name="onRowSelectUpdate" value="@none" />

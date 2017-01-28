@@ -53,7 +53,7 @@
                             </p:toolbar>
                             <ui:include src="order-data-table.xhtml">
                                 <ui:param name="id" value="orderDataTable" />
-                                <ui:param name="data" value="#{requestCache.get(() -> orderRepo.findAll())}" />
+                                <ui:param name="data" value="#{orderRepo.findAll()}" />
                                 <ui:param name="selection" value="#{orderCache.entity}" />
                                 <ui:param name="rowSelectDisabled" value="false" />
                                 <ui:param name="onRowSelectUpdate" value="orderStructureForm" />
@@ -85,7 +85,7 @@
                             </p:toolbar>
                             <ui:include src="../purchase/article/article-data-table.xhtml">
                                 <ui:param name="id" value="articleDataTable" />
-                                <ui:param name="data" value="#{requestCache.get2(() -> articleRepo.findByOrder(orderCache.entity))}" />
+                                <ui:param name="data" value="#{articleRepo.findByOrder(orderCache.entity)}" />
                                 <ui:param name="selection" value="#{requestScope.orderArticle}" />
                             </ui:include>
                         </h:form>
