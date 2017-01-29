@@ -19,13 +19,10 @@ public class UserBuilder {
     @Inject
     private MessageBundle msg;
 
-    public User newEmptyUser() {
-        return new User();
-    }
-
     public User newParticipant(Graph statusGraph) {
         return newParticipant(statusGraph.getStartNode());
     }
+
     public User newParticipant(Status status) {
         final RoleType roleType = RoleType.PARTICIPANT;
         Role role = roleRepo.findByType(roleType).orElseThrow(
@@ -44,6 +41,7 @@ public class UserBuilder {
     public User newUser(Status status) {
         User user = new User();
         user.setStatus(status);
+        user.setRating(0);
         return user;
     }
 }
