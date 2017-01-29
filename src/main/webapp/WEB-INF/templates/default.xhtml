@@ -21,7 +21,39 @@
                 <p:layoutUnit id="northLayoutUnit" position="north" resizable="true" 
                               closable="true" collapsible="true">
                     <ui:insert name="north">
-                        <ui:include src="menu.xhtml" />
+                        <h:form>
+                            <div class="ui-g">
+                                <div class="ui-g-1">
+                                    <h:outputText value="#{initParam['edu.ciukstar.APPCALITION_NAME']}"
+                                                  style="font-weight: bold; font-style: oblique; font-size: large"/>
+                                </div>
+                                <div class="ui-g-7">
+                                    <h:outputText value="#{label.Cooperative_purchases}"
+                                                  style="font-style: italic"/>
+                                </div>
+                                <div class="ui-g-4">
+                                    <h:panelGrid columns="3">
+                                        <p:inputText placeholder="#{label.Search}" />
+                                        <p:themeSwitcher>
+                                            <f:selectItems value="#{themes.choises}" var="theme"
+                                                           itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                                        </p:themeSwitcher>
+                                        <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" value="#{label.Login}" icon="fa fa-sign-in"
+                                                         process="@this" update="@none">
+                                            <f:actionListener binding="#{dialog.display('credentials-gatherer')}" />
+                                            <p:ajax event="dialogReturn" update="@form" />
+                                        </p:commandButton>
+                                        <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out"
+                                                         process="@this" update="@form">
+                                            <f:actionListener binding="#{janitor.unregisterUserSession(userSession)}" />
+                                            <f:actionListener binding="#{janitor.destroyCurrentUserSession()}" />
+                                        </p:commandButton>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+                        </h:form>
+                        <p:spacer height="2" />
+                        <ui:include src="#{userSession.menu().orElse('public-menu')}.xhtml" />
                     </ui:insert>
                 </p:layoutUnit>
 

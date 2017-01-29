@@ -40,6 +40,10 @@ public class Role implements Persistable<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
     private RoleType type;
+    
+    @NotBlank(message = "{Menu_may_not_be_blank}")
+    @Column(name = "MAIN_MENU", nullable = false, length = 255)
+    private String mainMenu;
 
     @ManyToOne
     @NotNull(message = "{Resource_status_graph_may_not_be_null}")
@@ -83,6 +87,18 @@ public class Role implements Persistable<Long> {
 
     public void setType(RoleType type) {
         this.type = type;
+    }
+
+    public Optional<String> mainMenu() {
+        return Optional.ofNullable(mainMenu);
+    }
+
+    public String getMainMenu() {
+        return mainMenu;
+    }
+
+    public void setMainMenu(String mainMenu) {
+        this.mainMenu = mainMenu;
     }
 
     public Graph getResourceStatusGraph() {

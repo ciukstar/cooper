@@ -28,6 +28,10 @@
                 <p:column headerText="#{label.Type}">
                     <h:outputText value="#{label.getString(r.type)}" />
                 </p:column>
+                <p:column headerText="#{label.Main_menu}">
+                    <h:outputText value="#{r.mainMenu}" />
+                </p:column>
+                
             </p:dataTable>
         </ui:composition>
     </h:body>

@@ -32,6 +32,10 @@
                         </p:selectOneMenu>
                         <p:message for="type" />
 
+                        <p:outputLabel for="mainMenu" value="#{label.Main_menu}" />
+                        <p:inputText id="mainMenu" value="#{roleCache.entity.mainMenu}" size="30" />
+                        <p:message for="mainMenu" />
+                        
                         <p:outputLabel for="userStatusGraph" value="#{label.User_status_graph}" />
                         <h:panelGroup>
                             <p:inputText id="userStatusGraph" value="#{roleCache.entity.userStatusGraph.name}" size="30" readonly="true" />
