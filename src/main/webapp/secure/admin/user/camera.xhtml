@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../../WEB-INF/templates/dialog.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="#{label.Camera}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel>
+                        <div class="ui-g">
+                            <div class="ui-g-5">
+                                <p:photoCam widgetVar="camera" listener="#{camera.capture}" update="photo" />
+                            </div>
+                            <div class="ui-g-3">
+                                <p:commandButton type="button" value="#{label.Capture_image}" icon="fa fa-flash"
+                                                 onclick="PF('camera').capture()"/>
+                            </div>
+                            <div class="ui-g-4">
+                                <p:outputPanel id="photo">
+                                    <p:graphicImage value="#{img.toStreamedContent(camera.photo)}"
+                                                    rendered="#{not empty camera.photo}"/>
+                                </p:outputPanel>
+                            </div>
+                        </div>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="#{label.Save}" icon="fa fa-save" process="@this" update="@none">
+                                <f:actionListener binding="#{userCache.entity.setPhoto(camera.photo)}" />
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{label.Cancel}" icon="fa fa-ban" process="@this" update="@none">
+                                <f:actionListener binding="#{dialog.dispose()}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
