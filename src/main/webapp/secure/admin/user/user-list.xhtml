@@ -49,7 +49,7 @@
                                         </p:commandButton>
                                     </ui:repeat>
                                     <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
-                                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newEmptyUser(), userRepo))}" />
+                                        <f:actionListener binding="#{userCache.schedule(crud.create(userBuilder.newUser(userSession.user.userStatusGraph), userRepo))}" />
                                         <f:actionListener binding="#{dialog.displayInputForm('user-edit')}" />
                                         <p:ajax event="dialogReturn" update="userDataTable" />
                                     </p:commandButton>

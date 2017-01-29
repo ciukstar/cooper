@@ -23,13 +23,16 @@ public class UserBuilder {
         return new User();
     }
 
-    public User newParticipant() {
+    public User newParticipant(Graph statusGraph) {
+        return newParticipant(statusGraph.getStartNode());
+    }
+    public User newParticipant(Status status) {
         final RoleType roleType = RoleType.PARTICIPANT;
         Role role = roleRepo.findByType(roleType).orElseThrow(
                 () -> new RoleNotFoundException(
                         String.format("%s: %s", msg.getString("Role_not_found"), roleType)
                 ));
-        User participant = new User();
+        User participant = newUser(status);
         participant.addRole(role);
         return participant;
     }
