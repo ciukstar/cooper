@@ -38,7 +38,7 @@ public class Category implements Persistable<Long> {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(name = "SUBCATEGORIES",
             joinColumns = {
                 @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")},

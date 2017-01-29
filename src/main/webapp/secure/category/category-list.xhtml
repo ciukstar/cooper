@@ -69,8 +69,17 @@
                                     <h:outputText value="#{label.Subcategories}" />
                                 </f:facet>
                                 <f:facet name="right">
-                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" />
-                                    <p:commandButton value="#{label.Remove}" icon="fa fa-trash" />
+                                    <p:commandButton value="#{label.Add}" icon="fa fa-plus" process="@this" update="@none">
+                                        <f:actionListener binding="#{categoryCache.schedule(crud.update(categoryCache.entity, categoryRepo))}" />
+                                        <f:actionListener binding="#{dialog.display('subcategory-chooser')}" />
+                                        <p:ajax event="dialogReturn" update="subcategoryDataTable" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{label.Remove}" icon="fa fa-trash" 
+                                                     process="@this subcategoryDataTable" update="subcategoryDataTable">
+                                        <f:actionListener binding="#{categoryCache.schedule(crud.update(categoryCache.entity, categoryRepo))}" />
+                                        <f:actionListener binding="#{categoryCache.entity.removeSubcategory(requestScope.subcategory)}" />
+                                        <f:actionListener binding="#{categoryCache.executeCrudOperation()}" />
+                                    </p:commandButton>
                                 </f:facet>
                             </p:toolbar>
                             <ui:include src="category-data-table.xhtml">
@@ -78,8 +87,6 @@
                                 <ui:param name="data" value="#{categoryCache.entity.subcategories}" />
                                 <ui:param name="selection" value="#{requestScope.subcategory}" />
                                 <ui:param name="rowSelectDisabled" value="true" />
-                                <ui:param name="onRowSelectUpdate" value="@none" />
-                                <ui:param name="scrollHeight" value="45%" />
                             </ui:include>
                         </h:form>
                     </p:layoutUnit>
