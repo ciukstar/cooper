@@ -3,49 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Main menu</title>
-    </h:head>
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition>
-            <h:form>
-                <p:menubar>
-                    <p:menuitem icon="fa fa-home"  action="home"/>
-                    <p:submenu label="#{label.Admin}" icon="fa fa-wrench">
-                        <p:menuitem value="#{label.Users}" icon="fa fa-users" action="user-list" process="@this" update="@none"/>
-                        <p:menuitem value="#{label.Roles}" icon="fa fa-tags" action="role-list" process="@this" update="@none"/>
-                        <p:menuitem value="#{label.Status}" icon="fa fa-paw" action="status-list" process="@this" update="@none"/>
-                        <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" action="graph-list" process="@this" update="@none"/>
-                        <p:separator />
-                        <p:menuitem value="#{label.Sessions}" icon="fa fa-phone" action="session-list" process="@this" update="@none" />
-                    </p:submenu>
-                    <p:submenu label="#{label.Purchases}" icon="fa fa-cube">
-                        <p:menuitem value="#{label.Purchases}" icon="fa fa-cubes" action="purchase-list" process="@this" update="@none"/>
-                        <p:menuitem value="#{label.Orders}" icon="fa fa-paperclip" action="order-list" process="@this" update="@none" />
-                    </p:submenu>
-                    <p:submenu label="#{label.Goods}" icon="fa fa-pagelines">
-                        <p:menuitem value="#{label.Goods}" icon="fa fa-leaf" action="product-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Categories}" icon="fa fa-yelp" action="category-list" process="@this" update="@none"/>
-                        <p:menuitem value="#{label.Manufacturers}" icon="fa fa-steam" action="manufacturer-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Currencies}" icon="fa fa-rub" action="currency-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Countries}" icon="fa fa-flag" action="country-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Photos}" icon="fa fa-image" action="photo-list" process="@this" update="@none" />
-                    </p:submenu>
+            <p:menubar>
+                <p:menuitem icon="fa fa-home"  action="home"/>
+                <p:submenu label="#{label.Admin}" icon="fa fa-wrench">
+                    <p:menuitem value="#{label.Users}" icon="fa fa-users" action="user-list" process="@this" update="@none"/>
+                    <p:menuitem value="#{label.Roles}" icon="fa fa-tags" action="role-list" process="@this" update="@none"/>
+                    <p:menuitem value="#{label.Status}" icon="fa fa-paw" action="status-list" process="@this" update="@none"/>
+                    <p:menuitem value="#{label.Graphs}" icon="fa fa-connectdevelop" action="graph-list" process="@this" update="@none"/>
+                    <p:separator />
+                    <p:menuitem value="#{label.Sessions}" icon="fa fa-phone" action="session-list" process="@this" update="@none" />
+                </p:submenu>
+                <p:submenu label="#{label.Purchases}" icon="fa fa-cube">
+                    <p:menuitem value="#{label.Purchases}" icon="fa fa-cubes" action="purchase-list" process="@this" update="@none"/>
+                    <p:menuitem value="#{label.Orders}" icon="fa fa-paperclip" action="order-list" process="@this" update="@none" />
+                </p:submenu>
+                <p:submenu label="#{label.Goods}" icon="fa fa-pagelines">
+                    <p:menuitem value="#{label.Goods}" icon="fa fa-leaf" action="product-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Categories}" icon="fa fa-yelp" action="category-list" process="@this" update="@none"/>
+                    <p:menuitem value="#{label.Manufacturers}" icon="fa fa-steam" action="manufacturer-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Currencies}" icon="fa fa-rub" action="currency-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Countries}" icon="fa fa-flag" action="country-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Photos}" icon="fa fa-image" action="photo-list" process="@this" update="@none" />
+                </p:submenu>
 
-                    <p:submenu label="#{label.Warehouse}" icon="fa fa-dropbox">
-                        <p:menuitem value="#{label.Warehouses}" icon="fa fa-dropbox" action="warehouse-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Schedule}" icon="fa fa-calendar" action="schedule-list" process="@this" update="@none" />
-                    </p:submenu>
+                <p:submenu label="#{label.Warehouse}" icon="fa fa-dropbox">
+                    <p:menuitem value="#{label.Warehouses}" icon="fa fa-dropbox" action="warehouse-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Schedule}" icon="fa fa-calendar" action="schedule-list" process="@this" update="@none" />
+                </p:submenu>
 
-                    <p:submenu label="#{label.Conditions}" icon="fa fa-gavel">
-                        <p:menuitem value="#{label.Rules}" icon="fa fa-exclamation-triangle" action="rule-list" process="@this" update="@none" />
-                        <p:menuitem value="#{label.Templates}" icon="fa fa-copy" action="rule-template-list" process="@this" update="@none" />
-                    </p:submenu>
+                <p:submenu label="#{label.Conditions}" icon="fa fa-gavel">
+                    <p:menuitem value="#{label.Rules}" icon="fa fa-exclamation-triangle" action="rule-list" process="@this" update="@none" />
+                    <p:menuitem value="#{label.Templates}" icon="fa fa-copy" action="rule-template-list" process="@this" update="@none" />
+                </p:submenu>
 
-                </p:menubar>
-            </h:form>
+            </p:menubar>
         </ui:composition>
     </h:body>
 </html>

@@ -16,7 +16,7 @@
 
         <h:body>
 
-            <p:layout fullPage="true">
+            <p:layout id="defaultLayout" fullPage="true">
 
                 <p:layoutUnit id="northLayoutUnit" position="north" resizable="true" 
                               closable="true" collapsible="true">
@@ -38,22 +38,23 @@
                                             <f:selectItems value="#{themes.choises}" var="theme"
                                                            itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
                                         </p:themeSwitcher>
-                                        <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" value="#{label.Login}" icon="fa fa-sign-in"
+                                        <p:commandButton rendered="#{not janitor.isRegistered(userSession)}" 
+                                                         value="#{label.Login}" icon="fa fa-sign-in"
                                                          process="@this" update="@none">
                                             <f:actionListener binding="#{dialog.display('credentials-gatherer')}" />
                                             <p:ajax event="dialogReturn" update="@form" />
                                         </p:commandButton>
-                                        <p:commandButton rendered="#{janitor.isRegistered(userSession)}" value="#{label.Logout}" icon="fa fa-sign-out"
-                                                         process="@this" update="@form">
+                                        <p:commandButton rendered="#{janitor.isRegistered(userSession)}" 
+                                                         value="#{label.Logout}" icon="fa fa-sign-out"
+                                                         process="@this" update="@form" action="home">
                                             <f:actionListener binding="#{janitor.unregisterUserSession(userSession)}" />
                                             <f:actionListener binding="#{janitor.destroyCurrentUserSession()}" />
                                         </p:commandButton>
                                     </h:panelGrid>
                                 </div>
                             </div>
+                            <ui:include src="#{userSession.menu().orElse('public-menu')}.xhtml" />
                         </h:form>
-                        <p:spacer height="2" />
-                        <ui:include src="#{userSession.menu().orElse('public-menu')}.xhtml" />
                     </ui:insert>
                 </p:layoutUnit>
 

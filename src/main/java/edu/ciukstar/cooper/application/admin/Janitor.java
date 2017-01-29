@@ -19,6 +19,7 @@ import javax.inject.Inject;
 @Named
 @ApplicationScoped
 public class Janitor {
+
     @Inject
     private MessageBundle msg;
     private final List<UserSession> userSessions;
@@ -26,24 +27,30 @@ public class Janitor {
     public Janitor() {
         this.userSessions = new ArrayList<>();
     }
-    
+
     public User validateCredentials(Credentials c) {
         throw new UnsupportedOperationException();
     }
-    
+
     public boolean isRegistered(UserSession session) {
         return getUserSessions().stream().anyMatch(s -> s.equals(session));
     }
-    
+
     public Either<AuthenticationException, UserSession> validateCredentials(UserSession s, Either<AuthenticationException, User> user) {
-        return user.map(u -> { s.setupUserSession(u); return s; });
+        return user.map(u -> {
+            s.setupUserSession(u);
+            return s;
+        });
     }
-    
+
     public Option<Exception> registerUserSession(Either<AuthenticationException, UserSession> s) {
-        return s.map(us -> { this.userSessions.add(us); return us; })
+        return s.map(us -> {
+            this.userSessions.add(us);
+            return us;
+        })
                 .fold(ex -> Option.some(new AuthenticationException(msg.getString("Invalid_username_or_password"))), us -> Option.none(Exception.class));
     }
-    
+
     public List<UserSession> getUserSessions() {
         return new ArrayList<>(this.userSessions);
     }
@@ -51,9 +58,9 @@ public class Janitor {
     public void destroyCurrentUserSession() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
-    
+
     public void unregisterUserSession(UserSession s) {
-        this.userSessions.remove(s);        
+        this.userSessions.remove(s);
     }
-    
+
 }
