@@ -21,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -52,6 +53,7 @@ public class User implements Persistable<Long>, StatusTrackable {
     private FullName fullName;
 
     @ManyToOne
+    @NotNull(message = "{Status_may_not_be_null}")
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     private Status status;
 
