@@ -38,7 +38,7 @@ public class Category implements Persistable<Long> {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "SUBCATEGORIES",
             joinColumns = {
                 @JoinColumn(name = "CATEGORY", nullable = false, referencedColumnName = "ID")},
@@ -49,7 +49,6 @@ public class Category implements Persistable<Long> {
     private List<Category> subcategories;
 
     public Category() {
-        this.subcategories = new ArrayList<>();
     }
 
     public List<Category> getSubcategories() {
@@ -62,6 +61,11 @@ public class Category implements Persistable<Long> {
     
     public void removeSubcategory(Category subcategory) {
         this.subcategories.remove(subcategory);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" + "name=" + name + '}';
     }
     
     @Override

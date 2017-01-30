@@ -26,6 +26,7 @@
                         </ui:include>
                         <f:facet name="footer">
                             <p:commandButton value="#{label.Choose}" icon="fa fa-check">
+                                <f:actionListener binding="#{categoryCache.schedule(crud.update(categoryCache.entity, categoryRepo))}" />
                                 <f:actionListener binding="#{categoryCache.entity.addSubcategory(requestScope.subcategory)}" />
                                 <f:actionListener binding="#{categoryCache.executeCrudOperation()}" />
                                 <f:actionListener binding="#{dialog.dispose()}" />
