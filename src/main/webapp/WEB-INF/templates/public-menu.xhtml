@@ -10,15 +10,22 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <p:menubar>
-
+            <p:megaMenu>
                 <p:menuitem icon="fa fa-home"  action="home" />
+
                 <p:submenu label="#{label.Categories}" icon="fa fa-yelp" >
-                    <c:forEach items="#{categoryRepo.findAll()}" var="cat">
-                        <p:menuitem value="#{cat.name}"></p:menuitem>
+                    <c:forEach items="#{categoryRepo.findRoots()}" var="root">
+                        <p:column>
+                            <p:submenu label="#{root.name}" icon="fa fa-yelp">
+                                <c:forEach items="#{root.subcategories}" var="sub">
+                                    <p:menuitem value="#{sub.name}" />
+                                </c:forEach>
+                            </p:submenu>
+                        </p:column>
                     </c:forEach>
                 </p:submenu>
-            </p:menubar>
+
+            </p:megaMenu>
         </ui:composition>
     </h:body>
 </html>

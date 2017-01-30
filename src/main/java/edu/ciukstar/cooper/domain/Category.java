@@ -3,6 +3,7 @@ package edu.ciukstar.cooper.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -119,4 +120,8 @@ public class Category implements Persistable<Long> {
         return null == getId();
     }
 
+    public boolean hasSubcategories() {
+        return !this.subcategories.isEmpty();
+    }
+    
 }
