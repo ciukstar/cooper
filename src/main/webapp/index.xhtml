@@ -4,124 +4,133 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{initParam.edu.ciukstar.APPLICATION_NAME}" />
             </ui:define>
-            <ui:define name="west">
-                <h:form>
-                    <p:panel>
-                        <f:facet name="header">
-                            <h:outputText styleClass="fa fa-certificate" />
-                            <p:spacer width="5" />
-                            <h:outputText value="#{label.Best_organizers}" />
-                        </f:facet>
-                        <ui:repeat value="#{userRepo.findAllOrganizers().stream().sorted((a,b) -> b.rating.compareTo(a.rating)).toList()}" var="org">
-                            <div class="ui-g">
-                                <div class="ui-g-2">
-                                    <p:graphicImage value="#{img.getContent(param['organizer'], 'photo', userRepo)}"
-                                                    width="32" height="32">
-                                        <f:param name="organizer" value="#{org.id}" />
-                                    </p:graphicImage>
-                                </div>
-                                <div class="ui-g-10">
-                                    <h:outputText value="#{org.fullName}" />
-                                    <p:rating value="#{org.rating}" stars="5" readonly="true" />
-                                </div>
-                            </div>
-                        </ui:repeat>
-                    </p:panel>
-                </h:form>
-            </ui:define>
             <ui:define name="center">
 
-                <p:dataGrid id="purchaseDataGrid" 
-                            value="#{requestCache.get('purchaseDataGrid', () -> purchaseRepo.findAll())}" 
-                            var="purch" columns="1" layout="grid" rows="12"
-                            emptyMessage="#{label.No_records_found}">
+                <div class="ui-g">
 
-                    <f:facet name="header">
-                        <h:outputText value="#{label.Purchases}" />
-                    </f:facet>
+                    <div class="ui-g-12 ui-md-10">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <p:dataGrid id="purchaseDataGrid" 
+                                        value="#{requestCache.get('purchaseDataGrid', () -> purchaseRepo.findAll())}" 
+                                        var="purch" columns="1" layout="grid" rows="12"
+                                        emptyMessage="#{label.No_records_found}">
 
-                    <p:panel toggleable="true">
-                        <f:facet name="header">
-                            <h:outputText styleClass="fa fa-cube" />
-                            <p:spacer width="5" />
-                            <p:commandLink action="purchase" style="text-decoration: none">
-                                <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
-                                <h:outputText value="#{purch.description}" />
-                            </p:commandLink>
-                        </f:facet>
-
-                        <div class="ui-g">
-                            <div class="ui-g-1">
-                                <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
-                                                width="48" height="48" alt="#{label.Organizer}" >
-                                    <f:param name="orgid" value="#{purch.organizer.id}" />
-                                </p:graphicImage>
-                            </div>
-                            <div class="ui-g-2">
-                                <div class="ui-g-12">
-                                    <p:commandLink action="organizer">
-                                        <f:actionListener binding="#{organizerCache.setOrganizer(purch.organizer)}" />
-                                        <h:outputText value="#{purch.organizer.fullName}" />
-                                    </p:commandLink>
-                                </div>
-                                <div class="ui-g-3">
-                                    <h:outputText value="#{purch.organizer.confidence}" title="#{label.Confidence}">
-                                        <f:convertNumber type="percent" />
-                                    </h:outputText>
-                                </div>
-                                <div class="ui-g-9">
-                                    <p:rating value="#{purch.organizer.rating}" stars="5" readonly="true" />
-                                </div>
-                            </div>
-                            <div class="ui-g-9">
-                                <div class="ui-g-12">
-                                    <p:commandLink action="purchase"
-                                                   style="text-decoration: none; font-size: 1.3em; font-style: italic"
-                                                   onmouseover="$(this).css('text-decoration', 'underline')"
-                                                   onmouseout="$(this).css('text-decoration', 'none')">
-                                        <h:outputText value="#{purch.description}" />
-                                    </p:commandLink>
-                                </div>
-                                <div class="ui-g-12">
-                                    <h:outputText value="#{label.Status}: #{purch.status}"
-                                                  style="font-size: .8em"/>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <p:carousel id="articleCarousel" value="#{requestCache.get('articleCarousel', () -> articleRepo.findByPurchase(purch))}" 
-                                    var="art" headerText="#{label.Articles}" circular="true">
-                            <p:panel>
-                                <div class="ui-g">
-                                    <div class="ui-g-4">
-                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                        height="64" width="64">
-                                            <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                        </p:graphicImage>
-                                    </div>
-                                    <div class="ui-g-8">
-                                        <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
-                                    </div>
-                                </div>
-
-                                <f:facet name="footer">
-                                    <h:outputText styleClass="#{art.currency.symbol}" />
-                                    <p:spacer width="5" />
-                                    <h:outputText value="#{art.price}" />
+                                <f:facet name="header">
+                                    <h:outputText value="#{label.Purchases}" />
                                 </f:facet>
-                            </p:panel>
-                        </p:carousel>
 
-                    </p:panel>
-                </p:dataGrid>
+                                <p:panel toggleable="true">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="fa fa-cube" />
+                                        <p:spacer width="5" />
+                                        <p:commandLink action="purchase" style="text-decoration: none">
+                                            <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
+                                            <h:outputText value="#{purch.description}" />
+                                        </p:commandLink>
+                                    </f:facet>
+
+                                    <div class="ui-g">
+                                        <div class="ui-g-1">
+                                            <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
+                                                            width="48" height="48" alt="#{label.Organizer}" >
+                                                <f:param name="orgid" value="#{purch.organizer.id}" />
+                                            </p:graphicImage>
+                                        </div>
+                                        <div class="ui-g-2">
+                                            <div class="ui-g-12">
+                                                <p:commandLink action="organizer">
+                                                    <f:actionListener binding="#{organizerCache.setOrganizer(purch.organizer)}" />
+                                                    <h:outputText value="#{purch.organizer.fullName}" />
+                                                </p:commandLink>
+                                            </div>
+                                            <div class="ui-g-3">
+                                                <h:outputText value="#{purch.organizer.confidence}" title="#{label.Confidence}">
+                                                    <f:convertNumber type="percent" />
+                                                </h:outputText>
+                                            </div>
+                                            <div class="ui-g-9">
+                                                <p:rating value="#{purch.organizer.rating}" stars="5" readonly="true" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-9">
+                                            <div class="ui-g-12">
+                                                <p:commandLink action="purchase"
+                                                               style="text-decoration: none; font-size: 1.3em; font-style: italic"
+                                                               onmouseover="$(this).css('text-decoration', 'underline')"
+                                                               onmouseout="$(this).css('text-decoration', 'none')">
+                                                    <h:outputText value="#{purch.description}" />
+                                                </p:commandLink>
+                                            </div>
+                                            <div class="ui-g-12">
+                                                <h:outputText value="#{label.Status}: #{purch.status}"
+                                                              style="font-size: .8em"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <p:carousel id="articleCarousel" value="#{requestCache.get('articleCarousel', () -> articleRepo.findByPurchase(purch))}" 
+                                                var="art" headerText="#{label.Articles}" circular="true">
+                                        <p:panel>
+                                            <div class="ui-g">
+                                                <div class="ui-g-4">
+                                                    <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                                    height="64" width="64">
+                                                        <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                                    </p:graphicImage>
+                                                </div>
+                                                <div class="ui-g-8">
+                                                    <h:outputText value="#{art.product.name}" style="white-space: nowrap" />
+                                                </div>
+                                            </div>
+
+                                            <f:facet name="footer">
+                                                <h:outputText styleClass="#{art.currency.symbol}" />
+                                                <p:spacer width="5" />
+                                                <h:outputText value="#{art.price}" />
+                                            </f:facet>
+                                        </p:panel>
+                                    </p:carousel>
+
+                                </p:panel>
+                            </p:dataGrid>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-2">
+                        <h:form>
+                            <p:panel>
+                                <f:facet name="header">
+                                    <h:outputText styleClass="fa fa-certificate" />
+                                    <p:spacer width="5" />
+                                    <h:outputText value="#{label.Best_organizers}" />
+                                </f:facet>
+                                <ui:repeat value="#{userRepo.findAllOrganizers().stream().sorted((a,b) -> b.rating.compareTo(a.rating)).toList()}" var="org">
+                                    <div class="ui-g">
+                                        <div class="ui-g-2">
+                                            <p:graphicImage value="#{img.getContent(param['organizer'], 'photo', userRepo)}"
+                                                            width="32" height="32">
+                                                <f:param name="organizer" value="#{org.id}" />
+                                            </p:graphicImage>
+                                        </div>
+                                        <div class="ui-g-10">
+                                            <h:outputText value="#{org.fullName}" />
+                                            <p:rating value="#{org.rating}" stars="5" readonly="true" />
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </p:panel>
+                        </h:form>
+                    </div>
+                    <div class="ui-g-12">
+                        Footer
+                    </div>
+                </div>
 
             </ui:define>
         </ui:composition>
