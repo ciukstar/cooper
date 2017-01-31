@@ -27,12 +27,15 @@
                                     <h:outputText value="#{initParam['edu.ciukstar.APPCALITION_NAME']}"
                                                   style="font-weight: bold; font-style: oblique; font-size: large"/>
                                 </div>
-                                <div class="ui-g-7">
+                                <div class="ui-g-6">
                                     <h:outputText value="#{label.Cooperative_purchases}"
                                                   style="font-style: italic"/>
                                 </div>
-                                <div class="ui-g-4">
-                                    <h:panelGrid columns="3">
+                                <div class="ui-g-5">
+                                    <h:panelGrid columns="4" cellpadding="4">
+                                        <p:commandLink action="#">
+                                            <h:outputText value="#{label.Registration}" />
+                                        </p:commandLink>
                                         <p:inputText placeholder="#{label.Search}" />
                                         <p:themeSwitcher>
                                             <f:selectItems value="#{themes.choises}" var="theme"
