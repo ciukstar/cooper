@@ -50,7 +50,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>purchase</from-outcome>
             <to-view-id>/purchase.xhtml</to-view-id>
