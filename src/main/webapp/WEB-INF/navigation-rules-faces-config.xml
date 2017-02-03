@@ -7,6 +7,14 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>CartContents</from-outcome>
+            <to-view-id>/secure/cart/cart.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
             <from-outcome>session-list</from-outcome>
             <to-view-id>/secure/admin/session/session-list.xhtml</to-view-id>
             <redirect />

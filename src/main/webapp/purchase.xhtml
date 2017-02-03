@@ -100,12 +100,34 @@
                         </p:fieldset>
                         <p:spacer height="5" />
                         <ui:repeat value="#{purchaseCache.entity.articles}" var="art">
-                            <h:panelGrid columns="2">
-                                <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
-                                                height="64" width="64">
-                                    <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
-                                </p:graphicImage>
-                                <p:outputPanel>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    <div class="ui-g-12">
+                                        <p:graphicImage value="#{img.getContent(param['photoid'], 'raw', photoRepo)}"
+                                                        height="128" width="128">
+                                            <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
+                                        </p:graphicImage>
+                                    </div>
+                                    <ui:fragment rendered="#{cart.contains(art)}">
+                                        <div class="ui-g-2">
+                                            <h:outputText styleClass="fa fa-check" />
+                                        </div>
+                                        <div class="ui-g-10">
+                                            <p:commandLink action="CartContents">
+                                                <h:outputText value="#{label.In_the_cart}" />
+                                            </p:commandLink>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{! cart.contains(art)}">
+                                        <div class="ui-g-12">
+                                            <p:commandButton value="#{label.Add_to_cart}" icon="fa fa-plus"
+                                                             process="@form" update="@form">
+                                                <f:actionListener binding="#{cart.add(art)}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </ui:fragment>
+                                </div>
+                                <div class="ui-g-6">
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="#{label.Description}" />
                                         <h:outputText value="#{art.product.description}" />
@@ -118,11 +140,13 @@
                                         <h:outputText value="#{art.product.country.name}" />
                                         <h:outputText value="#{label.Color}" />
                                         <h:outputText value="#{art.product.color}" />
-                                        <h:outputText value="#{label.Composition}" /> 
-                                        <h:outputText value="#{art.product.composition}" />                                        
+                                        <h:outputText value="#{label.Composition}" />
+                                        <h:outputText value="#{art.product.composition}" />
                                     </h:panelGrid>
-                                </p:outputPanel>
-                            </h:panelGrid>
+                                </div>
+                                <div class="4">
+                                </div>
+                            </div>
                             <hr/>
                         </ui:repeat>
                     </p:panel>

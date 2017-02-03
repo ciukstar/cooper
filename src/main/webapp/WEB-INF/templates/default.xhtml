@@ -3,7 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <f:view contentType="text/html">
         <h:head>
@@ -66,7 +66,14 @@
                         Main content goes here
                     </ui:insert>
                 </p:layoutUnit>
-
+                <h:form>
+                    <p:stack icon="/resources/img/stack.png" >
+                        <c:forEach items="#{cart.articles}" var="art">
+                            <p:menuitem value="#{art.product.name}"
+                                        icon="#{img.toStreamedContent(art.product.anyPhoto().get().raw, 'png')}" />
+                        </c:forEach>
+                    </p:stack>
+                </h:form>
             </p:layout>
             <ui:include src="/WEB-INF/templates/ajax-status.xhtml" />
             <ui:insert name="js" />
