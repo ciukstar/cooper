@@ -25,24 +25,12 @@
                                         <f:param name="photoid" value="#{art.product.anyPhoto().get().id}" />
                                     </p:graphicImage>
                                 </div>
-                                <ui:fragment rendered="#{cart.contains(art)}">
-                                    <div class="ui-g-2">
-                                        <h:outputText styleClass="fa fa-check" />
-                                    </div>
-                                    <div class="ui-g-10">
-                                        <p:commandLink action="CartContents">
-                                            <h:outputText value="#{label.In_the_cart}" />
-                                        </p:commandLink>
-                                    </div>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{! cart.contains(art)}">
-                                    <div class="ui-g-12">
-                                        <p:commandButton value="#{label.Add_to_cart}" icon="fa fa-plus"
-                                                         process="@form" update="@none">
-                                            <f:actionListener binding="#{cart.add(art)}" />
-                                        </p:commandButton>
-                                    </div>
-                                </ui:fragment>
+                                <div class="ui-g-12">
+                                    <p:commandButton value="#{label.Remove_from_cart}" icon="fa fa-trash"
+                                                     process="@form" update="@form">
+                                        <f:actionListener binding="#{cart.remove(art)}" />
+                                    </p:commandButton>
+                                </div>
                             </div>
                             <div class="ui-g-6">
                                 <h:panelGrid columns="2" cellpadding="5">
@@ -62,6 +50,7 @@
                                 </h:panelGrid>
                             </div>
                             <div class="4">
+
                             </div>
                         </div>
                         <hr/>
