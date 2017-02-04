@@ -16,8 +16,8 @@
 
                     <div class="ui-g-12 ui-md-10">
                         <div class="ui-g-12 ui-g-nopad">
-                            <p:dataGrid id="purchaseDataGrid" 
-                                        value="#{requestCache.get('purchaseDataGrid', () -> purchaseRepo.findAll())}" 
+                            <p:dataGrid id="purchaseDataGrid"
+                                        value="#{requestCache.get('purchaseDataGrid', () -> purchaseRepo.findAll())}"
                                         var="purch" columns="1" layout="grid" rows="12"
                                         emptyMessage="#{label.No_records_found}">
 
@@ -64,6 +64,7 @@
                                                                style="text-decoration: none; font-size: 1.3em; font-style: italic"
                                                                onmouseover="$(this).css('text-decoration', 'underline')"
                                                                onmouseout="$(this).css('text-decoration', 'none')">
+                                                    <f:actionListener binding="#{purchaseCache.setEntity(purch)}" />
                                                     <h:outputText value="#{purch.description}" />
                                                 </p:commandLink>
                                             </div>
@@ -75,7 +76,8 @@
                                     </div>
 
 
-                                    <p:carousel id="articleCarousel" value="#{requestCache.get('articleCarousel', () -> articleRepo.findByPurchase(purch))}" 
+                                    <p:carousel id="articleCarousel"
+                                                value="#{requestCache.get('articleCarousel'.concat(purch.id), () -> articleRepo.findByPurchase(purch))}"
                                                 var="art" headerText="#{label.Articles}" circular="true">
                                         <p:panel>
                                             <div class="ui-g">
@@ -103,7 +105,7 @@
                         </div>
                     </div>
                     <div class="ui-g-12 ui-md-2">
-                        
+
                         <h:form>
                             <p:panel>
                                 <f:facet name="header">

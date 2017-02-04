@@ -33,6 +33,9 @@
                                     </h:outputText>
                                 </c:forEach>
                             </h:panelGrid>
+                            <p:commandButton value="#{label.Checkout_order}" icon="fa fa-check"
+                                             process="@this" update="@none">
+                            </p:commandButton>
                         </div>
                         <div class="ui-g-2">
                             <p:graphicImage library="img" height="128" width="128" 
@@ -77,10 +80,29 @@
                                 </h:panelGrid>
                             </div>
                             <div class="3">
-                                <p:commandLink action="purchase" process="@this" update="@none">
-                                    <f:actionListener binding="#{purchaseCache.setEntity(art.purchase)}" />
-                                    <h:outputText value="#{art.purchase.description}" />
-                                </p:commandLink>
+                                <div class="ui-g">
+                                    <div class="ui-g-12">
+                                        <p:commandLink action="purchase" process="@this" update="@none">
+                                            <f:actionListener binding="#{purchaseCache.setEntity(art.purchase)}" />
+                                            <h:outputText value="#{art.purchase.description.subSequence(0, 30).concat(' ...')}"
+                                                          title="#{art.purchase.description}"/>
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-4">
+                                        <p:graphicImage value="#{img.getContent(param['orgid'], 'photo', userRepo)}"
+                                                        width="48" height="48" alt="#{label.Organizer}" >
+                                            <f:param name="orgid" value="#{art.purchase.organizer.id}" />
+                                        </p:graphicImage>
+                                    </div>
+                                    <div class="ui-g-8">
+                                        <p:commandLink action="organizer">
+                                            <f:actionListener binding="#{organizerCache.setOrganizer(art.purchase.organizer)}" />
+                                            <h:outputText value="#{art.purchase.organizer.fullName}" />
+                                        </p:commandLink>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr/>
