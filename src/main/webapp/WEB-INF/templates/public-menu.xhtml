@@ -26,6 +26,15 @@
                 </p:submenu>
                 <p:menuitem value="#{label.Popular}" icon="fa fa-star"  />
                 <p:menuitem value="#{label.New}" icon="fa fa-dropbox" />
+                <p:submenu label="#{label.Cart}" icon="fa fa-shopping-cart">
+                    <p:column>
+                        <p:submenu>
+                            <p:menuitem value="#{label.View_cart}" icon="fa fa-cart-arrow-down" 
+                                        process="@this" update="@none" action="CartContents" />
+                            <p:menuitem value="#{label.Order_status}" icon="fa fa-clipboard" process="@this" update="@none" />
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
             </p:megaMenu>
         </ui:composition>
     </h:body>

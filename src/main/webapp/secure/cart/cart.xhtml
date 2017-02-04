@@ -34,7 +34,7 @@
                                 </c:forEach>
                             </h:panelGrid>
                             <p:commandButton value="#{label.Checkout_order}" icon="fa fa-check"
-                                             process="@this" update="@none">
+                                             rendered="#{!cart.isEmpty()}" process="@this" update="@none">
                             </p:commandButton>
                         </div>
                         <div class="ui-g-2">
